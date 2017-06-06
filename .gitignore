@@ -1,0 +1,36 @@
+~*
+*.autosave
+.directory
+
+# Eclipse project files
+.project
+.metadata
+.DS_Store
+.classpath
+.settings/
+
+# Intellij project files
+.idea/
+*.iml
+
+# Maven
+target/
+bin/
+tmp/
+*.releaseBackup
+release.properties
+
+# Business Central tmp files
+*.tlog
+*.png
+
+# General
+*.tmp
+*.bak
+*.swp
+local.properties
+.loadpath
+*.jar
+*.VersionsBackup
+*.log
+*.log.*
