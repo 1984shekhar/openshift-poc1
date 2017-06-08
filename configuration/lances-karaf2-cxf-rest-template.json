@@ -47,6 +47,13 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
       "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
     },
     {
+      "name": "BUILD_SECRET",
+      "displayName": "GitHub Webhook Secret",
+      "description": "A secret string used to configure the GitHub webhook.",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
+    },
+    {
       "name": "SERVICE_NAME",
       "displayName": "Service Name",
       "value": "s2i-karaf2-cxf-rest",
