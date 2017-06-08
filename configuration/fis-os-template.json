@@ -1,0 +1,436 @@
+{
+  /*  ================================================================================================================== *
+
+  Template to provide a runtime environment based on JBoss Fuse Integration Service (FIS)
+  Inputs:	1)	FIS image from Red Hat Registry
+  2)	Appication source to inject from GitHub for now
+  Will Image-stream to be built and deployed on change of FIS Image or Source Change (via Web-Hook added to GitHub)
+
+  Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkthrough/
+
+  * ================================================================================================================== */
+
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "navitas-fis-poc-tmplt",
+    "annotations": {
+      "openshift.io/display-name": "Navitas FIS POC Template",
+      "description": "Openshift Template for Red Hat Fuse Integration Service (FIS), for use by Navitas, See https://github.com/LeoLanceb/openshift-poc1/blob/master/README.md",
+      "tags": "jboss-fuse,fis",
+      "iconClass": "icon-jboss",
+      "template.openshift.io/long-description": "This template defines resources needed to develop a Fuse Integration Service (FIS) Camel integration application, including a build configuration, application deployment configuration, and (TODO probably unnecessary) database deployment configuration.",
+      "template.openshift.io/provider-display-name": "Leonardo Consulting/Navitas",
+      "template.openshift.io/documentation-url": "https://github.com/LeoLanceb/openshift-poc1/blob/master/README.md",
+      "template.openshift.io/support-url": "http://www.leonardo.com.au/",
+      "handy.reference": "https://blog.openshift.com/part-2-creating-a-template-a-technical-walkthrough/"
+    }
+  },
+  "message": "TODO The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/LeoLanceb/openshift-poc1/blob/master/README.md.",
+  "labels": {
+    /* applied to ALL resources in template... */
+    "template": "navitas-fis-poc-tmplt-lbl"
+  },
+  "objects": [
+    /* LAYER 0 - BASE-IMAGE LOCATIONS */
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fis-karaf-openshift-imgstrm"
+      },
+      "spec": {
+        "dockerImageRepository": "registry.access.redhat.com/jboss-fuse-6/fis-karaf-openshift",
+        /* Why two tags?  Can we just have one? ... */
+        "tags": [
+          {
+            "name": "latest"
+          }
+        ]
+      }
+    },
+    /* LAYER 1 - DEPLOYABLE-IMAGE BUILDS */
+    {
+      "kind": "BuildConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${NAME}-bldcfg",
+        "annotations": {
+          "description": "Defines how to build the application"
+        }
+      },
+      "spec": {
+        "source": {
+          "type": "Git",
+          "git": {
+            "uri": "${SOURCE_REPOSITORY_URL}",
+            "ref": "${SOURCE_REPOSITORY_REF}"
+          },
+          "contextDir": "${CONTEXT_DIR}"
+        },
+        "strategy": {
+          "type": "Source",
+          "sourceStrategy": {
+            "from": {
+              "kind": "ImageStreamTag",
+              /* "namespace": "${NAMESPACE}", */
+              "name": "fis-karaf-openshift-imgstrm:latest"
+              /* ...note tag-name "latest" from above ImageStream */
+            },
+            "env": [
+              {
+                "name": "TODO_NPM_MIRROR",
+                "value": "${NPM_MIRROR}"
+              }
+            ]
+          }
+        },
+        "output": {
+          "to": {
+            "kind": "ImageStreamTag",
+            "name": "${NAME}-imgstrm:latest"
+          }
+        },
+        "triggers": [
+          {
+            "type": "ImageChange"
+          },
+          {
+            "type": "ConfigChange"
+          },
+          {
+            "type": "GitHub",
+            "github": {
+              "secret": "${GITHUB_WEBHOOK_SECRET}"
+            }
+          },
+          {
+            "type": "Generic",
+            "generic": {
+              "secret": "${GENERIC_WEBHOOK_SECRET}"
+            }
+          }
+        ],
+        "postCommit": {
+          "script": "pwd;echo TODO add command to run tests here"
+        }
+      }
+    },
+    /* LAYER 2 - BUILT IMAGES */
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${NAME}-imgstrm"
+      },
+      "spec": {
+        "dockerImageRepository": "",
+        /* ... TODO do we need to set this or is it transient? */
+        "tags": [
+          {
+            "name": "latest"
+          }
+        ]
+      }
+    },
+    /* LAYER 3 - TRIGGERED DEPLOYMENTS */
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${NAME}-depcfg",
+        "annotations": {
+          "description": "Defines how to deploy the FIS server"
+        }
+      },
+      "spec": {
+        "replicas": 1,
+        "selector": {
+          "name": "${NAME}-podtmpltname-lbl"
+          /* ...Selects the Pod-Template definition to use from below! */
+        },
+        "strategy": {
+          "type": "Rolling"
+        },
+        "triggers": [
+          {
+            "type": "ImageChange",
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "${NAME}-podtmpltname-contname"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "${NAME}-imgstrm:latest"
+              }
+            }
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "template": {
+          "metadata": {
+            "name": "${NAME}-depcfg-podtmpltname",
+            "labels": {
+              "name": "${NAME}-podtmpltname-lbl"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "${NAME}-podtmpltname-contname",
+                /* "image": "${NAME}-imgstrm", */
+                /* TODO Is this right?  Will the image have the same name as the image-stream? */
+                "imagePullPolicy": "Always",
+                /* ...must always pull the newly-built version (default, since triggered by built-image change) */
+                "ports": [
+                  {
+                    "containerPort": 8080
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "DATABASE_SERVICE_NAME",
+                    "value": "TODO probably not even needed ${DATABASE_SERVICE_NAME}"
+                  },
+                  {
+                    "name": "MONGODB_USER",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "TODO-${NAME}-mongodb-user",
+                        "key": "database-user"
+                      }
+                    }
+                  },
+                  {
+                    "name": "MONGODB_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "TODO-${NAME}-mongodb-pwd",
+                        "key": "database-password"
+                      }
+                    }
+                  },
+                  {
+                    "name": "MONGODB_DATABASE",
+                    "value": "TODO-${DATABASE_NAME}-mongodb-name"
+                  },
+                  {
+                    "name": "MONGODB_ADMIN_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "TODO-${NAME}-mongodb-adminpwd",
+                        "key": "database-admin-password"
+                      }
+                    }
+                  }
+                ],
+                "readinessProbe": {
+                  "timeoutSeconds": 3,
+                  "initialDelaySeconds": 3,
+                  "httpGet": {
+                    "path": "/",
+                    /* TODO */
+                    "port": 8080
+                  }
+                },
+                "livenessProbe": {
+                  "timeoutSeconds": 3,
+                  "initialDelaySeconds": 30,
+                  "httpGet": {
+                    "path": "/",
+                    /* TODO */
+                    "port": 8080
+                  }
+                },
+                "resources": {
+                  "limits": {
+                    "memory": "${MEMORY_LIMIT}"
+                  }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "securityContext": {
+                  /*
+                  "capabilities": {},
+                  "privileged": false */
+                }
+              }
+            ],
+            "restartPolicy": "Always",
+            "dnsPolicy": "ClusterFirst"
+          }
+        }
+      }
+    },
+    {
+      "kind": "Secret",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${NAME}-secret"
+      },
+      "stringData": {
+        "database-user": "TODO-${DATABASE_USER}-mongodb-user",
+        "database-password": "TODO-${DATABASE_PASSWORD}-mongodb-pwd",
+        "database-admin-password": "TODO-${DATABASE_ADMIN_PASSWORD}-mongodb-adminpwd"
+      }
+    },
+    /* LAYER 4 - ABSTRACTIONS */
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${NAME}-svc",
+        "annotations": {
+          "description": "Exposes and load balances the application FIS pods"
+          /* , No dependency on other services...
+          "service.alpha.openshift.io/dependencies": "[{\"name\": \"TODO${DATABASE_SERVICE_NAME}\", \"kind\": \"Service\"}]"
+          */
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "web",
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "name": "${NAME}-podtmpltname-lbl"
+        }
+      }
+    },
+    {
+      "kind": "Route",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${NAME}-rte"
+      },
+      "spec": {
+        "host": "${APPLICATION_DOMAIN}",
+        "path": "/students",
+        /* TODO */
+        "to": {
+          "kind": "Service",
+          "name": "${NAME}-svc"
+        }
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "NAME",
+      "displayName": "Name",
+      "description": "The name assigned to all of the frontend objects defined in this template.",
+      "required": true,
+      "value": "navitas-fis-poc-name"
+    },
+    {
+      "name": "NAMESPACE",
+      "displayName": "Namespace",
+      "description": "The OpenShift Namespace where the ImageStream resides.",
+      "required": true,
+      "value": "openshift"
+    },
+    {
+      "name": "MEMORY_LIMIT",
+      "displayName": "Memory Limit",
+      "description": "Maximum amount of memory the Node.js container can use.",
+      "required": true,
+      "value": "512Mi"
+    },
+    {
+      "name": "MEMORY_MONGODB_LIMIT",
+      "displayName": "Memory Limit (MongoDB)",
+      "description": "Maximum amount of memory the MongoDB container can use.",
+      "required": true,
+      "value": "512Mi"
+    },
+    {
+      "name": "VOLUME_CAPACITY",
+      "displayName": "Volume Capacity",
+      "description": "Volume space available for data, e.g. 512Mi, 2Gi",
+      "value": "1Gi",
+      "required": true
+    },
+    {
+      "name": "SOURCE_REPOSITORY_URL",
+      "displayName": "Git Repository URL",
+      "description": "The URL of the repository with your application source code.",
+      "required": true,
+      "value": "https://github.com/LeoLanceb/openshift-poc1.git"
+    },
+    {
+      "name": "SOURCE_REPOSITORY_REF",
+      "displayName": "Git Reference",
+      "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
+      "value": "master"
+    },
+    {
+      "name": "CONTEXT_DIR",
+      "displayName": "Context Directory",
+      "description": "Set this to the relative path to your project if it is not in the root of your repository."
+    },
+    {
+      "name": "APPLICATION_DOMAIN",
+      "displayName": "Application Hostname",
+      "description": "The exposed hostname that will route to the Node.js service, if left blank a value will be generated in format <route-name>[-<namespace>].<suffix>",
+      "value": ""
+    },
+    {
+      "name": "GITHUB_WEBHOOK_SECRET",
+      "displayName": "GitHub Webhook Secret",
+      "description": "A secret string used to configure the GitHub webhook.",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "GENERIC_WEBHOOK_SECRET",
+      "displayName": "Generic Webhook Secret",
+      "description": "A secret string used to configure the Generic webhook.",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "DATABASE_SERVICE_NAME",
+      "displayName": "Database Service Name",
+      "required": true,
+      "value": "mongodb"
+    },
+    {
+      "name": "DATABASE_USER",
+      "displayName": "MongoDB Username",
+      "description": "Username for MongoDB user that will be used for accessing the database.",
+      "generate": "expression",
+      "from": "user[A-Z0-9]{3}"
+    },
+    {
+      "name": "DATABASE_PASSWORD",
+      "displayName": "MongoDB Password",
+      "description": "Password for the MongoDB user.",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{16}"
+    },
+    {
+      "name": "DATABASE_NAME",
+      "displayName": "Database Name",
+      "required": true,
+      "value": "sampledb"
+    },
+    {
+      "name": "DATABASE_ADMIN_PASSWORD",
+      "displayName": "Database Administrator Password",
+      "description": "Password for the database admin user.",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{16}"
+    },
+    {
+      "name": "NPM_MIRROR",
+      "displayName": "Custom NPM Mirror URL",
+      "description": "The custom NPM mirror URL",
+      "value": ""
+    }
+  ]
+}

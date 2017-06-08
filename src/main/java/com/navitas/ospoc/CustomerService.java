@@ -54,7 +54,7 @@ public class CustomerService {
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomerService.class);
 
-    long currentId = 123;
+    long currentId = 1234;
     Map<Long, Customer> customers = new HashMap<Long, Customer>();
     Map<Long, Order> orders = new HashMap<Long, Order>();
     private  MessageContext jaxrsContext;
