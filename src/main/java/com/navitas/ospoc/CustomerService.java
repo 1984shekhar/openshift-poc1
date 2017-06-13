@@ -205,7 +205,7 @@ public class CustomerService {
      */
     final void init() {
         Customer c = new Customer();
-        c.setName("John");
+        c.setName("Lance");
         c.setId(123);
         customers.put(c.getId(), c);
 
