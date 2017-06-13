@@ -17,6 +17,12 @@ When the application is deployed, you can access the REST service using a web br
 The example can be built with
 
     mvn clean install
+    
+Templates can be generated (ie. have comments removed) with
+
+    mvn exec:exec -Dexec-maven-plugin.skip=false
+    
+(They are generated to generated/openshift/*.json, which should be saved in git.)
 
 ### Running the example in OpenShift
 

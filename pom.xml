@@ -142,12 +142,12 @@
                 <configuration>
                     <skip>${exec-maven-plugin.skip}</skip>
                     <executable>perl</executable>
-                    <outputFile>${basedir}/target/generated/openshift/lances-karaf2-cxf-rest-template.json</outputFile>
+                    <outputFile>${basedir}/generated/openshift/navitas-local-fis-openshift-template.json</outputFile>
                     <arguments>
                         <argument>-0777</argument>
                         <argument>-pe</argument>
                         <argument>'s!\s*/\*.*?\*/\s*!!gsm'</argument>
-                        <argument>${basedir}/configuration/lances-karaf2-cxf-rest-template.json</argument>
+                        <argument>${basedir}/configuration/navitas-local-fis-openshift-template.json</argument>
                     </arguments>
                 </configuration>
             </plugin>

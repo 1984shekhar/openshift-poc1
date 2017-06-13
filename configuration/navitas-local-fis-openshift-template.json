@@ -19,18 +19,18 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
       "iconClass": "icon-jboss",
       "version": "2.0"
     },
-    "name": "s2i-karaf2-cxf-rest"
+    "name": "navitas-local-fis"
   },
   "labels": {
     /* applied to ALL resources in template... */
-    "template": "s2i-karaf2-cxf-rest"
+    "template": "navitas-local-fis"
   },
   "parameters": [
     {
       "name": "APP_NAME",
       "displayName": "Application Name",
       "required": true,
-      "value": "s2i-karaf2-cxf-rest",
+      "value": "navitas-local-fis",
       "description": "The name assigned to the application."
     },
     {
@@ -56,13 +56,13 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
     {
       "name": "SERVICE_NAME",
       "displayName": "Service Name",
-      "value": "s2i-karaf2-cxf-rest",
+      "value": "navitas-local-fis",
       "description": "Exposed Service name."
     },
     {
       "name": "BUILDER_VERSION",
       "displayName": "Builder version",
-      "value": "2.0",
+      "value": "2.0.6"/*"2.0"*/,
       "description": "The version of the FIS S2I builder image to use."
     },
     {
@@ -90,9 +90,9 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
     {
       "name": "IMAGE_STREAM_NAMESPACE",
       "displayName": "Image Stream Namespace",
-      "value": "openshift",
+      "value": "navitas",
       "required": true,
-      "description": "Namespace in which the Fuse ImageStreams are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project."
+      "description": "Namespace in which the Fuse ImageStreams are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project (ie. 'navitas' project)."
     },
     {
       "name": "CPU_REQUEST",
@@ -125,7 +125,8 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
   ],
   "objects": [
     /* LAYER 0 - BASE IMAGES (FIS/KARAF) */
-    {
+/*    NOT REQUIRED...
+      {
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
@@ -156,7 +157,7 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
           }
         ]
       }
-    },
+    }, */
     {
       "kind": "ImageStream",
       "apiVersion": "v1",
@@ -166,7 +167,7 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
       "spec": {
         "dockerImageRepository": "registry.access.redhat.com/jboss-fuse-6/fis-karaf-openshift",
         "tags": [
-          {
+/*        {
             "name": "1.0",
             "annotations": {
               "description": "JBoss Fuse Integration Services 1.0 Karaf S2I images.",
@@ -178,6 +179,16 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
           },
           {
             "name": "2.0",
+            "annotations": {
+              "description": "JBoss Fuse Integration Services 2.0 Karaf S2I images.",
+              "iconClass": "icon-jboss",
+              "tags": "builder,jboss-fuse,java,karaf,xpaas",
+              "supports":"jboss-fuse:6.3.0,java:8,xpaas:1.2",
+              "version": "2.0"
+            }
+          }
+ */       {
+            "name": "2.0.6",/*...explicit image.  Don't want to automatically rebuild/redeploy if a later image becomes available */
             "annotations": {
               "description": "JBoss Fuse Integration Services 2.0 Karaf S2I images.",
               "iconClass": "icon-jboss",
@@ -413,7 +424,7 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
       },
       "status": {}
     },
-    /* ABSTRACTION LAYER */
+    /* LAYER 4 - ABSTRACTION LAYER */
     {
       "apiVersion": "v1",
       "kind": "Service",
