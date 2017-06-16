@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.navitas.ospoc</groupId>
+    <artifactId>navitas-integration-tests</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <skipUnitTests>false</skipUnitTests>
+        <skipIntegrationTests>false</skipIntegrationTests>
+        <skipPerformanceTests>true</skipPerformanceTests>
+        <dependency.citrus.version>2.7.1</dependency.citrus.version>
+        <dependency.mockito.version>1.10.19</dependency.mockito.version>
+        <dependency.junit.version>4.12</dependency.junit.version>
+        <dependency.slf4j.version>1.7.25</dependency.slf4j.version>
+        <dependency.apache.slf4j.log4j2impl.version>2.8.2</dependency.apache.slf4j.log4j2impl.version>
+        <dependency.commons-io.version>2.5</dependency.commons-io.version>
+        <dependency.testng.version>6.11</dependency.testng.version>
+        <dependency.springframework.version>4.3.9.RELEASE</dependency.springframework.version>
+        <dependency.plugin.maven.surefire.version>2.20</dependency.plugin.maven.surefire.version>
+        <dependency.plugin.maven.failsafe.version>2.20</dependency.plugin.maven.failsafe.version>
+
+    </properties>
+
+    <modules>
+        <!--<module>integration-test-common</module>-->
+        <!--<module>mock-provider-navigate</module>-->
+
+        <module>common-it</module>
+        <module>demo-customer-it</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.navitas.ospoc</groupId>
+                <artifactId>common-it</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- External Dependencies -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${dependency.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${dependency.commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${dependency.slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${dependency.slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${dependency.apache.slf4j.log4j2impl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${dependency.apache.slf4j.log4j2impl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${dependency.apache.slf4j.log4j2impl.version}</version>
+            </dependency>
+
+            <!-- Citrus -->
+            <dependency>
+                <groupId>com.consol.citrus</groupId>
+                <artifactId>citrus-core</artifactId>
+                <version>${dependency.citrus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.consol.citrus</groupId>
+                <artifactId>citrus-java-dsl</artifactId>
+                <version>${dependency.citrus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.consol.citrus</groupId>
+                <artifactId>citrus-jms</artifactId>
+                <version>${dependency.citrus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.consol.citrus</groupId>
+                <artifactId>citrus-http</artifactId>
+                <version>${dependency.citrus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.consol.citrus</groupId>
+                <artifactId>citrus-ws</artifactId>
+                <version>${dependency.citrus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${dependency.testng.version}</version>
+            </dependency>
+
+            <!--
+            <dependency>
+                <groupId>com.navitas</groupId>
+                <artifactId>integration-test-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.navitas</groupId>
+                <artifactId>mock-provider-navigate</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            -->
+            <!-- testing -->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${dependency.mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+             <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${dependency.junit.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <testSourceDirectory>src/main/java</testSourceDirectory>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.consol.citrus.mvn</groupId>
+                    <artifactId>citrus-maven-plugin</artifactId>
+                    <version>${dependency.citrus.version}</version>
+                    <!-- Has goals to help generate tests, documentation and help.
+                        See http://www.citrusframework.org/docs/maven-plugin/ -->
+                    <configuration>
+                        <company>Navitas</company>
+                        <targetPackage>com.navitas.it</targetPackage>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <!-- Runs Unit Tests -->
+                    <version>${dependency.plugin.maven.surefire.version}</version>
+                    <configuration>
+                        <argLine>${surefireArgLine}</argLine>
+                        <failIfNoTests>false</failIfNoTests>
+                        <excludes>
+                            <!-- Exclude Integration Tests via *IT* naming convention... -->
+                            <exclude>**/IT*.java</exclude>
+                            <exclude>**/*IT.java</exclude>
+                        </excludes>
+                        <workingDirectory>${project.build.directory}</workingDirectory>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <!-- Runs Integration Tests -->
+                    <version>${dependency.plugin.maven.failsafe.version}</version>
+                    <executions>
+                        <execution>
+                            <id>integration-tests</id>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                            <configuration>
+                                <argLine>${failsafeArgLine}</argLine>
+                                <failIfNoTests>false</failIfNoTests>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!--<plugin>-->
+                    <!--<artifactId>maven-surefire-plugin</artifactId>-->
+                    <!--<version>${dependency.plugin.maven.surefire.version}</version>-->
+                    <!--<configuration>-->
+                        <!--<skip>true</skip>-->
+                    <!--</configuration>-->
+                    <!--<executions>-->
+                        <!--<execution>-->
+                            <!--<id>junit-tests</id>-->
+                            <!--<phase>test</phase>-->
+                            <!--<goals>-->
+                                <!--<goal>test</goal>-->
+                            <!--</goals>-->
+                            <!--<configuration>-->
+                                <!--<includes>-->
+                                    <!--<include>src/test/java</include>-->
+                                <!--</includes>-->
+                                <!--<skip>${skipUnitTests}</skip>-->
+                            <!--</configuration>-->
+                        <!--</execution>-->
+                        <!--<execution>-->
+                            <!--<id>integration-tests</id>-->
+                            <!--<phase>integration-test</phase>-->
+                            <!--<goals>-->
+                                <!--<goal>test</goal>-->
+                            <!--</goals>-->
+                            <!--<configuration>-->
+                                <!--<includes>-->
+                                    <!--<include>**/*IntegrationTest*</include>-->
+                                <!--</includes>-->
+                                <!--<skip>${skipIntegrationTests}</skip>-->
+                            <!--</configuration>-->
+                        <!--</execution>-->
+                        <!--<execution>-->
+                            <!--<id>performance-tests</id>-->
+                            <!--<phase>integration-test</phase>-->
+                            <!--<goals>-->
+                                <!--<goal>test</goal>-->
+                            <!--</goals>-->
+                            <!--<configuration>-->
+                                <!--<includes>-->
+                                    <!--<include>**/*PerformanceTest*</include>-->
+                                <!--</includes>-->
+                                <!--<skip>${skipPerformanceTests}</skip>-->
+                            <!--</configuration>-->
+                        <!--</execution>-->
+                    <!--</executions>-->
+                <!--</plugin>-->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>${plugin.build.helper.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>Nexus Snapshot</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://nexus.navitas.com.au/content/groups/public-snapshot/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+</project>

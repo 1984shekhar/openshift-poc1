@@ -12,6 +12,8 @@
     <description>Karaf 2 example running a REST sevice using CXF</description>
 
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.maven-bundle-plugin>2.3.7</version.maven-bundle-plugin>
 

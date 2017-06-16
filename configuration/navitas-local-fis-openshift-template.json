@@ -36,14 +36,14 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
     {
       "name": "GIT_REPO",
       "displayName": "Git Repository URL",
-      "value": "https://github.com/LeoLanceb/openshift-poc1.git" /*"https://github.com/fabric8-quickstarts/karaf2-cxf-rest.git"*/,
+      "value": "https://github.com/LeoLanceb/openshift-poc1.git",
       "required": true,
       "description": "The URL of the repository with your application source code."
     },
     {
       "name": "GIT_REF",
       "displayName": "Git Reference",
-      "value": "master"/*"karaf2-cxf-rest-1.0.0.redhat-000010"*/,
+      "value": "master"/* master is just an interim value!!!  */,
       "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
     },
     {

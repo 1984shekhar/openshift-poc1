@@ -34,3 +34,7 @@ local.properties
 *.VersionsBackup
 *.log
 *.log.*
+
+# Citrus msg traces
+**/logs/
+*.msgs
