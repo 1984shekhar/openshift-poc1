@@ -1,4 +1,6 @@
-# Karaf 2 and CXF REST QuickStart
+# OpenShift Local Development Demonstration
+
+(Based on Karaf 2 and CXF REST QuickStart)
 
 This quickstart demonstrates how to create a RESTful (JAX-RS) web service using CXF and expose it through the OSGi HTTP Service.
 
