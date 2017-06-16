@@ -1,14 +1,14 @@
 {
-/*  ================================================================================================================== *
+  /*  ================================================================================================================== *
 
-Template to provide a runtime environment based on JBoss Fuse Integration Service (FIS)
-Inputs:	1)	FIS image from Red Hat Registry
-        2)	Application source to inject from GitHub for now
-Will Image-stream to be built and deployed on change of FIS Image or Source Change (via Web-Hook added to GitHub)
+  Template to provide a runtime environment based on JBoss Fuse Integration Service (FIS)
+  Inputs:	1)	FIS image from Red Hat Registry
+          2)	Application source to inject from GitHub for now
+  Will Image-stream to be built and deployed on change of FIS Image or Source Change (via Web-Hook added to GitHub)
 
-Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkthrough/
+  Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkthrough/
 
-* ================================================================================================================== */
+  * ================================================================================================================== */
 
   "apiVersion": "v1",
   "kind": "Template",
@@ -43,7 +43,8 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
     {
       "name": "GIT_REF",
       "displayName": "Git Reference",
-      "value": "master"/* master is just an interim value!!!  */,
+      "value": "master"
+      /* master is just an interim value!!!  */,
       "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
     },
     {
@@ -62,7 +63,8 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
     {
       "name": "BUILDER_VERSION",
       "displayName": "Builder version",
-      "value": "2.0.6"/*"2.0"*/,
+      "value": "2.0.6"
+      /*"2.0"*/,
       "description": "The version of the FIS S2I builder image to use."
     },
     {
@@ -124,40 +126,11 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
     }
   ],
   "objects": [
+    /* ============================================== */
+    /* BUILD AND DEPLOYMENT OBJECTS                   */
+    /* ============================================== */
+
     /* LAYER 0 - BASE IMAGES (FIS/KARAF) */
-/*    NOT REQUIRED...
-      {
-      "kind": "ImageStream",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "fis-java-openshift"
-      },
-      "spec": {
-        "dockerImageRepository": "registry.access.redhat.com/jboss-fuse-6/fis-java-openshift",
-        "tags": [
-          {
-            "name": "1.0",
-            "annotations": {
-              "description": "JBoss Fuse Integration Services 1.0 Java S2I images.",
-              "iconClass": "icon-jboss",
-              "tags": "builder,jboss-fuse,java,xpaas",
-              "supports":"jboss-fuse:6.2.1,java:8,xpaas:1.2",
-              "version": "1.0"
-            }
-          },
-          {
-            "name": "2.0",
-            "annotations": {
-              "description": "JBoss Fuse Integration Services 2.0 Java S2I images.",
-              "iconClass": "icon-jboss",
-              "tags": "builder,jboss-fuse,java,xpaas",
-              "supports":"jboss-fuse:6.3.0,java:8,xpaas:1.2",
-              "version": "2.0"
-            }
-          }
-        ]
-      }
-    }, */
     {
       "kind": "ImageStream",
       "apiVersion": "v1",
@@ -167,34 +140,15 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
       "spec": {
         "dockerImageRepository": "registry.access.redhat.com/jboss-fuse-6/fis-karaf-openshift",
         "tags": [
-/*        {
-            "name": "1.0",
-            "annotations": {
-              "description": "JBoss Fuse Integration Services 1.0 Karaf S2I images.",
-              "iconClass": "icon-jboss",
-              "tags": "builder,jboss-fuse,java,karaf,xpaas",
-              "supports":"jboss-fuse:6.2.1,java:8,xpaas:1.2",
-              "version": "1.0"
-            }
-          },
           {
-            "name": "2.0",
+            "name": "2.0.6",
+            /*...explicit image.  Don't want to automatically rebuild/redeploy if a later image becomes available */
             "annotations": {
               "description": "JBoss Fuse Integration Services 2.0 Karaf S2I images.",
               "iconClass": "icon-jboss",
               "tags": "builder,jboss-fuse,java,karaf,xpaas",
-              "supports":"jboss-fuse:6.3.0,java:8,xpaas:1.2",
-              "version": "2.0"
-            }
-          }
- */       {
-            "name": "2.0.6",/*...explicit image.  Don't want to automatically rebuild/redeploy if a later image becomes available */
-            "annotations": {
-              "description": "JBoss Fuse Integration Services 2.0 Karaf S2I images.",
-              "iconClass": "icon-jboss",
-              "tags": "builder,jboss-fuse,java,karaf,xpaas",
-              "supports":"jboss-fuse:6.3.0,java:8,xpaas:1.2",
-              "version": "2.0"
+              "supports": "jboss-fuse:6.3.0,java:8,xpaas:1.2",
+              "version": "2.0.6"
             }
           }
         ]
@@ -206,7 +160,7 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
       "kind": "BuildConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APP_NAME}",
+        "name": "${APP_NAME}-bc-pod1",
         "creationTimestamp": null,
         "labels": {
           "component": "${APP_NAME}",
@@ -243,7 +197,9 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
           "type": "Git",
           "git": {
             "uri": "${GIT_REPO}",
-            "ref": "${GIT_REF}"/* ...branch */
+            "ref": "${GIT_REF}",
+            /* ...branch */
+            "contextDir": "navitas-service-pod1"
           }
         },
         "strategy": {
@@ -279,7 +235,7 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
         "output": {
           "to": {
             "kind": "ImageStreamTag",
-            "name": "${APP_NAME}:latest"
+            "name": "${APP_NAME}-is-pod1:latest"
           }
         },
         "resources": {}
@@ -293,7 +249,7 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APP_NAME}",
+        "name": "${APP_NAME}-is-pod1",
         "creationTimestamp": null,
         "labels": {
           "component": "${APP_NAME}",
@@ -314,7 +270,7 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APP_NAME}",
+        "name": "${APP_NAME}-dc-pod1",
         "creationTimestamp": null,
         "labels": {
           "component": "${APP_NAME}",
@@ -338,11 +294,11 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "${APP_NAME}"
+                "${APP_NAME}-c-pod1"
               ],
               "from": {
                 "kind": "ImageStreamTag",
-                "name": "${APP_NAME}:latest"
+                "name": "${APP_NAME}-is-pod1:latest"
               }
             }
           }
@@ -351,19 +307,20 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
         "selector": {
           "component": "${APP_NAME}",
           "container": "karaf",
-          "deploymentconfig": "${APP_NAME}",
+          "deploymentconfig": "${APP_NAME}-dc-pod1",
           "group": "quickstarts",
           "project": "${APP_NAME}",
           "provider": "s2i",
           "version": "${APP_VERSION}"
         },
-        "template": { /* POD TEMPLATE */
+        "template": {
+          /* POD TEMPLATE */
           "metadata": {
             "creationTimestamp": null,
             "labels": {
               "component": "${APP_NAME}",
               "container": "karaf",
-              "deploymentconfig": "${APP_NAME}",
+              "deploymentconfig": "${APP_NAME}-dc-pod1",
               "group": "quickstarts",
               "project": "${APP_NAME}",
               "provider": "s2i",
@@ -373,21 +330,21 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
           "spec": {
             "containers": [
               {
-                "name": "${APP_NAME}",
-                "image": "library/${APP_NAME}:latest",
-                "readinessProbe" : {
-                  "httpGet" : {
-                    "path" : "/readiness-check",
-                    "port" : 8181
+                "name": "${APP_NAME}-c-pod1",
+                "image": "library/${APP_NAME}-is-pod1:latest",
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/readiness-check",
+                    "port": 8181
                   },
-                  "initialDelaySeconds" : 10
+                  "initialDelaySeconds": 10
                 },
-                "livenessProbe" : {
-                  "httpGet" : {
-                    "path" : "/health-check",
-                    "port" : 8181
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/health-check",
+                    "port": 8181
                   },
-                  "initialDelaySeconds" : 180
+                  "initialDelaySeconds": 180
                 },
                 "ports": [
                   {
@@ -399,14 +356,16 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
                     "name": "jolokia"
                   }
                 ],
-                "env" : [ {
-                  "name" : "KUBERNETES_NAMESPACE",
-                  "valueFrom" : {
-                    "fieldRef" : {
-                      "fieldPath" : "metadata.namespace"
+                "env": [
+                  {
+                    "name": "KUBERNETES_NAMESPACE",
+                    "valueFrom": {
+                      "fieldRef": {
+                        "fieldPath": "metadata.namespace"
+                      }
                     }
                   }
-                } ],
+                ],
                 "resources": {
                   "requests": {
                     "cpu": "${CPU_REQUEST}",
@@ -424,6 +383,10 @@ Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkt
       },
       "status": {}
     },
+    /* ============================================== */
+    /* RUNTIME OBJECTS                                */
+    /* ============================================== */
+
     /* LAYER 4 - ABSTRACTION LAYER */
     {
       "apiVersion": "v1",
