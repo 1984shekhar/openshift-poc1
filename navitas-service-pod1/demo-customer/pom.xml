@@ -117,6 +117,8 @@
                 <version>${version.maven-bundle-plugin}</version>
                 <extensions>true</extensions>
                 <configuration>
+                    <buildDirectory>../navitas-service-pod1/target</buildDirectory>
+                    <!-- ...output jar to common bundle directory so fabric8-maven-plugin can inject them from one spot into docker image -->
                     <instructions>
                         <Import-Package>
                             javax.ws.rs;version="[2,3)",
