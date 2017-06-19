@@ -71,7 +71,7 @@
     {
       "name": "ARTIFACT_DIR",
       "displayName": "Maven build directory",
-      "description": "Directory of the artifact to be built, e.g. for multi-module builds."
+      "value": "build-pod1/target","description": "Directory of the artifact to be built, e.g. for multi-module builds."
     },
     {
       "name": "IMAGE_STREAM_NAMESPACE",
@@ -170,10 +170,8 @@
           "type": "Git",
           "git": {
             "uri": "${GIT_REPO}",
-            "ref": "${GIT_REF}",
-            "contextDir": "navitas-service-pod1"
-          }
-        },
+            "ref": "${GIT_REF}"},
+          "contextDir": "navitas-service-pod1"},
         "strategy": {
           "type": "Source",
           "sourceStrategy": {
@@ -251,7 +249,7 @@
       },
       "spec": {
         "strategy": {
-          "resources": {}
+          "type": "Recreate","resources": {}
         },
         "triggers": [
           {

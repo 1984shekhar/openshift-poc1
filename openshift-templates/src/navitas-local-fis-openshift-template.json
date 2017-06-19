@@ -85,6 +85,7 @@
     {
       "name": "ARTIFACT_DIR",
       "displayName": "Maven build directory",
+      "value": "build-pod1/target", /* ...directory that contains "assembly" sub-directory */
       "description": "Directory of the artifact to be built, e.g. for multi-module builds."
     },
     {
@@ -195,10 +196,11 @@
           "type": "Git",
           "git": {
             "uri": "${GIT_REPO}",
-            "ref": "${GIT_REF}",
+            "ref": "${GIT_REF}"
             /* ...branch */
-            "contextDir": "navitas-service-pod1"
-          }
+
+          },
+          "contextDir": "navitas-service-pod1"/* ...for the content of this pod only */
         },
         "strategy": {
           "type": "Source",
@@ -281,6 +283,7 @@
       },
       "spec": {
         "strategy": {
+          "type": "Recreate", /* ...Rolling causes problems with single-node and mem limitations */
           "resources": {}
         },
         "triggers": [
