@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>demo-customer</artifactId>
-    <version>${project.parent.version}</version>
     <packaging>bundle</packaging>
     <name>${project.artifactId}-bundle</name>
     <description>Karaf 2 example running a REST sevice using CXF</description>

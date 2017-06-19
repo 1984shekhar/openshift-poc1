@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>build-pod1</artifactId>
-    <version>${project.parent.version}</version>
 
     <packaging>pom</packaging>
 
