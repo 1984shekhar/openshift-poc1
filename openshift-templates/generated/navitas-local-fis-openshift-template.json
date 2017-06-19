@@ -1,16 +1,4 @@
-{
-  /*  ================================================================================================================== *
-
-  Template to provide a runtime environment based on JBoss Fuse Integration Service (FIS)
-  Inputs:	1)	FIS image from Red Hat Registry
-          2)	Application source to inject from GitHub for now
-  Will Image-stream to be built and deployed on change of FIS Image or Source Change (via Web-Hook added to GitHub)
-
-  Refer to https://blog.openshift.com/part-2-creating-a-template-a-technical-walkthrough/
-
-  * ================================================================================================================== */
-
-  "apiVersion": "v1",
+{"apiVersion": "v1",
   "kind": "Template",
   "metadata": {
     "annotations": {
@@ -21,9 +9,7 @@
     },
     "name": "navitas-local-fis"
   },
-  "labels": {
-    /* applied to ALL resources in template... */
-    "template": "navitas-local-fis"
+  "labels": {"template": "navitas-local-fis"
   },
   "parameters": [
     {
@@ -43,8 +29,7 @@
     {
       "name": "GIT_REF",
       "displayName": "Git Reference",
-      "value": "master"
-      /* master is just an interim value!!!  */,
+      "value": "master",
       "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
     },
     {
@@ -63,8 +48,7 @@
     {
       "name": "BUILDER_VERSION",
       "displayName": "Builder version",
-      "value": "2.0.6"
-      /*"2.0"*/,
+      "value": "2.0.6",
       "description": "The version of the FIS S2I builder image to use."
     },
     {
@@ -125,13 +109,7 @@
       "description": "The amount of memory the container is limited to use."
     }
   ],
-  "objects": [
-    /* ============================================== */
-    /* BUILD AND DEPLOYMENT OBJECTS                   */
-    /* ============================================== */
-
-    /* LAYER 0 - BASE IMAGES (FIS/KARAF) */
-    {
+  "objects": [{
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
@@ -140,27 +118,22 @@
       "spec": {
         "dockerImageRepository": "registry.access.redhat.com/jboss-fuse-6/fis-karaf-openshift",
         "tags": [
-          {
-            "name": "2.0.6",
-            /*...explicit image.  Don't want to automatically rebuild/redeploy if a later image becomes available */
-            "annotations": {
+         {
+            "name": "2.0.6","annotations": {
               "description": "JBoss Fuse Integration Services 2.0 Karaf S2I images.",
               "iconClass": "icon-jboss",
               "tags": "builder,jboss-fuse,java,karaf,xpaas",
-              "supports": "jboss-fuse:6.3.0,java:8,xpaas:1.2",
-              "version": "2.0.6"
+              "supports":"jboss-fuse:6.3.0,java:8,xpaas:1.2",
+              "version": "2.0"
             }
           }
         ]
       }
-    },
-    /* LAYER 1 - BUILD DEPLOYABLE IMAGES FROM BASE-IMAGE AND APPLICATION-SOURCE TO INJECT (S2I)
-        TRIGGERED BY BASE-IMAGE, CONFIG OR SOURCE-GIT COMMIT WEB-HOOK */
-    {
+    },{
       "kind": "BuildConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APP_NAME}-bc-pod1",
+        "name": "${APP_NAME}",
         "creationTimestamp": null,
         "labels": {
           "component": "${APP_NAME}",
@@ -197,9 +170,7 @@
           "type": "Git",
           "git": {
             "uri": "${GIT_REPO}",
-            "ref": "${GIT_REF}",
-            /* ...branch */
-            "contextDir": "navitas-service-pod1"
+            "ref": "${GIT_REF}","contextDir": "navitas-service-pod1"
           }
         },
         "strategy": {
@@ -235,7 +206,7 @@
         "output": {
           "to": {
             "kind": "ImageStreamTag",
-            "name": "${APP_NAME}-is-pod1:latest"
+            "name": "${APP_NAME}:latest"
           }
         },
         "resources": {}
@@ -243,13 +214,11 @@
       "status": {
         "lastVersion": 0
       }
-    },
-    /* LAYER 2 - DEPLOYABLE IMAGES FROM BUILD */
-    {
+    },{
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APP_NAME}-is-pod1",
+        "name": "${APP_NAME}",
         "creationTimestamp": null,
         "labels": {
           "component": "${APP_NAME}",
@@ -264,13 +233,11 @@
       "status": {
         "dockerImageRepository": ""
       }
-    },
-    /* LAYER 3 - DEPLOY NEWLY-BUILT DEPLOYABLE-IMAGES TO PODS (SEE POD TEMPLATE), TRIGGERED BY IMAGE-CHANGE */
-    {
+    },{
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APP_NAME}-dc-pod1",
+        "name": "${APP_NAME}",
         "creationTimestamp": null,
         "labels": {
           "component": "${APP_NAME}",
@@ -294,11 +261,11 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "${APP_NAME}-c-pod1"
+                "${APP_NAME}"
               ],
               "from": {
                 "kind": "ImageStreamTag",
-                "name": "${APP_NAME}-is-pod1:latest"
+                "name": "${APP_NAME}:latest"
               }
             }
           }
@@ -307,20 +274,18 @@
         "selector": {
           "component": "${APP_NAME}",
           "container": "karaf",
-          "deploymentconfig": "${APP_NAME}-dc-pod1",
+          "deploymentconfig": "${APP_NAME}",
           "group": "quickstarts",
           "project": "${APP_NAME}",
           "provider": "s2i",
           "version": "${APP_VERSION}"
         },
-        "template": {
-          /* POD TEMPLATE */
-          "metadata": {
+        "template": {"metadata": {
             "creationTimestamp": null,
             "labels": {
               "component": "${APP_NAME}",
               "container": "karaf",
-              "deploymentconfig": "${APP_NAME}-dc-pod1",
+              "deploymentconfig": "${APP_NAME}",
               "group": "quickstarts",
               "project": "${APP_NAME}",
               "provider": "s2i",
@@ -330,21 +295,21 @@
           "spec": {
             "containers": [
               {
-                "name": "${APP_NAME}-c-pod1",
-                "image": "library/${APP_NAME}-is-pod1:latest",
-                "readinessProbe": {
-                  "httpGet": {
-                    "path": "/readiness-check",
-                    "port": 8181
+                "name": "${APP_NAME}",
+                "image": "library/${APP_NAME}:latest",
+                "readinessProbe" : {
+                  "httpGet" : {
+                    "path" : "/readiness-check",
+                    "port" : 8181
                   },
-                  "initialDelaySeconds": 10
+                  "initialDelaySeconds" : 10
                 },
-                "livenessProbe": {
-                  "httpGet": {
-                    "path": "/health-check",
-                    "port": 8181
+                "livenessProbe" : {
+                  "httpGet" : {
+                    "path" : "/health-check",
+                    "port" : 8181
                   },
-                  "initialDelaySeconds": 180
+                  "initialDelaySeconds" : 180
                 },
                 "ports": [
                   {
@@ -356,16 +321,14 @@
                     "name": "jolokia"
                   }
                 ],
-                "env": [
-                  {
-                    "name": "KUBERNETES_NAMESPACE",
-                    "valueFrom": {
-                      "fieldRef": {
-                        "fieldPath": "metadata.namespace"
-                      }
+                "env" : [ {
+                  "name" : "KUBERNETES_NAMESPACE",
+                  "valueFrom" : {
+                    "fieldRef" : {
+                      "fieldPath" : "metadata.namespace"
                     }
                   }
-                ],
+                } ],
                 "resources": {
                   "requests": {
                     "cpu": "${CPU_REQUEST}",
@@ -382,13 +345,7 @@
         }
       },
       "status": {}
-    },
-    /* ============================================== */
-    /* RUNTIME OBJECTS                                */
-    /* ============================================== */
-
-    /* LAYER 4 - ABSTRACTION LAYER */
-    {
+    },{
       "apiVersion": "v1",
       "kind": "Service",
       "metadata": {
