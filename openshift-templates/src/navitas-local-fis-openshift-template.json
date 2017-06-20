@@ -43,7 +43,8 @@
     {
       "name": "GIT_REF",
       "displayName": "Git Reference",
-      "value": "master"/* master is just an interim value!!!  */,
+      "value": "master",
+      /* master is just an interim value!!!  */
       "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
     },
     {
@@ -54,6 +55,13 @@
       "from": "[a-zA-Z0-9]{40}"
     },
     {
+      "name": "ENV_NAME",
+      "displayName": "Environment Name",
+      "value": "local",
+      /* 'local' means use local-common.properties to merge into base-common.properties  */
+      "description": "Environment Name.  eg. DEV1, UAT2, PROD, FREDTEST, etc"
+    },
+    {
       "name": "SERVICE_NAME",
       "displayName": "Service Name",
       "value": "navitas-local-fis",
@@ -62,7 +70,8 @@
     {
       "name": "BUILDER_VERSION",
       "displayName": "Builder version",
-      "value": "2.0.6"/*"2.0"*/,
+      "value": "2.0.6"
+      /*"2.0"*/,
       "description": "The version of the FIS S2I builder image to use."
     },
     {
@@ -85,7 +94,8 @@
     {
       "name": "ARTIFACT_DIR",
       "displayName": "Maven build directory",
-      "value": "build-pod1/target", /* ...directory that contains "assembly" sub-directory */
+      "value": "build-pod1/target",
+      /* ...directory that contains "assembly" sub-directory */
       "description": "Directory of the artifact to be built, e.g. for multi-module builds."
     },
     {
@@ -140,13 +150,14 @@
       "spec": {
         "dockerImageRepository": "registry.access.redhat.com/jboss-fuse-6/fis-karaf-openshift",
         "tags": [
-         {
-            "name": "2.0.6",/*...explicit image.  Don't want to automatically rebuild/redeploy if a later image becomes available */
+          {
+            "name": "2.0.6",
+            /*...explicit image.  Don't want to automatically rebuild/redeploy if a later image becomes available */
             "annotations": {
               "description": "JBoss Fuse Integration Services 2.0 Karaf S2I images.",
               "iconClass": "icon-jboss",
               "tags": "builder,jboss-fuse,java,karaf,xpaas",
-              "supports":"jboss-fuse:6.3.0,java:8,xpaas:1.2",
+              "supports": "jboss-fuse:6.3.0,java:8,xpaas:1.2",
               "version": "2.0"
             }
           }
@@ -198,9 +209,9 @@
             "uri": "${GIT_REPO}",
             "ref": "${GIT_REF}"
             /* ...branch */
-
           },
-          "contextDir": "navitas-service-pod1"/* ...for the content of this pod only */
+          "contextDir": "navitas-service-pod1"
+          /* ...for the content of this pod only */
         },
         "strategy": {
           "type": "Source",
@@ -228,6 +239,10 @@
               {
                 "name": "MAVEN_ARGS_APPEND",
                 "value": "${MAVEN_ARGS_APPEND}"
+              },
+              {
+                "name": "ENV_NAME",
+                "value": "${ENV_NAME}"
               }
             ]
           }
@@ -283,7 +298,8 @@
       },
       "spec": {
         "strategy": {
-          "type": "Recreate", /* ...Rolling causes problems with single-node and mem limitations */
+          "type": "Recreate",
+          /* ...Rolling causes problems with single-node and mem limitations */
           "resources": {}
         },
         "triggers": [
@@ -314,7 +330,8 @@
           "provider": "s2i",
           "version": "${APP_VERSION}"
         },
-        "template": { /* POD TEMPLATE */
+        "template": {
+          /* POD TEMPLATE */
           "metadata": {
             "creationTimestamp": null,
             "labels": {
@@ -332,19 +349,19 @@
               {
                 "name": "${APP_NAME}",
                 "image": "library/${APP_NAME}:latest",
-                "readinessProbe" : {
-                  "httpGet" : {
-                    "path" : "/readiness-check",
-                    "port" : 8181
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/readiness-check",
+                    "port": 8181
                   },
-                  "initialDelaySeconds" : 10
+                  "initialDelaySeconds": 10
                 },
-                "livenessProbe" : {
-                  "httpGet" : {
-                    "path" : "/health-check",
-                    "port" : 8181
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/health-check",
+                    "port": 8181
                   },
-                  "initialDelaySeconds" : 180
+                  "initialDelaySeconds": 180
                 },
                 "ports": [
                   {
@@ -356,14 +373,16 @@
                     "name": "jolokia"
                   }
                 ],
-                "env" : [ {
-                  "name" : "KUBERNETES_NAMESPACE",
-                  "valueFrom" : {
-                    "fieldRef" : {
-                      "fieldPath" : "metadata.namespace"
+                "env": [
+                  {
+                    "name": "KUBERNETES_NAMESPACE",
+                    "valueFrom": {
+                      "fieldRef": {
+                        "fieldPath": "metadata.namespace"
+                      }
                     }
                   }
-                } ],
+                ],
                 "resources": {
                   "requests": {
                     "cpu": "${CPU_REQUEST}",

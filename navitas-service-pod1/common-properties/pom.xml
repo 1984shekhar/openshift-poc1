@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.navitas.ospoc</groupId>
+        <artifactId>navitas-service-pod1</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>common-properties</artifactId>
+
+    <packaging>bundle</packaging>
+    <name>${project.artifactId}-bundle</name>
+    <description>General and Environment-Specific Properties</description>
+
+    <build>
+        <resources>
+            <!-- omit all individual properties files from jar -->
+            <resource>
+                <directory>src/main/resources/properties</directory>
+                <excludes>
+                    <exclude>*.properties</exclude>
+                </excludes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <!-- Apply target-env-specific properties to base.  Only merged properties to go into jar -->
+                <groupId>org.polago.maven.plugins</groupId>
+                <artifactId>merge-properties-maven-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <id>merge-properties</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>merge</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}/generated/properties</outputDirectory>
+                            <outputFile>navitas-common.properties</outputFile>
+                            <overwriteProperties>true</overwriteProperties>
+                            <resources>
+                                <resource>
+                                    <filtering>false</filtering>
+                                    <directory>src/main/resources/properties</directory>
+                                    <includes>
+                                        <include>base-common.properties</include>
+                                    </includes>
+                                </resource>
+                                <resource>
+                                    <filtering>false</filtering>
+                                    <directory>src/main/resources/properties</directory>
+                                    <includes>
+                                        <include>${ENV_NAME}-common.properties</include>
+                                        <!-- ... ENV_NAME must be either set in maven settings or in OpenShift Template Property -->
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+
+            </plugin>
+            <!-- Need to setup the OSGi meta information here -->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Export-Package>
+                            com.navitas.ospoc.common.properties
+                        </Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.outputDirectory}/generated/properties</directory>
+                                    <targetPath>properties</targetPath>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- plugin goals have to be executed in order -->
+            <!-- 1. install the bundle -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-install</id>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                        <phase>install</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

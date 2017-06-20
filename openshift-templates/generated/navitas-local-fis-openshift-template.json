@@ -29,8 +29,7 @@
     {
       "name": "GIT_REF",
       "displayName": "Git Reference",
-      "value": "master",
-      "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
+      "value": "master","description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
     },
     {
       "name": "BUILD_SECRET",
@@ -38,6 +37,11 @@
       "description": "A secret string used to configure the GitHub webhook.",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "ENV_NAME",
+      "displayName": "Environment Name",
+      "value": "local","description": "Environment Name.  eg. DEV1, UAT2, PROD, FREDTEST, etc"
     },
     {
       "name": "SERVICE_NAME",
@@ -118,12 +122,12 @@
       "spec": {
         "dockerImageRepository": "registry.access.redhat.com/jboss-fuse-6/fis-karaf-openshift",
         "tags": [
-         {
+          {
             "name": "2.0.6","annotations": {
               "description": "JBoss Fuse Integration Services 2.0 Karaf S2I images.",
               "iconClass": "icon-jboss",
               "tags": "builder,jboss-fuse,java,karaf,xpaas",
-              "supports":"jboss-fuse:6.3.0,java:8,xpaas:1.2",
+              "supports": "jboss-fuse:6.3.0,java:8,xpaas:1.2",
               "version": "2.0"
             }
           }
@@ -198,6 +202,10 @@
               {
                 "name": "MAVEN_ARGS_APPEND",
                 "value": "${MAVEN_ARGS_APPEND}"
+              },
+              {
+                "name": "ENV_NAME",
+                "value": "${ENV_NAME}"
               }
             ]
           }
@@ -296,19 +304,19 @@
               {
                 "name": "${APP_NAME}",
                 "image": "library/${APP_NAME}:latest",
-                "readinessProbe" : {
-                  "httpGet" : {
-                    "path" : "/readiness-check",
-                    "port" : 8181
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/readiness-check",
+                    "port": 8181
                   },
-                  "initialDelaySeconds" : 10
+                  "initialDelaySeconds": 10
                 },
-                "livenessProbe" : {
-                  "httpGet" : {
-                    "path" : "/health-check",
-                    "port" : 8181
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/health-check",
+                    "port": 8181
                   },
-                  "initialDelaySeconds" : 180
+                  "initialDelaySeconds": 180
                 },
                 "ports": [
                   {
@@ -320,14 +328,16 @@
                     "name": "jolokia"
                   }
                 ],
-                "env" : [ {
-                  "name" : "KUBERNETES_NAMESPACE",
-                  "valueFrom" : {
-                    "fieldRef" : {
-                      "fieldPath" : "metadata.namespace"
+                "env": [
+                  {
+                    "name": "KUBERNETES_NAMESPACE",
+                    "valueFrom": {
+                      "fieldRef": {
+                        "fieldPath": "metadata.namespace"
+                      }
                     }
                   }
-                } ],
+                ],
                 "resources": {
                   "requests": {
                     "cpu": "${CPU_REQUEST}",

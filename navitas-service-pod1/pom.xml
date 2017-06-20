@@ -19,17 +19,22 @@
 
         <!-- configure the versions you want to use here -->
         <fabric8.version>2.2.170.redhat-000013</fabric8.version>
-        <cxf.plugin.version>3.1.5.redhat-630254</cxf.plugin.version>
-        <karaf.plugin.version>4.0.8.redhat-000029</karaf.plugin.version>
 
         <!-- maven plugin versions -->
-        <fabric8.maven.plugin.version>3.1.80.redhat-000013</fabric8.maven.plugin.version>
+        <fabric8-maven-plugin.version>3.1.80.redhat-000013</fabric8-maven-plugin.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
         <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
+        <maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
+        <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
+        <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
+        <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+        <cxf-java2wadl-plugin.version>3.1.5.redhat-630254</cxf-java2wadl-plugin.version>
+        <karaf-maven-plugin.version>4.0.8.redhat-000029</karaf-maven-plugin.version>
     </properties>
 
     <modules>
+        <module>common-properties</module>
         <module>demo-customer</module>
         <module>build-pod1</module>
     </modules>
@@ -78,8 +83,6 @@
                 <updatePolicy>never</updatePolicy>
             </releases>
         </repository>
-
-
 
 
     </repositories>
@@ -132,6 +135,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.navitas.ospoc</groupId>
+                <artifactId>common-properties</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!-- import fabric8 platform bom first -->
             <dependency>
                 <groupId>io.fabric8</groupId>
@@ -156,5 +164,69 @@
 
         <defaultGoal>install</defaultGoal>
 
-     </build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>${maven-bundle-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven-install-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>${build-helper-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-java2wadl-plugin</artifactId>
+                    <version>${cxf-java2wadl-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.karaf.tooling</groupId>
+                    <artifactId>karaf-maven-plugin</artifactId>
+                    <version>${karaf-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>fabric8-maven-plugin</artifactId>
+                    <version>${fabric8-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>generate-resource</id>
+                            <phase>generate-resources</phase>
+                            <goals>
+                                <goal>resource</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>build-image</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
