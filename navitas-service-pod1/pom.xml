@@ -31,6 +31,7 @@
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <cxf-java2wadl-plugin.version>3.1.5.redhat-630254</cxf-java2wadl-plugin.version>
         <karaf-maven-plugin.version>4.0.8.redhat-000029</karaf-maven-plugin.version>
+        <maven-sortpom-plugin.version>2.3.1</maven-sortpom-plugin.version>
     </properties>
 
     <modules>
@@ -166,6 +167,11 @@
 
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>com.google.code.sortpom</groupId>
+                    <artifactId>maven-sortpom-plugin</artifactId>
+                    <version>${maven-sortpom-plugin.version}</version>
+                </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>

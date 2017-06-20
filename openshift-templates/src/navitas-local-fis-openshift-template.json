@@ -370,7 +370,9 @@
                   },
                   {
                     "containerPort": 8778,
-                    "name": "jolokia"
+                    "name": "jolokia",
+                    "protocol": "TCP"
+                    /* ... allows access to FIS Hawtio Console via pod jvm-console > Jolokia. see https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html-single/fuse_integration_services_2.0_for_openshift/ */
                   }
                 ],
                 "env": [
