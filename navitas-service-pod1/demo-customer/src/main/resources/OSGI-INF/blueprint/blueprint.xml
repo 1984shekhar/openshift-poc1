@@ -43,7 +43,7 @@
 
     <!-- CXF Swagger2Feature -->
     <bean id="swagger2Feature" class="org.apache.cxf.jaxrs.swagger.Swagger2Feature">
-        <property name="basePath" value="/cxf/crm"/>
+        <property name="basePath" value="/cxf/{{demo-customer.uri-extn-path}}"/>
     </bean>
 
     <!--
@@ -53,7 +53,7 @@
       - a list of service beans
         in this example, we refer to another bean defined in this Blueprint XML file with a <ref/> element
     -->
-    <jaxrs:server id="customerService" address="{{demo-customer.uri-extn-path}}"> <!-- /crm -->
+    <jaxrs:server id="customerService" address="/{{demo-customer.uri-extn-path}}"> <!-- /crm -->
         <jaxrs:serviceBeans>
             <ref component-id="customerSvc"/>
         </jaxrs:serviceBeans>

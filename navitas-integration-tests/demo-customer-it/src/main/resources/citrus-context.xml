@@ -30,7 +30,7 @@
     </citrus:global-variables>
 
     <citrus-http:client id="customerEndpoint"
-                        request-url="http://navitas-local-fis-route-navitas.10.0.75.2.xip.io:80/cxf/crm"
+                        request-url="http://navitas-local-fis-route-navitas.10.0.75.2.xip.io:80/cxf/custthingy"
                         />
 
 </beans>
