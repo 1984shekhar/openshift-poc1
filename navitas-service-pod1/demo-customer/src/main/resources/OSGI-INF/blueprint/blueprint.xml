@@ -34,7 +34,7 @@
       http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
       http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
 
-    <cm:property-placeholder persistent-id="navitas-common" >
+    <cm:property-placeholder persistent-id="navitas.common" >
         <!-- Use {{xxx}} as property-placeholders within Camel Context, Use ${xxx} within other groups -->
         <cm:default-properties>
             <cm:property name="env-name" value="[env-name not in etc/navitas-common or file not found!]"/>

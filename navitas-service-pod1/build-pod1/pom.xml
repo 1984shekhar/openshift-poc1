@@ -98,7 +98,7 @@
                             <type>jar</type>
                             <overWrite>true</overWrite>
                             <outputDirectory>${project.basedir}/target/assembly/etc</outputDirectory>
-                            <includes>navitas-common.cfg</includes>
+                            <includes>navitas.common.cfg</includes>
                             <!-- in root of jar means won't append other dirs after .../etc -->
                         </artifactItem>
                     </artifactItems>

@@ -36,7 +36,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.outputDirectory}/generated/properties</outputDirectory>
-                            <outputFile>navitas-common.cfg</outputFile>
+                            <outputFile>navitas.common.cfg</outputFile>
                             <!-- ...Change file-extension from .properties to .cfg -
                             See http://camel.apache.org/using-propertyplaceholder.html#UsingPropertyPlaceholder-Usinga.cfgor.propertiesFileForBlueprintPropertyPlaceholders -->
                             <overwriteProperties>true</overwriteProperties>
