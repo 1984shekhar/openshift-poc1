@@ -37,7 +37,7 @@
                         <configuration>
                             <outputDirectory>${project.build.outputDirectory}/generated/properties</outputDirectory>
                             <outputFile>navitas.common.cfg</outputFile>
-                            <!-- ...Change file-extension from .properties to .cfg -
+                            <!-- ...Rename final properties-file to remove hyphens and change file-extension from .properties to .cfg -
                             See http://camel.apache.org/using-propertyplaceholder.html#UsingPropertyPlaceholder-Usinga.cfgor.propertiesFileForBlueprintPropertyPlaceholders -->
                             <overwriteProperties>true</overwriteProperties>
                             <resources>
@@ -61,18 +61,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Need to setup the OSGi meta information here -->
-            <!--<plugin>-->
-            <!--<groupId>org.apache.felix</groupId>-->
-            <!--<artifactId>maven-bundle-plugin</artifactId>-->
-            <!--<extensions>true</extensions>-->
-            <!--<configuration>-->
-            <!--<instructions>-->
-            <!--<Export-Package>com.navitas.ospoc.common.properties</Export-Package>-->
-            <!--</instructions>-->
-            <!--</configuration>-->
-            <!--</plugin>-->
-            <plugin>
+             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <executions>
