@@ -34,8 +34,10 @@
       http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
       http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
 
-    <cm:property-placeholder persistent-id="navitas-common.properties">
-
+    <cm:property-placeholder persistent-id="navitas-common">
+        <cm:default-properties>
+            <cm:property name="demo-customer.uri-extn-path" value="[etc/navitas-common not found!]"/>
+        </cm:default-properties>
     </cm:property-placeholder>
 
     <!-- JAXRS providers -->

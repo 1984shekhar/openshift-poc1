@@ -250,7 +250,7 @@
         "output": {
           "to": {
             "kind": "ImageStreamTag",
-            "name": "${APP_NAME}:latest"
+            "name": "${APP_NAME}-${ENV_NAME}:latest"
           }
         },
         "resources": {}
@@ -264,7 +264,7 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APP_NAME}",
+        "name": "${APP_NAME}-${ENV_NAME}",
         "creationTimestamp": null,
         "labels": {
           "component": "${APP_NAME}",
@@ -311,11 +311,11 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "${APP_NAME}"
+                "${APP_NAME}-${ENV_NAME}"
               ],
               "from": {
                 "kind": "ImageStreamTag",
-                "name": "${APP_NAME}:latest"
+                "name": "${APP_NAME}-${ENV_NAME}:latest"
               }
             }
           }
@@ -324,7 +324,7 @@
         "selector": {
           "component": "${APP_NAME}",
           "container": "karaf",
-          "deploymentconfig": "${APP_NAME}",
+          "deploymentconfig": "${APP_NAME}-${ENV_NAME}",
           "group": "quickstarts",
           "project": "${APP_NAME}",
           "provider": "s2i",
@@ -348,7 +348,7 @@
             "containers": [
               {
                 "name": "${APP_NAME}",
-                "image": "library/${APP_NAME}:latest",
+                "image": "library/${APP_NAME}-${ENV_NAME}:latest",
                 "readinessProbe": {
                   "httpGet": {
                     "path": "/readiness-check",

@@ -1,26 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.navitas.ospoc</groupId>
         <artifactId>navitas-service-pod1</artifactId>
+        <groupId>com.navitas.ospoc</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>demo-customer</artifactId>
     <packaging>bundle</packaging>
     <name>${project.artifactId}-bundle</name>
     <description>Karaf 2 example running a REST sevice using CXF</description>
-
-
     <dependencies>
-        <dependency>
-            <groupId>com.navitas.ospoc</groupId>
-            <artifactId>common-properties</artifactId>
-        </dependency>
-
         <!-- cxf -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -38,22 +28,20 @@
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-rs-service-description</artifactId>
         </dependency>
-
         <!-- swagger -->
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-jaxrs</artifactId>
             <version>1.5.4</version>
-            <optional>true</optional>
             <exclusions>
                 <!-- avoid this old dependency which breaks CXF -->
                 <exclusion>
-                    <groupId>javax.ws.rs</groupId>
                     <artifactId>jsr311-api</artifactId>
+                    <groupId>javax.ws.rs</groupId>
                 </exclusion>
             </exclusions>
+            <optional>true</optional>
         </dependency>
-
         <!-- Karaf microcontainer dependencies -->
         <dependency>
             <!-- scope is compile so all features (there is only one) are installed into startup.properties,
@@ -64,19 +52,17 @@
             <!-- no need to download kar dependencies -->
             <exclusions>
                 <exclusion>
-                    <groupId>*</groupId>
                     <artifactId>*</artifactId>
+                    <groupId>*</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>io.fabric8</groupId>
             <artifactId>fabric8-karaf-features</artifactId>
-            <classifier>features</classifier>
             <type>xml</type>
+            <classifier>features</classifier>
         </dependency>
-
-
         <!-- testing -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
@@ -88,26 +74,20 @@
             <artifactId>fabric8-arquillian</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
     <build>
-
+        <defaultGoal>install</defaultGoal>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
-        <defaultGoal>install</defaultGoal>
-
         <plugins>
-
             <!-- Compiler plugin enforces Java version -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
-
             <!-- Need to setup the OSGi meta information here -->
             <plugin>
                 <groupId>org.apache.felix</groupId>
@@ -117,8 +97,7 @@
                     <!--<buildDirectory>../navitas-service-pod1/target</buildDirectory>-->
                     <!-- ...output jar to common bundle directory so fabric8-maven-plugin can inject them from one spot into docker image -->
                     <instructions>
-                        <Import-Package>
-                            javax.ws.rs;version="[2,3)",
+                        <Import-Package>javax.ws.rs;version="[2,3)",
                             javax.ws.rs.core;version="[2,3)",
                             javax.ws.rs.ext;version="[2,3)",
                             javax.xml.bind.annotation,
@@ -131,15 +110,11 @@
                             com.fasterxml.jackson.core,
                             com.fasterxml.jackson.databind,
                             com.fasterxml.jackson.jaxrs.json,
-                            *
-                        </Import-Package>
-                        <Export-Package>
-                            com.navitas.ospoc
-                        </Export-Package>
+                            *</Import-Package>
+                        <Export-Package>com.navitas.ospoc</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-java2wadl-plugin</artifactId>
@@ -167,7 +142,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -178,7 +152,6 @@
                     </excludes>
                 </configuration>
             </plugin>
-
             <!-- plugin goals have to be executed in order -->
             <!-- 1. install the bundle -->
             <plugin>
@@ -187,10 +160,10 @@
                 <executions>
                     <execution>
                         <id>default-install</id>
+                        <phase>install</phase>
                         <goals>
                             <goal>install</goal>
                         </goals>
-                        <phase>install</phase>
                     </execution>
                 </executions>
             </plugin>

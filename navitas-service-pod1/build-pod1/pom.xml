@@ -1,22 +1,21 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.navitas.ospoc</groupId>
         <artifactId>navitas-service-pod1</artifactId>
+        <groupId>com.navitas.ospoc</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>build-pod1</artifactId>
-
     <packaging>pom</packaging>
-
     <name>${project.artifactId}-packaging</name>
     <description>Build Pod From Features</description>
-
     <dependencies>
+        <!--<dependency>-->
+        <!--<groupId>com.navitas.ospoc</groupId>-->
+        <!--<artifactId>common-properties</artifactId>-->
+        <!--<classifier>${ENV_NAME}</classifier>-->
+        <!--</dependency>-->
         <!-- Karaf microcontainer dependencies -->
         <dependency>
             <!-- scope is compile so all features (there is only one) are installed into startup.properties,
@@ -27,24 +26,21 @@
             <!-- no need to download kar dependencies -->
             <exclusions>
                 <exclusion>
-                    <groupId>*</groupId>
                     <artifactId>*</artifactId>
+                    <groupId>*</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>io.fabric8</groupId>
             <artifactId>fabric8-karaf-features</artifactId>
-            <classifier>features</classifier>
             <type>xml</type>
+            <classifier>features</classifier>
         </dependency>
-
     </dependencies>
-
-
     <build>
         <plugins>
-            <!-- 2. create karaf assembly -->
+            <!-- 1. create karaf assembly -->
             <!-- karaf-maven-plugin creates custom microservice distribution -->
             <plugin>
                 <groupId>org.apache.karaf.tooling</groupId>
@@ -53,10 +49,10 @@
                 <executions>
                     <execution>
                         <id>karaf-assembly</id>
+                        <phase>install</phase>
                         <goals>
                             <goal>assembly</goal>
                         </goals>
-                        <phase>install</phase>
                     </execution>
                 </executions>
                 <configuration>
@@ -75,12 +71,39 @@
                         <feature>fabric8-karaf-checks</feature>
                     </startupFeatures>
                     <startupBundles>
-                        <bundle>mvn:${project.groupId}/common-properties/${project.version}</bundle>
                         <bundle>mvn:${project.groupId}/demo-customer/${project.version}</bundle>
                     </startupBundles>
                 </configuration>
             </plugin>
-
+            <!-- 2. Copy "common-properties" into assembly/etc for access by fuse -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>get-common-propertes</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>com.navitas.ospoc</groupId>
+                            <artifactId>common-properties</artifactId>
+                            <version>${project.version}</version>
+                            <classifier>${ENV_NAME}</classifier>
+                            <type>jar</type>
+                            <overWrite>true</overWrite>
+                            <outputDirectory>${project.basedir}/target/assembly/etc</outputDirectory>
+                            <includes>navitas-common.cfg</includes>
+                            <!-- in root of jar means won't append other dirs after .../etc -->
+                        </artifactItem>
+                    </artifactItems>
+                </configuration>
+            </plugin>
             <!-- 3. create docker image -->
             <plugin>
                 <groupId>io.fabric8</groupId>

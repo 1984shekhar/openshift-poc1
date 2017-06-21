@@ -1,32 +1,26 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.navitas.ospoc</groupId>
         <artifactId>navitas-service-pod1</artifactId>
+        <groupId>com.navitas.ospoc</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>common-properties</artifactId>
-
-    <packaging>bundle</packaging>
-    <name>${project.artifactId}-bundle</name>
-    <description>General and Environment-Specific Properties</description>
-
+    <packaging>jar</packaging>
+    <name>${project.artifactId}-jar</name>
+    <description>General and Environment-Specific Properties.  Actual properties will be extracted from JAR by build-pod1 dependency-plugin in install-phase.</description>
     <build>
         <resources>
             <!-- omit all individual properties files from jar -->
             <resource>
+                <filtering>false</filtering>
                 <directory>src/main/resources/properties</directory>
                 <excludes>
                     <exclude>*.properties</exclude>
                 </excludes>
-                <filtering>false</filtering>
             </resource>
         </resources>
-
         <plugins>
             <plugin>
                 <!-- Apply target-env-specific properties to base.  Only merged properties to go into jar -->
@@ -42,7 +36,9 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.outputDirectory}/generated/properties</outputDirectory>
-                            <outputFile>navitas-common.properties</outputFile>
+                            <outputFile>navitas-common.cfg</outputFile>
+                            <!-- ...Change file-extension from .properties to .cfg -
+                            See http://camel.apache.org/using-propertyplaceholder.html#UsingPropertyPlaceholder-Usinga.cfgor.propertiesFileForBlueprintPropertyPlaceholders -->
                             <overwriteProperties>true</overwriteProperties>
                             <resources>
                                 <resource>
@@ -57,29 +53,25 @@
                                     <directory>src/main/resources/properties</directory>
                                     <includes>
                                         <include>${ENV_NAME}-common.properties</include>
-                                        <!-- ... ENV_NAME must be either set in maven settings or in OpenShift Template Property -->
+                                        <!-- ... ENV_NAME must be either set in active maven profile (settings.xml) or in OpenShift Template Property -->
                                     </includes>
                                 </resource>
                             </resources>
                         </configuration>
                     </execution>
                 </executions>
-
             </plugin>
             <!-- Need to setup the OSGi meta information here -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Export-Package>
-                            com.navitas.ospoc.common.properties
-                        </Export-Package>
-                    </instructions>
-                </configuration>
-            </plugin>
-
+            <!--<plugin>-->
+            <!--<groupId>org.apache.felix</groupId>-->
+            <!--<artifactId>maven-bundle-plugin</artifactId>-->
+            <!--<extensions>true</extensions>-->
+            <!--<configuration>-->
+            <!--<instructions>-->
+            <!--<Export-Package>com.navitas.ospoc.common.properties</Export-Package>-->
+            <!--</instructions>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -94,12 +86,20 @@
                             <resources>
                                 <resource>
                                     <directory>${project.build.outputDirectory}/generated/properties</directory>
-                                    <targetPath>properties</targetPath>
+                                    <!-- writes to target directory ( = root dir of jar, to facilitate inclusion in build-pod1 assembly) -->
                                 </resource>
                             </resources>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <configuration>
+                    <classifier>${ENV_NAME}</classifier>
+                </configuration>
             </plugin>
             <!-- plugin goals have to be executed in order -->
             <!-- 1. install the bundle -->
@@ -109,10 +109,10 @@
                 <executions>
                     <execution>
                         <id>default-install</id>
+                        <phase>install</phase>
                         <goals>
                             <goal>install</goal>
                         </goals>
-                        <phase>install</phase>
                     </execution>
                 </executions>
             </plugin>
