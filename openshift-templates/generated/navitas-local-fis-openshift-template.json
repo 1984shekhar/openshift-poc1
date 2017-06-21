@@ -52,8 +52,7 @@
     {
       "name": "BUILDER_VERSION",
       "displayName": "Builder version",
-      "value": "2.0.6",
-      "description": "The version of the FIS S2I builder image to use."
+      "value": "2.0.6","description": "The version of the FIS S2I builder image to use."
     },
     {
       "name": "APP_VERSION",
@@ -281,8 +280,7 @@
         "selector": {
           "component": "${APP_NAME}",
           "container": "karaf",
-          "deploymentconfig": "${APP_NAME}",
-          "group": "quickstarts",
+          "deploymentconfig": "${APP_NAME}","group": "quickstarts",
           "project": "${APP_NAME}",
           "provider": "s2i",
           "version": "${APP_VERSION}"
@@ -325,8 +323,8 @@
                   },
                   {
                     "containerPort": 8778,
-                    "name": "jolokia"
-                  }
+                    "name": "jolokia",
+                    "protocol": "TCP"}
                 ],
                 "env": [
                   {
