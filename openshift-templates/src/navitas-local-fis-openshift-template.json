@@ -70,8 +70,8 @@
     {
       "name": "BUILDER_VERSION",
       "displayName": "Builder version",
-      "value": "2.0.6"
-      /*"2.0"*/,
+      "value": "2.0.6",
+      /*"2.0"*/
       "description": "The version of the FIS S2I builder image to use."
     },
     {

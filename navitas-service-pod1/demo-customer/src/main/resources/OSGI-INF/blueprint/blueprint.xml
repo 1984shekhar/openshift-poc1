@@ -34,9 +34,12 @@
       http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
       http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
 
-    <cm:property-placeholder persistent-id="navitas-common">
+    <cm:property-placeholder persistent-id="navitas-common" >
+        <!-- Use {{xxx}} as property-placeholders within Camel Context, Use ${xxx} within other groups -->
         <cm:default-properties>
-            <cm:property name="demo-customer.uri-extn-path" value="[etc/navitas-common not found!]"/>
+            <cm:property name="env-name" value="[env-name not in etc/navitas-common or file not found!]"/>
+            <cm:property name="demo-customer.test-property-2" value="[demo-customer.test-property-2 not in etc/navitas-common or file not found!]"/>
+            <cm:property name="demo-customer.uri-extn-path" value="[demo-customer.uri-extn-path not in etc/navitas-common or file not found!]"/>
         </cm:default-properties>
     </cm:property-placeholder>
 
@@ -45,17 +48,23 @@
 
     <!-- CXF Swagger2Feature -->
     <bean id="swagger2Feature" class="org.apache.cxf.jaxrs.swagger.Swagger2Feature">
-        <property name="basePath" value="/cxf/{{demo-customer.uri-extn-path}}"/>
+        <property name="basePath" value="/cxf/${demo-customer.uri-extn-path}"/>
     </bean>
 
-    <!--
+    <bean id="propertyTestBean" class="com.navitas.ospoc.bean.LancesClassToTestProperties">
+        <property name="propertyString1" value="${env-name}"/>
+        <property name="propertyString2" value="${demo-customer.test-property-2}"/>
+    </bean>
+
+     <!--
       The <jaxrs:server/> element sets up our JAX-RS services.  It defines:
       - the server's address, '/crm', relative to the default CXF servlet URI
         with the default settings, the server will be running on 'http://localhost:8181/cxf/crm'
       - a list of service beans
         in this example, we refer to another bean defined in this Blueprint XML file with a <ref/> element
     -->
-    <jaxrs:server id="customerService" address="/{{demo-customer.uri-extn-path}}"> <!-- /crm -->
+    <jaxrs:server id="customerService" address="/${demo-customer.uri-extn-path}">
+        <!--... neither {{xxx}} nor ${xxx} seem to work in xml elements with non-blueprint namespaces -->
         <jaxrs:serviceBeans>
             <ref component-id="customerSvc"/>
         </jaxrs:serviceBeans>
