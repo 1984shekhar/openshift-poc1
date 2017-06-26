@@ -1,0 +1,346 @@
+swagger: "2.0"
+info:
+  description: "This is a sample Enquiry-to-Offer-Value-Chain server.  You can find out more about Navitas at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "Navitas Enquiry-to-Offer Value-Chain"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/enq2offer01/v2"
+tags:
+- name: "application"
+  description: "Apply for a Uni Course or something like that"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "prospect"
+  description: "One day, Lad, you might be a student!"
+schemes:
+- "http"
+paths:
+  /prospects:
+    post:
+      tags:
+      - "prospect"
+      summary: "Add a new Prospect"
+      description: ""
+      operationId: "addProspect"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Prospect object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Prospect"
+      responses:
+        405:
+          description: "Invalid Prospect input"
+      security:
+      - e2o_auth:
+        - "write:prospects"
+        - "read:prospects"
+    put:
+      tags:
+      - "prospect"
+      summary: "Update an existing prospect"
+      description: ""
+      operationId: "updateProspect"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Prospect object that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Prospect"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Prospect not found"
+        405:
+          description: "Validation exception"
+      security:
+      - e2o_auth:
+        - "write:prospects"
+        - "read:prospects"
+  /prospect/findByStatus:
+    get:
+      tags:
+      - "prospect"
+      summary: "Finds Prospects by status"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "findProspectsByStatus"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "status"
+        in: "query"
+        description: "Status values that need to be considered for filter"
+        required: true
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "available"
+          - "pending"
+          - "sold"
+          default: "available"
+        collectionFormat: "multi"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Prospect"
+        400:
+          description: "Invalid status value"
+      security:
+      - e2o_auth:
+        - "write:prospects"
+        - "read:prospects"
+  /prospect/findByTags:
+    get:
+      tags:
+      - "prospect"
+      summary: "Finds Prospects by tags"
+      description: "Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing."
+      operationId: "findProspectsByTags"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "tags"
+        in: "query"
+        description: "Tags to filter by"
+        required: true
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Prospect"
+        400:
+          description: "Invalid tag value"
+      security:
+      - e2o_auth:
+        - "write:prospects"
+        - "read:prospects"
+      deprecated: true
+  /prospect/{prospectId}:
+    get:
+      tags:
+      - "prospect"
+      summary: "Find prospect by ID"
+      description: "Returns a single prospect"
+      operationId: "getProspectById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "prospectId"
+        in: "path"
+        description: "ID of prospect to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Prospect"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Prospect not found"
+      security:
+      - api_key: []
+    post:
+      tags:
+      - "prospect"
+      summary: "Updates a prospect in the store with form data"
+      description: ""
+      operationId: "updateProspectWithForm"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "prospectId"
+        in: "path"
+        description: "ID of prospect that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the prospect"
+        required: false
+        type: "string"
+      - name: "status"
+        in: "formData"
+        description: "Updated status of the prospect"
+        required: false
+        type: "string"
+      responses:
+        405:
+          description: "Invalid input"
+      security:
+      - e2o_auth:
+        - "write:prospects"
+        - "read:prospects"
+    delete:
+      tags:
+      - "prospect"
+      summary: "Deletes a prospect"
+      description: ""
+      operationId: "deleteProspect"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "prospectId"
+        in: "path"
+        description: "Prospect id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Prospect not found"
+      security:
+      - e2o_auth:
+        - "write:prospects"
+        - "read:prospects"
+  /prospect/{prospectId}/uploadImage:
+    post:
+      tags:
+      - "prospect"
+      summary: "uploads an image"
+      description: ""
+      operationId: "uploadFile"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "prospectId"
+        in: "path"
+        description: "ID of prospect to update"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "additionalMetadata"
+        in: "formData"
+        description: "Additional data to pass to server"
+        required: false
+        type: "string"
+      - name: "file"
+        in: "formData"
+        description: "file to upload"
+        required: false
+        type: "file"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/GenericResponseMsg"
+      security:
+      - e2o_auth:
+        - "write:prospects"
+        - "read:prospects"
+#securityDefinitions:
+#  e2o_auth:
+#    type: "oauth2"
+#    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+#    flow: "implicit"
+#    scopes:
+#      write:pets: "modify pets in your account"
+#      read:pets: "read your pets"
+#  api_key:
+#    type: "apiKey"
+#    name: "api_key"
+#    in: "header"
+definitions:
+  Application:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+      prospectId:
+        type: "string"
+      institutionId:
+        type: "string"
+      courseId:
+        type: "string"
+      appStatus:
+        type: "string"
+        description: "Application Status"
+        enum:
+        - "placed"
+        - "approved"
+        - "complete"
+    xml:
+      name: "Order"
+  Prospect:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      prospectStatus:
+        type: "integer"
+        format: "int32"
+        description: "User Status"
+    xml:
+      name: "Prospect"
+  GenericResponseMsg:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

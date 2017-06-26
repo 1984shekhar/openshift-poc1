@@ -6,16 +6,11 @@
         <groupId>com.navitas.ospoc</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>build-pod1</artifactId>
+    <artifactId>zed-build-pod1</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}-packaging</name>
     <description>Build Pod From Features</description>
     <dependencies>
-        <!--<dependency>-->
-        <!--<groupId>com.navitas.ospoc</groupId>-->
-        <!--<artifactId>common-properties</artifactId>-->
-        <!--<classifier>${ENV_NAME}</classifier>-->
-        <!--</dependency>-->
         <!-- Karaf microcontainer dependencies -->
         <dependency>
             <!-- scope is compile so all features (there is only one) are installed into startup.properties,
@@ -63,15 +58,89 @@
                     <!-- do not include build output directory -->
                     <includeBuildOutputDirectory>false</includeBuildOutputDirectory>
                     <startupFeatures>
+                        <!-- PUT FEATURES REQUIRED BY EVERY BUNDLE HERE SO CAN BE MERGED OUTSIDE OF COMMENT, BELOW -->
+                        <!-- demo-customer-features:
                         <feature>karaf-framework</feature>
                         <feature>jaas</feature>
                         <feature>aries-blueprint</feature>
                         <feature>cxf-jaxrs</feature>
                         <feature>cxf-rs-description-swagger2</feature>
                         <feature>fabric8-karaf-checks</feature>
+                        -->
+                        <!-- demo-customer-facade features:
+                        <feature>karaf-framework</feature>
+                        <feature>shell</feature>
+                        <feature>scr</feature>
+                        <feature>jaas</feature>
+                        <feature>aries-blueprint</feature>
+                        <feature>camel-blueprint</feature>
+                        <feature>camel-servlet</feature>
+                        <feature>camel-jackson</feature>
+                        <feature>camel-swagger-java</feature>
+                        <feature>kubernetes-client</feature>
+                        <feature>openshift-client</feature>
+                        <feature>fabric8-karaf-blueprint</feature>
+                        <feature>fabric8-karaf-checks</feature>
+                        -->
+                        <!-- enq2offer-v01-facade features:
+                        <feature>camel-core</feature>
+                        <feature>camel-netty4</feature>
+                        <feature>camel-swagger-java</feature>
+                        <feature>common</feature>
+                        <feature>commons-pool</feature>
+                        <feature>fuse-karaf-framework</feature>
+                        <feature>gson</feature>
+                        <feature>joda-time</feature>
+                        <feature>okhttp</feature>
+                        <feature>org.apache.servicemix.bundles.commons-dbcp</feature>
+                        -->
+                        <!-- SORT AND MERGE FEATURES FROM ABOVE TO HERE... -->
+                        <feature>aries-blueprint</feature>
+                        <feature>camel-blueprint</feature>
+                        <feature>camel-core</feature>
+                        <feature>camel-jackson</feature>
+                        <feature>camel-netty4</feature>
+                        <feature>camel-servlet</feature>
+                        <feature>camel-swagger-java</feature>
+                        <!--<feature>common</feature>-->
+                        <!--<feature>commons-io</feature>-->
+                        <!--<feature>spring-core</feature>-->
+                        <!--<feature>commons-pool</feature>-->
+                        <feature>cxf-jaxrs</feature>
+                        <feature>cxf-rs-description-swagger2</feature>
+                        <feature>fabric8-karaf-blueprint</feature>
+                        <feature>fabric8-karaf-checks</feature>
+                        <!--<feature>fuse-karaf-framework</feature>-->
+                        <!--<feature>gson</feature>-->
+                        <!--<feature>jaas</feature>-->
+                        <!--<feature>joda-time.joda-time</feature>-->
+                        <feature>karaf-framework</feature>
+                        <feature>kubernetes-client</feature>
+                        <!--<feature>log4j-core</feature>-->
+                        <!--<feature>log4j-slf4j-impl</feature>-->
+                        <!--<feature>logging-interceptor</feature>-->
+                        <!--<feature>okhttp</feature>-->
+                        <feature>openshift-client</feature>
+                        <!--<feature>org.apache.servicemix.bundles.commons-dbcp</feature>-->
+                        <feature>scr</feature>
+                        <feature>shell</feature>
                     </startupFeatures>
                     <startupBundles>
+                        <!-- We really need to create feature-file with features and requirements for each bundle!... -->
+                        <!-- common... -->
+                        <bundle>mvn:commons-io/commons-io</bundle>
+                        <bundle>wrap:mvn:org.springframework/spring-core</bundle>
+                        <!-- ...spring-core only Bundle-ManifestVersion "1" -->
+                        <bundle>mvn:${project.groupId}/common/${project.version}</bundle>
                         <bundle>mvn:${project.groupId}/demo-customer/${project.version}</bundle>
+                        <!--<bundle>mvn:${project.groupId}/demo-customer-facade/${project.version}</bundle>-->
+                        <!-- enq2offer-v01-facade... -->
+                        <bundle>mvn:com.google.code.gson/gson/${dependency.google.gson.version}</bundle>
+                        <bundle>wrap:mvn:com.squareup.okhttp/okhttp/${dependency.okhttp.version}</bundle>
+                        <bundle>wrap:mvn:com.squareup.okhttp/logging-interceptor/${dependency.okhttp.version}</bundle>
+                        <!-- ...okhttp only Bundle-ManifestVersion "1" -->
+                        <bundle>mvn:joda-time/joda-time/${dependency.jodatime.version}</bundle>
+                        <bundle>mvn:${project.groupId}/enq2offer-v01-facade/${project.version}</bundle>
                     </startupBundles>
                 </configuration>
             </plugin>

@@ -11,6 +11,10 @@
     <name>${project.artifactId}-bundle</name>
     <description>Karaf 2 example running a REST sevice using CXF</description>
     <dependencies>
+        <dependency>
+            <groupId>com.navitas.ospoc</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
         <!-- cxf -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -44,6 +48,7 @@
         </dependency>
         <!-- Karaf microcontainer dependencies -->
         <dependency>
+            <!-- TODO: What does this mean? (LB) ... -->
             <!-- scope is compile so all features (there is only one) are installed into startup.properties,
             and the feature repo itself is not added in etc/org.apache.karaf.features.cfg file -->
             <groupId>org.jboss.fuse</groupId>
@@ -84,6 +89,33 @@
             </resource>
         </resources>
         <plugins>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-java2wadl-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>parsejavadoc</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>parsejavadoc</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>process-classes</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>java2wadl</goal>
+                        </goals>
+                        <configuration>
+                            <classResourceNames>
+                                <classResourceName>com.navitas.ospoc.CustomerService</classResourceName>
+                            </classResourceNames>
+                            <docProvider>org.apache.cxf.maven_plugin.javatowadl.ResourceMapJavaDocProvider</docProvider>
+                            <attachWadl>false</attachWadl>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- Compiler plugin enforces Java version -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -111,36 +143,9 @@
                             com.fasterxml.jackson.databind,
                             com.fasterxml.jackson.jaxrs.json,
                             *</Import-Package>
-                        <Export-Package>com.navitas.ospoc</Export-Package>
+                        <Export-Package>com.navitas.ospoc.democustomer.*</Export-Package>
                     </instructions>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-java2wadl-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>parsejavadoc</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>parsejavadoc</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>process-classes</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>java2wadl</goal>
-                        </goals>
-                        <configuration>
-                            <classResourceNames>
-                                <classResourceName>com.navitas.ospoc.CustomerService</classResourceName>
-                            </classResourceNames>
-                            <docProvider>org.apache.cxf.maven_plugin.javatowadl.ResourceMapJavaDocProvider</docProvider>
-                            <attachWadl>false</attachWadl>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

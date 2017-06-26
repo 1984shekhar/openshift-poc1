@@ -1,4 +1,4 @@
-package com.navitas.it.common;
+package com.navitas.ospoc.common.file;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.util.ResourceUtils;
@@ -21,7 +21,7 @@ public class FileUtils {
     public static String readFile(Class loader, String reference) {
         try {
             InputStream in = loader.getClassLoader().getResourceAsStream(reference);
-            return IOUtils.toString(in);
+            return IOUtils.toString(in, StandardCharsets.UTF_8);
         } catch (Exception e) {
             throw new RuntimeException("Can't read file: "+ reference, e);
         }
@@ -34,7 +34,7 @@ public class FileUtils {
      */
     public static String readFile(String reference) {
         try {
-            return org.apache.commons.io.FileUtils.readFileToString(ResourceUtils.getFile("classpath:" + reference));
+            return org.apache.commons.io.FileUtils.readFileToString(ResourceUtils.getFile("classpath:" + reference), StandardCharsets.UTF_8);
         } catch (Exception e) {
             throw new RuntimeException("Can't read file: "+ reference, e);
         }
