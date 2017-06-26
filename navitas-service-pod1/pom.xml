@@ -10,13 +10,14 @@
     <modules>
         <module>common-properties</module>
         <module>common</module>
-        <module>common-feature</module>
+        <!--<module>common-feature</module>-->
         <module>demo-customer</module>
-        <module>demo-customer-feature</module>
+        <!--<module>demo-customer-feature</module>-->
         <!--<module>demo-customer-facade</module>-->
         <module>enq2offer-v01-facade</module>
-        <module>enq2offer-v01-facade-feature</module>
-        <module>zed-build-pod1</module>
+        <!--<module>enq2offer-v01-facade-feature</module>-->
+        <module>zed-build-pod1-1-generate-features</module>
+        <module>zed-build-pod1-2-assemble-image</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

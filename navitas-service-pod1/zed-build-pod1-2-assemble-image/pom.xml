@@ -6,7 +6,7 @@
         <groupId>com.navitas.ospoc</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>zed-build-pod1</artifactId>
+    <artifactId>zed-build-pod1-2-assemble-image</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}-packaging</name>
     <description>Build Pod From Features.  Refer to http://wrongtracks.blogspot.com.au/2014/10/assemble-your-custom-apache-karaf-with.html, the best (but still just fair) reference on this plugin!</description>
@@ -34,25 +34,33 @@
         </dependency>
         <!-- These dependencies MUST follow the karaf-framework and karaf-features or they won't be put into target/assembly/system.
             See http://wrongtracks.blogspot.com.au/2014/10/assemble-your-custom-apache-karaf-with.html ... -->
+        <!--<dependency>-->
+        <!--<groupId>com.navitas.ospoc</groupId>-->
+        <!--<artifactId>common-feature</artifactId>-->
+        <!--<version>${project.version}</version>-->
+        <!--<type>xml</type>-->
+        <!--<classifier>features</classifier>-->
+        <!--<scope>runtime</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>com.navitas.ospoc</groupId>-->
+        <!--<artifactId>demo-customer-feature</artifactId>-->
+        <!--<version>${project.version}</version>-->
+        <!--<type>xml</type>-->
+        <!--<classifier>features</classifier>-->
+        <!--<scope>runtime</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>com.navitas.ospoc</groupId>-->
+        <!--<artifactId>enq2offer-v01-facade-feature</artifactId>-->
+        <!--<version>${project.version}</version>-->
+        <!--<type>xml</type>-->
+        <!--<classifier>features</classifier>-->
+        <!--<scope>runtime</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.navitas.ospoc</groupId>
-            <artifactId>common-feature</artifactId>
-            <version>${project.version}</version>
-            <type>xml</type>
-            <classifier>features</classifier>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.navitas.ospoc</groupId>
-            <artifactId>demo-customer-feature</artifactId>
-            <version>${project.version}</version>
-            <type>xml</type>
-            <classifier>features</classifier>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.navitas.ospoc</groupId>
-            <artifactId>enq2offer-v01-facade-feature</artifactId>
+            <artifactId>zed-build-pod1-1-generate-features</artifactId>
             <version>${project.version}</version>
             <type>xml</type>
             <classifier>features</classifier>
@@ -62,7 +70,9 @@
     <build>
         <plugins>
             <!-- 1. create karaf assembly -->
-            <!-- karaf-maven-plugin creates custom microservice distribution -->
+            <!-- karaf-maven-plugin creates custom microservice distribution.
+                 This plugin will fetch any dependent feature and include as "bootFeatures".
+             -->
             <plugin>
                 <groupId>org.apache.karaf.tooling</groupId>
                 <artifactId>karaf-maven-plugin</artifactId>
