@@ -10,9 +10,12 @@
     <modules>
         <module>common-properties</module>
         <module>common</module>
+        <module>common-feature</module>
         <module>demo-customer</module>
+        <module>demo-customer-feature</module>
         <!--<module>demo-customer-facade</module>-->
         <module>enq2offer-v01-facade</module>
+        <module>enq2offer-v01-facade-feature</module>
         <module>zed-build-pod1</module>
     </modules>
     <properties>
@@ -60,7 +63,6 @@
                 <version>${project.version}</version>
                 <classifier>${ENV_NAME}</classifier>
             </dependency>
-            <!-- import fabric8 platform bom first -->
             <dependency>
                 <groupId>io.fabric8</groupId>
                 <artifactId>fabric8-project-bom-fuse-karaf</artifactId>
