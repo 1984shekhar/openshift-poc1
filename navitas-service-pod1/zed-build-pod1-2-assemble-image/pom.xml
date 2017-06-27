@@ -98,7 +98,11 @@
                                 <feature>karaf-framework</feature>
                                 <feature>kubernetes-client</feature>
                                 <feature>openshift-client</feature>
+                                <feature>wrap</feature>
                             </startupFeatures>
+                            <installedFeatures>
+                                <feature>wrapper</feature>
+                            </installedFeatures>
                         </configuration>
                     </execution>
                 </executions>

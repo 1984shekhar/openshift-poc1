@@ -34,24 +34,24 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-swagger-java</artifactId>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.apache.camel</groupId>-->
+        <!--<artifactId>camel-swagger-java</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-netty4</artifactId>
         </dependency>
-        <dependency>
-            <groupId>commons-pool</groupId>
-            <artifactId>commons-pool</artifactId>
-            <version>1.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.commons-dbcp</artifactId>
-            <version>1.4_3</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>commons-pool</groupId>-->
+        <!--<artifactId>commons-pool</artifactId>-->
+        <!--<version>1.6</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>org.apache.servicemix.bundles</groupId>-->
+        <!--<artifactId>org.apache.servicemix.bundles.commons-dbcp</artifactId>-->
+        <!--<version>1.4_3</version>-->
+        <!--</dependency>-->
         <!-- Karaf micro-container dependencies -->
         <dependency>
             <!-- scope is compile so all features (there is only one) are installed into startup.properties,
@@ -73,14 +73,14 @@
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.squareup.okhttp</groupId>
-            <artifactId>okhttp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.okhttp</groupId>
-            <artifactId>logging-interceptor</artifactId>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.squareup.okhttp</groupId>-->
+        <!--<artifactId>okhttp</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>com.squareup.okhttp</groupId>-->
+        <!--<artifactId>logging-interceptor</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>

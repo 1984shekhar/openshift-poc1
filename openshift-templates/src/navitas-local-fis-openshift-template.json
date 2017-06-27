@@ -94,9 +94,9 @@
     {
       "name": "ARTIFACT_DIR",
       "displayName": "Maven build directory",
-      "value": "build-pod1/target",
+      "value": "zed-build-pod1-2-assemble-image/target",
       /* ...directory that contains "assembly" sub-directory */
-      "description": "Directory of the artifact to be built, e.g. for multi-module builds."
+      "description": "Directory of the FIS docker-image to be built. ie. that contains the 'assembly' sub-directory."
     },
     {
       "name": "IMAGE_STREAM_NAMESPACE",
@@ -108,14 +108,14 @@
     {
       "name": "CPU_REQUEST",
       "displayName": "CPU request",
-      "value": "0.2",
+      "value": "0.4",
       "required": true,
       "description": "The amount of CPU to requests."
     },
     {
       "name": "MEMORY_REQUEST",
       "displayName": "Memory request",
-      "value": "1.5G",
+      "value": "2.0G",
       "required": true,
       "description": "The amount of memory required for the container to run."
     },
@@ -129,7 +129,7 @@
     {
       "name": "MEMORY_LIMIT",
       "displayName": "Memory limit",
-      "value": "2G",
+      "value": "3G",
       "required": true,
       "description": "The amount of memory the container is limited to use."
     }

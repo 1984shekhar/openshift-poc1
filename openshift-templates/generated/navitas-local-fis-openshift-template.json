@@ -74,7 +74,7 @@
     {
       "name": "ARTIFACT_DIR",
       "displayName": "Maven build directory",
-      "value": "build-pod1/target","description": "Directory of the artifact to be built, e.g. for multi-module builds."
+      "value": "zed-build-pod1-2-assemble-image/target","description": "Directory of the FIS docker-image to be built. ie. that contains the 'assembly' sub-directory."
     },
     {
       "name": "IMAGE_STREAM_NAMESPACE",
