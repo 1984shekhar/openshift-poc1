@@ -36,8 +36,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 import org.apache.cxf.jaxrs.ext.MessageContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * This Java class with be hosted in the URI path defined by the @Path annotation. @Path annotations on the methods
@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
 
 public class CustomerService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CustomerService.class);
+    private static final Logger LOG = LogManager.getLogger(CustomerService.class);
 
     long currentId = 1234;
     Map<Long, Customer> customers = new HashMap<Long, Customer>();

@@ -7,15 +7,15 @@ import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.apache.camel.model.rest.RestParamType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Created by user on 22/06/2017.
  */
 public class Enq2OfferRoutes extends RouteBuilder {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(Enq2OfferRoutes.class);
+    protected static final Logger LOG = LogManager.getLogger(Enq2OfferRoutes.class);
 //    private String baseRouteId = "base-routeid-not-set!!!";
 //    private String frontEndReqEndpoint = "http-restful-endpoint-not-set!!!";
 //    private String backEndReqEndpoint = "aws-sqs://sqs-rqst-queue-not-set?accessKey=notset&amazonSQSClient=notset&waitTimeSeconds=20";

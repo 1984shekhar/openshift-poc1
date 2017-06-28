@@ -5,15 +5,15 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.builder.RouteBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Created by user on 22/06/2017.
  */
 public class DemoCustomerFacadeRoute extends RouteBuilder {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(DemoCustomerFacadeRoute.class);
+    protected static final Logger LOG = LogManager.getLogger(DemoCustomerFacadeRoute.class);
     private String baseRouteId = "base-routeid-not-set!!!";
     private String frontEndReqEndpoint = "http-restful-endpoint-not-set!!!";
     private String backEndReqEndpoint = "aws-sqs://sqs-rqst-queue-not-set?accessKey=notset&amazonSQSClient=notset&waitTimeSeconds=20";

@@ -12,8 +12,8 @@ import org.apache.camel.test.blueprint.CamelBlueprintTestSupport;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.BundleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.Properties;
  */
 public class Enq2OfferProspectRouteTest extends CamelBlueprintTestSupport {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Enq2OfferProspectRouteTest.class);
+    private static final Logger LOG = LogManager.getLogger(Enq2OfferProspectRouteTest.class);
     static final String BLUEPRINT_DESCRIPTOR = "OSGI-INF/blueprint/blueprint.xml";
     static final String CONFIG_PATH = "navitas.common.cfg";
 
