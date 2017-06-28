@@ -97,8 +97,8 @@
                                 <feature>fabric8-karaf-checks</feature>
                                 <feature>karaf-framework</feature>
                                 <feature>kubernetes-client</feature>
-                                <feature>openshift-client</feature>
-                                <feature>wrap</feature>
+                                <!--<feature>openshift-client</feature>&lt;!&ndash; ...do we really need this INSIDE the pod? &ndash;&gt;-->
+                                <!--<feature>wrap</feature>-->
                             </startupFeatures>
                             <installedFeatures>
                                 <feature>wrapper</feature>

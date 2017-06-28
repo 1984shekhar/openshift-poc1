@@ -68,6 +68,10 @@
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+        </dependency>
         <!-- testing -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
