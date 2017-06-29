@@ -23,8 +23,8 @@
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.6.0</version>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.7.redhat-2</version>
             <!-- old implementation required by some other nasty dependency (pref. log4j2 while we're at it) -->
             <!--<groupId>org.apache.logging.log4j</groupId>-->
             <!--<artifactId>log4j-slf4j-impl</artifactId>-->
