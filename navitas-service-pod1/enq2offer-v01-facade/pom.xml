@@ -15,19 +15,23 @@
             <groupId>com.navitas.ospoc</groupId>
             <artifactId>common</artifactId>
         </dependency>
+        <!-- Transient Dependencies use the following but the only these special versions prevent circular bundle-import references... -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.7.redhat-2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.2.11.redhat-2</version>
+        </dependency>
+        <!-- ...end of special Transient Dependency version-overrides -->
         <dependency>
             <groupId>io.fabric8</groupId>
             <artifactId>fabric8-karaf-features</artifactId>
             <type>xml</type>
             <classifier>features</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.7.redhat-2</version>
-            <!-- old implementation required by some other nasty dependency (pref. log4j2 while we're at it) -->
-            <!--<groupId>org.apache.logging.log4j</groupId>-->
-            <!--<artifactId>log4j-slf4j-impl</artifactId>-->
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
