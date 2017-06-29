@@ -51,7 +51,10 @@
                             <goal>features-generate-descriptor</goal>
                         </goals>
                         <configuration>
-                            <enableGeneration>true</enableGeneration>
+                            <includeTransitiveDependency>false</includeTransitiveDependency>
+                            <!--<aggregateFeatures>false</aggregateFeatures>-->
+                            <!--&lt;!&ndash;<enableGeneration>true</enableGeneration>&ndash;&gt;-->
+                            <!--<logDependencyChanges>true</logDependencyChanges>-->
                         </configuration>
                     </execution>
                 </executions>
