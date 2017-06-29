@@ -51,12 +51,25 @@
                             <goal>features-generate-descriptor</goal>
                         </goals>
                         <configuration>
+                            <overwriteChangedDependencies>false</overwriteChangedDependencies>
                             <includeTransitiveDependency>false</includeTransitiveDependency>
-                            <!--<aggregateFeatures>false</aggregateFeatures>-->
-                            <!--&lt;!&ndash;<enableGeneration>true</enableGeneration>&ndash;&gt;-->
-                            <!--<logDependencyChanges>true</logDependencyChanges>-->
+                            <!--<excludedArtifactIds>-->
+                            <!--&lt;!&ndash; doesn't seem to work... &ndash;&gt;-->
+                            <!--<excludedArtifactId>jaxb-core</excludedArtifactId>-->
+                            <!--<excludedArtifactId>jaxb-impl</excludedArtifactId>-->
+                            <!--</excludedArtifactIds>-->
                         </configuration>
                     </execution>
+                    <!--<execution>-->
+                    <!--<id>verify</id>-->
+                    <!--<phase>process-resources</phase>-->
+                    <!--<goals>-->
+                    <!--<goal>features-validate-descriptor</goal>-->
+                    <!--</goals>-->
+                    <!--<configuration>-->
+                    <!--<file>${project.basedir}/target/feature/feature.xml</file>-->
+                    <!--</configuration>-->
+                    <!--</execution>-->
                 </executions>
             </plugin>
         </plugins>

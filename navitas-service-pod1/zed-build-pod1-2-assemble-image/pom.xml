@@ -32,14 +32,14 @@
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>com.navitas.ospoc</groupId>-->
-        <!--<artifactId>zed-build-pod1-1-generate-features</artifactId>-->
-        <!--<version>${project.version}</version>-->
-        <!--<type>xml</type>-->
-        <!--<classifier>features</classifier>-->
-        <!--<scope>runtime</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.navitas.ospoc</groupId>
+            <artifactId>zed-build-pod1-1-generate-features</artifactId>
+            <version>${project.version}</version>
+            <type>xml</type>
+            <classifier>features</classifier>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -62,17 +62,18 @@
                             <!-- we are using karaf 2.4.x -->
                             <karafVersion>v24</karafVersion>
                             <useReferenceUrls>true</useReferenceUrls>
-                            <!--<archiveTarGz>false</archiveTarGz>-->
-                            <!--...don't bother compressing/tarring assembly directory -->
-                            <!-- do not include build output directory -->
                             <includeBuildOutputDirectory>false</includeBuildOutputDirectory>
+                            <blacklistedBundles>
+                                <!-- com.sun.xml.bind/jaxb-* both export the same packages.
+                                    XML not needed so blacklisted (Tackarama solution) ... -->
+                                <blacklistedBundle>mvn:com.sun.xml.bind/jaxb-core/2.2.11</blacklistedBundle>
+                                <blacklistedBundle>mvn:com.sun.xml.bind/jaxb-impl/2.2.11.redhat-2</blacklistedBundle>
+                            </blacklistedBundles>
                             <startupFeatures>
                                 <feature>fabric8-karaf-blueprint</feature>
                                 <feature>fabric8-karaf-checks</feature>
                                 <feature>karaf-framework</feature>
                                 <feature>kubernetes-client</feature>
-                                <!--<feature>openshift-client</feature>&lt;!&ndash; ...do we really need this INSIDE the pod? &ndash;&gt;-->
-                                <!--<feature>wrap</feature>-->
                             </startupFeatures>
                             <installedFeatures>
                                 <feature>wrapper</feature>

@@ -11,6 +11,15 @@
     <name>${project.artifactId}-bundle</name>
     <description>Camel Example using Rest DSL in Karaf container</description>
     <dependencies>
+        <!-- Camel -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-netty4</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.navitas.ospoc</groupId>
             <artifactId>common</artifactId>
@@ -29,15 +38,6 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-        </dependency>
-        <!-- Camel -->
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-netty4</artifactId>
         </dependency>
         <!-- Karaf micro-container dependencies -->
         <dependency>
