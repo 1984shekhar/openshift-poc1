@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>supportcaseproject</artifactId>
+        <groupId>com.mydomain.ospoc</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>zed-build-pod1-1-generate-features</artifactId>
+    <packaging>feature</packaging>
+    <name>${project.artifactId}</name>
+    <description>${project.artifactId} generation of feature for entire pod.
+        If many jars from all services require the same duplicated dependencies, they will be included only once and,
+        thus, only downloaded once during image-assembly, saving time over one feature per service.
+        ------------------------------------------------------------
+        NOTE: Every service must be listed as a dependency, below...
+        ------------------------------------------------------------</description>
+    <dependencies>
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>myservice-v01-facade</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.karaf.tooling</groupId>
+                <artifactId>karaf-maven-plugin</artifactId>
+                <version>3.0.8</version>
+                <!-- ...use 3.0.8 because it generates the features file with
+                xmlns="http://karaf.apache.org/xmlns/features/v1.2.1", which Karaf 2.4.0.redhat-630254 can handle.
+                However, the assembly goal is only available with the later version of the plugin specified in the parent pom.
+                -->
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>generate-features-file</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>features-generate-descriptor</goal>
+                        </goals>
+                        <configuration>
+                            <overwriteChangedDependencies>false</overwriteChangedDependencies>
+                            <includeTransitiveDependency>false</includeTransitiveDependency>
+                            <!--<excludedArtifactIds>-->
+                            <!--&lt;!&ndash; doesn't seem to work... &ndash;&gt;-->
+                            <!--<excludedArtifactId>jaxb-core</excludedArtifactId>-->
+                            <!--<excludedArtifactId>jaxb-impl</excludedArtifactId>-->
+                            <!--</excludedArtifactIds>-->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
