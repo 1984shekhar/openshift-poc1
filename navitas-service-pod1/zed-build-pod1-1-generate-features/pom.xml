@@ -60,16 +60,6 @@
                             <!--</excludedArtifactIds>-->
                         </configuration>
                     </execution>
-                    <!--<execution>-->
-                    <!--<id>verify</id>-->
-                    <!--<phase>process-resources</phase>-->
-                    <!--<goals>-->
-                    <!--<goal>features-validate-descriptor</goal>-->
-                    <!--</goals>-->
-                    <!--<configuration>-->
-                    <!--<file>${project.basedir}/target/feature/feature.xml</file>-->
-                    <!--</configuration>-->
-                    <!--</execution>-->
                 </executions>
             </plugin>
         </plugins>

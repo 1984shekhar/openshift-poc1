@@ -12,7 +12,7 @@
         <module>common</module>
         <module>demo-customer</module>
         <module>enq2offer-v01-facade</module>
-        <module>zed-build-pod1-1-generate-features</module>
+        <!--<module>zed-build-pod1-1-generate-features</module>-->
         <module>zed-build-pod1-2-assemble-image</module>
     </modules>
     <properties>
