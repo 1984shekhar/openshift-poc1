@@ -48,6 +48,14 @@
       "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
     },
     {
+      "name": "GIT_MAVEN_PATH",
+      "displayName": "Maven Project Path",
+      "value": "master",
+      /* master is just an interim value!!!  */
+      "description": "Directory path within GIT repo to project containing the Maven super pom of the Fuse application."
+
+    },
+    {
       "name": "BUILD_SECRET",
       "displayName": "GitHub Webhook Secret",
       "description": "A secret string used to configure the GitHub webhook.",
@@ -210,7 +218,7 @@
             "ref": "${GIT_REF}"
             /* ...branch */
           },
-          "contextDir": "navitas-service-pod1"
+          "contextDir": "navitas-integration"
           /* ...for the content of this pod only */
         },
         "strategy": {

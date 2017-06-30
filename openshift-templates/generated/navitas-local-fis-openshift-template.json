@@ -174,7 +174,7 @@
           "git": {
             "uri": "${GIT_REPO}",
             "ref": "${GIT_REF}"},
-          "contextDir": "navitas-service-pod1"},
+          "contextDir": "navitas-integration"},
         "strategy": {
           "type": "Source",
           "sourceStrategy": {
