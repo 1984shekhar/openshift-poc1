@@ -98,13 +98,14 @@
       /* ...directory that contains "assembly" sub-directory */
       "description": "Directory of the artifact to be built, e.g. for multi-module builds."
     },
+    /* redundant ...
     {
       "name": "IMAGE_STREAM_NAMESPACE",
       "displayName": "Image Stream Namespace",
       "value": "navitas",
       "required": true,
       "description": "Namespace in which the Fuse ImageStreams are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project (ie. 'navitas' project)."
-    },
+    }, */
     {
       "name": "CPU_REQUEST",
       "displayName": "CPU request",
@@ -151,7 +152,7 @@
         "dockerImageRepository": "registry.access.redhat.com/jboss-fuse-6/fis-karaf-openshift",
         "tags": [
           {
-            "name": "2.0.6",
+            "name": "2.0-7",
             /*...explicit image.  Don't want to automatically rebuild/redeploy if a later image becomes available */
             "annotations": {
               "description": "JBoss Fuse Integration Services 2.0 Karaf S2I images.",
@@ -218,7 +219,8 @@
           "sourceStrategy": {
             "from": {
               "kind": "ImageStreamTag",
-              "namespace": "${IMAGE_STREAM_NAMESPACE}",
+              /* redundant.  Use base-image from default namespace ("openshift")...
+              "namespace": "${IMAGE_STREAM_NAMESPACE}", */
               "name": "fis-karaf-openshift:${BUILDER_VERSION}"
             },
             "forcePull": true,
