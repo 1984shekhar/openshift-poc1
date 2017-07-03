@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.navitas.ospoc</groupId>
@@ -11,15 +12,14 @@
     <dependencies>
         <dependency>
             <groupId>com.navitas.ospoc</groupId>
-            <artifactId>common</artifactId>
-            <version>${dependency.navitas.version}</version>
+            <artifactId>common-properties-it</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.navitas.ospoc</groupId>-->
-            <!--<artifactId>common-it</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.navitas.ospoc</groupId>
+            <artifactId>common-it</artifactId>
+        </dependency>
         <!-- Citrus -->
-         <dependency>
+        <dependency>
             <groupId>com.consol.citrus</groupId>
             <artifactId>citrus-core</artifactId>
         </dependency>
@@ -44,10 +44,10 @@
             <artifactId>testng</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.springframework</groupId>-->
+        <!--<artifactId>spring-core</artifactId>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>junit</groupId>
@@ -57,6 +57,70 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>get-common-it-propertes</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>com.navitas.ospoc</groupId>
+                            <artifactId>common-properties-it</artifactId>
+                            <version>${project.version}</version>
+                            <classifier>${ENV_NAME}</classifier>
+                            <type>jar</type>
+                            <overWrite>true</overWrite>
+                            <outputDirectory>${project.build.outputDirectory}/properties</outputDirectory>
+                            <includes>${ENV_NAME}.base.citrus.properties</includes>
+                            <!-- in root of jar means won't append other dirs after .../etc -->
+                        </artifactItem>
+                    </artifactItems>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- Approperties env-specific citrus properties to base.-->
+                <groupId>org.polago.maven.plugins</groupId>
+                <artifactId>merge-properties-maven-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <id>merge-properties</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>merge</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                            <outputFile>citrus.properties</outputFile>
+                            <overwriteProperties>true</overwriteProperties>
+                            <resources>
+                                <resource>
+                                    <filtering>false</filtering>
+                                    <directory>src/main/resources/properties</directory>
+                                    <includes>
+                                        <include>citrus.properties</include>
+                                    </includes>
+                                </resource>
+                                <resource>
+                                    <filtering>false</filtering>
+                                    <directory>${project.build.outputDirectory}/properties</directory>
+                                    <includes>
+                                        <include>${ENV_NAME}.base.citrus.properties</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>com.consol.citrus.mvn</groupId>
                 <artifactId>citrus-maven-plugin</artifactId>

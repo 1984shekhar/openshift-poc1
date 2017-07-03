@@ -23,7 +23,7 @@
         </resources>
         <plugins>
             <plugin>
-                <!-- Apply target-env-specific properties to base.  Only merged properties to go into jar -->
+                <!-- Apply tarproperties-env-specific properties to base.  Only merged properties to go into jar -->
                 <groupId>org.polago.maven.plugins</groupId>
                 <artifactId>merge-properties-maven-plugin</artifactId>
                 <version>1.1</version>

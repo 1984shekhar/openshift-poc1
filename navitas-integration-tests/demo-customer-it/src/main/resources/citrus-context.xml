@@ -30,7 +30,7 @@
     </citrus:global-variables>
 
     <citrus-http:client id="customerEndpoint"
-                        request-url="http://navitas-local-fis-route-navitas.10.0.75.2.xip.io:80/cxf/localcrm"
+                        request-url="http://${openshift.route.name}-${openshift.project.name}.${openshift.url.suffix}:${openshift.url.port}/${resource.base}"
                         />
 
 </beans>

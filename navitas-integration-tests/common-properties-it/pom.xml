@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.navitas.ospoc</groupId>
+        <artifactId>navitas-integration-tests</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>common-properties-it</artifactId>
+    <packaging>jar</packaging>
+    <name>${project.artifactId}-jar</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Approperties env-specific citrus properties to base.-->
+                <groupId>org.polago.maven.plugins</groupId>
+                <artifactId>merge-properties-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>merge-properties</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>merge</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                            <outputFile>${ENV_NAME}.base.citrus.properties</outputFile>
+                            <overwriteProperties>true</overwriteProperties>
+                            <resources>
+                                <resource>
+                                    <filtering>false</filtering>
+                                    <directory>src/main/resources/properties</directory>
+                                    <includes>
+                                        <include>base.citrus.properties</include>
+                                    </includes>
+                                </resource>
+                                <resource>
+                                    <filtering>false</filtering>
+                                    <directory>src/main/resources/properties</directory>
+                                    <includes>
+                                        <include>${ENV_NAME}.citrus.properties</include>
+                                        <!-- ... CITRUS_ENV_NAME must be either set in active maven profile (settings.xml) or in OpenShift Template Property -->
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <classifier>${ENV_NAME}</classifier>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
