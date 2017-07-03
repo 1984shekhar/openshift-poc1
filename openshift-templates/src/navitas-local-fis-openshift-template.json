@@ -27,6 +27,20 @@
   },
   "parameters": [
     {
+      "name": "ENV_NAME",
+      "displayName": "Properties Env Name",
+      "value": "local",
+      /* 'local' means use local-common.properties to merge into base-common.properties  */
+      "description": "Environment Name for (env)-navitas.properties.  eg. DEV1, UAT2, PROD, FREDTEST, etc"
+    },
+    {
+      "name": "GIT_REF",
+      "displayName": "Git Branch or Tag",
+      "value": "master",
+      /* master is just an interim value!!!  */
+      "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
+    },
+    {
       "name": "APP_NAME",
       "displayName": "Application Name",
       "required": true,
@@ -41,11 +55,11 @@
       "description": "The URL of the repository with your application source code."
     },
     {
-      "name": "GIT_REF",
-      "displayName": "Git Reference",
-      "value": "master",
-      /* master is just an interim value!!!  */
-      "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
+      "name": "GIT_MAVEN_PATH",
+      "displayName": "Maven Project Path",
+      "value": "navitas-service-pod1",
+      "description": "Directory path within GIT repo to project containing the Maven super pom of the Fuse application."
+
     },
     {
       "name": "BUILD_SECRET",
@@ -55,22 +69,15 @@
       "from": "[a-zA-Z0-9]{40}"
     },
     {
-      "name": "ENV_NAME",
-      "displayName": "Environment Name",
-      "value": "local",
-      /* 'local' means use local-common.properties to merge into base-common.properties  */
-      "description": "Environment Name.  eg. DEV1, UAT2, PROD, FREDTEST, etc"
-    },
-    {
       "name": "SERVICE_NAME",
       "displayName": "Service Name",
       "value": "navitas-local-fis",
       "description": "Exposed Service name."
     },
     {
-      "name": "BUILDER_VERSION",
-      "displayName": "Builder version",
-      "value": "2.0.6",
+      "name": "BASE_IMAGE_VERSION",
+      "displayName": "Base Image Version",
+      "value": "2.0-7",
       /*"2.0"*/
       "description": "The version of the FIS S2I builder image to use."
     },
@@ -152,7 +159,7 @@
         "dockerImageRepository": "registry.access.redhat.com/jboss-fuse-6/fis-karaf-openshift",
         "tags": [
           {
-            "name": "2.0-7",
+            "name": "${BASE_IMAGE_VERSION}",
             /*...explicit image.  Don't want to automatically rebuild/redeploy if a later image becomes available */
             "annotations": {
               "description": "JBoss Fuse Integration Services 2.0 Karaf S2I images.",
@@ -211,7 +218,7 @@
             "ref": "${GIT_REF}"
             /* ...branch */
           },
-          "contextDir": "navitas-service-pod1"
+          "contextDir": "${GIT_MAVEN_PATH}"
           /* ...for the content of this pod only */
         },
         "strategy": {
@@ -221,7 +228,7 @@
               "kind": "ImageStreamTag",
               /* redundant.  Use base-image from default namespace ("openshift")...
               "namespace": "${IMAGE_STREAM_NAMESPACE}", */
-              "name": "fis-karaf-openshift:${BUILDER_VERSION}"
+              "name": "fis-karaf-openshift:${BASE_IMAGE_VERSION}"
             },
             "forcePull": true,
             "incremental": true,

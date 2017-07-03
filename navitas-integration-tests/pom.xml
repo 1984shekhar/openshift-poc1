@@ -25,19 +25,24 @@
         <dependency.springframework.version>4.3.9.RELEASE</dependency.springframework.version>
         <dependency.plugin.maven.surefire.version>2.20</dependency.plugin.maven.surefire.version>
         <dependency.plugin.maven.failsafe.version>2.20</dependency.plugin.maven.failsafe.version>
-
+        <dependency.plugin.maven.jar.version>3.0.2</dependency.plugin.maven.jar.version>
+        <dependency.plugin.merge.properties.maven.version>1.1</dependency.plugin.merge.properties.maven.version>
+        <dependency.plugin.maven.resources.version>3.0.1</dependency.plugin.maven.resources.version>
     </properties>
 
     <modules>
-        <!--<module>integration-test-common</module>-->
-        <!--<module>mock-provider-navigate</module>-->
-
+        <module>common-properties-it</module>
         <module>common-it</module>
         <module>demo-customer-it</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.navitas.ospoc</groupId>
+                <artifactId>common-properties-it</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.navitas.ospoc</groupId>
                 <artifactId>common-it</artifactId>
@@ -132,7 +137,7 @@
                 <version>${dependency.mockito.version}</version>
                 <scope>test</scope>
             </dependency>
-             <dependency>
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${dependency.junit.version}</version>
@@ -191,57 +196,75 @@
                     </executions>
                 </plugin>
                 <!--<plugin>-->
-                    <!--<artifactId>maven-surefire-plugin</artifactId>-->
-                    <!--<version>${dependency.plugin.maven.surefire.version}</version>-->
-                    <!--<configuration>-->
-                        <!--<skip>true</skip>-->
-                    <!--</configuration>-->
-                    <!--<executions>-->
-                        <!--<execution>-->
-                            <!--<id>junit-tests</id>-->
-                            <!--<phase>test</phase>-->
-                            <!--<goals>-->
-                                <!--<goal>test</goal>-->
-                            <!--</goals>-->
-                            <!--<configuration>-->
-                                <!--<includes>-->
-                                    <!--<include>src/test/java</include>-->
-                                <!--</includes>-->
-                                <!--<skip>${skipUnitTests}</skip>-->
-                            <!--</configuration>-->
-                        <!--</execution>-->
-                        <!--<execution>-->
-                            <!--<id>integration-tests</id>-->
-                            <!--<phase>integration-test</phase>-->
-                            <!--<goals>-->
-                                <!--<goal>test</goal>-->
-                            <!--</goals>-->
-                            <!--<configuration>-->
-                                <!--<includes>-->
-                                    <!--<include>**/*IntegrationTest*</include>-->
-                                <!--</includes>-->
-                                <!--<skip>${skipIntegrationTests}</skip>-->
-                            <!--</configuration>-->
-                        <!--</execution>-->
-                        <!--<execution>-->
-                            <!--<id>performance-tests</id>-->
-                            <!--<phase>integration-test</phase>-->
-                            <!--<goals>-->
-                                <!--<goal>test</goal>-->
-                            <!--</goals>-->
-                            <!--<configuration>-->
-                                <!--<includes>-->
-                                    <!--<include>**/*PerformanceTest*</include>-->
-                                <!--</includes>-->
-                                <!--<skip>${skipPerformanceTests}</skip>-->
-                            <!--</configuration>-->
-                        <!--</execution>-->
-                    <!--</executions>-->
+                <!--<artifactId>maven-surefire-plugin</artifactId>-->
+                <!--<version>${dependency.plugin.maven.surefire.version}</version>-->
+                <!--<configuration>-->
+                <!--<skip>true</skip>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                <!--<execution>-->
+                <!--<id>junit-tests</id>-->
+                <!--<phase>test</phase>-->
+                <!--<goals>-->
+                <!--<goal>test</goal>-->
+                <!--</goals>-->
+                <!--<configuration>-->
+                <!--<includes>-->
+                <!--<include>src/test/java</include>-->
+                <!--</includes>-->
+                <!--<skip>${skipUnitTests}</skip>-->
+                <!--</configuration>-->
+                <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>integration-tests</id>-->
+                <!--<phase>integration-test</phase>-->
+                <!--<goals>-->
+                <!--<goal>test</goal>-->
+                <!--</goals>-->
+                <!--<configuration>-->
+                <!--<includes>-->
+                <!--<include>**/*IntegrationTest*</include>-->
+                <!--</includes>-->
+                <!--<skip>${skipIntegrationTests}</skip>-->
+                <!--</configuration>-->
+                <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>performance-tests</id>-->
+                <!--<phase>integration-test</phase>-->
+                <!--<goals>-->
+                <!--<goal>test</goal>-->
+                <!--</goals>-->
+                <!--<configuration>-->
+                <!--<includes>-->
+                <!--<include>**/*PerformanceTest*</include>-->
+                <!--</includes>-->
+                <!--<skip>${skipPerformanceTests}</skip>-->
+                <!--</configuration>-->
+                <!--</execution>-->
+                <!--</executions>-->
                 <!--</plugin>-->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
                     <version>${plugin.build.helper.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.polago.maven.plugins</groupId>
+                    <artifactId>merge-properties-maven-plugin</artifactId>
+                    <version>${dependency.plugin.merge.properties.maven.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${dependency.plugin.maven.resources.version}</version>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${dependency.plugin.maven.jar.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

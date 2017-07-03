@@ -37,7 +37,7 @@
     <cm:property-placeholder persistent-id="navitas.common" >
         <!-- Use {{xxx}} as property-placeholders within Camel Context, Use ${xxx} within other groups -->
         <cm:default-properties>
-            <cm:property name="env-name" value="[env-name not in etc/navitas-common or file not found!]"/>
+            <cm:property name="env-name" value="[properties-name not in etc/navitas-common or file not found!]"/>
             <cm:property name="demo-customer.test-property-2" value="[demo-customer.test-property-2 not in etc/navitas-common or file not found!]"/>
             <cm:property name="demo-customer.uri-extn-path" value="[demo-customer.uri-extn-path not in etc/navitas-common or file not found!]"/>
         </cm:default-properties>
@@ -52,7 +52,7 @@
     </bean>
 
     <bean id="propertyTestBean" class="com.navitas.ospoc.bean.LancesClassToTestProperties">
-        <property name="propertyString1" value="${env-name}"/>
+        <property name="propertyString1" value="${properties-name}"/>
         <property name="propertyString2" value="${demo-customer.test-property-2}"/>
     </bean>
 
