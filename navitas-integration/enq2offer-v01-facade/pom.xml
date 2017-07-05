@@ -26,20 +26,29 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.apache.camel</groupId>-->
+        <!--<artifactId>camel-jetty</artifactId>-->
+        <!--&lt;!&ndash;<artifactId>camel-netty4</artifactId>&ndash;&gt;-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-netty4</artifactId>
+            <artifactId>camel-netty4-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-http</artifactId>
         </dependency>
         <dependency>
             <groupId>com.navitas.ospoc</groupId>
             <artifactId>common</artifactId>
         </dependency>
         <!-- Transient Dependencies use the following but the only these special versions prevent circular bundle-import references... -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.7.redhat-2</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.slf4j</groupId>-->
+        <!--<artifactId>slf4j-simple</artifactId>-->
+        <!--<version>1.7.7.redhat-2</version>-->
+        <!--</dependency>-->
         <!-- ...end of special Transient Dependency version-overrides -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -48,6 +57,10 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
         </dependency>
         <!-- Karaf micro-container dependencies -->
         <dependency>
@@ -79,6 +92,12 @@
             <artifactId>joda-time</artifactId>
         </dependency>
         <!-- testing -->
+        <dependency>
+            <groupId>com.navitas.ospoc</groupId>
+            <artifactId>common</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test</artifactId>

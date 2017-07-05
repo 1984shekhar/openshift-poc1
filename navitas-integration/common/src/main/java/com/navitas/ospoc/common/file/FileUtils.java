@@ -14,14 +14,14 @@ public class FileUtils {
     private static final Logger LOG = LogManager.getLogger(FileUtils.class);
 
     /**
-     * Return an entire file's content as a string via a specific class' loader
-     * @param loader
+     * Return an entire file's content as a string via a specific class' class-loader
+     * @param aClass
      * @param reference
      * @return
      */
-    public static String readFile(Class loader, String reference) {
+    public static String readFile(Class aClass, String reference) {
         try {
-            InputStream in = loader.getClassLoader().getResourceAsStream(reference);
+            InputStream in = aClass.getClassLoader().getResourceAsStream(reference);
             return IOUtils.toString(in, StandardCharsets.UTF_8);
         } catch (Exception e) {
             throw new RuntimeException("Can't read file: "+ reference, e);
