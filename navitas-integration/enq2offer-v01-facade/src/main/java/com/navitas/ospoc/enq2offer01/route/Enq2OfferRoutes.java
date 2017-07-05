@@ -37,64 +37,39 @@ public class Enq2OfferRoutes extends FacadeRestDslToSqsAsync {
         super.configure();
         LOG.info("Enq2OfferRoutes.configure() starting...");
 
-//        restConfiguration().component("netty4-http").scheme("{{enq2offer-v01-facade.https_protocol}}").bindingMode(RestBindingMode.json)
-        restConfiguration().component("netty4-http").scheme("http").bindingMode(RestBindingMode.json)
+        restConfiguration().component("netty4-http").scheme("{{enq2offer-v01-facade.https_protocol}}").bindingMode(RestBindingMode.auto)
                 .dataFormatProperty("prettyPrint", "true")
                 .host("localhost")
-                .contextPath("/enq2offer01/v01").port(8080) // TODO: get from "{{shared-container-port}}"
+                .contextPath("/enq2offer01/v01").port("{{shared-container-port}}")
         ;
 
         LOG.info("Enq2OfferRoutes.configure() about to create restDSL...");
 
-        // sample Rest-Component URI:
-        // rest:get:/prospects:/{id}?routeId=get-prospect-by-id-direct&produces=application%2Fjson&description=Find+Prospect+by+id&componentName=jetty&outType=com.navitas.ospoc.enq2offer01.model.Prospect&consumes=application%2Fjson
-
-//        from("rest:get:prospects:/{id}?produces=application%2Fjson&componentName=netty4-http&outType=com.navitas.ospoc.enq2offer01.model.Prospect")
-//                .routeId(ROUTE_ID_GET_PROSPECT_BY_ID_REST)
-//                .to(logDebugUri+"&marker=1_"+ROUTE_ID_GET_PROSPECT_BY_ID_REST)
-//                .to("{{enq2offer-v01-facade.enq2offer-v01-host-url-get-prospect}}")
-//        ;
-//
-//        from("rest:get:prospects?produces=application%2Fjson&componentName=netty4-http&outType=com.navitas.ospoc.enq2offer01.model.Prospect")
-//                .routeId(ROUTE_ID_GET_PROSPECT_LIST_REST)
-//                .to(logDebugUri+"&marker=1_"+ROUTE_ID_GET_PROSPECT_LIST_REST)
-//                .to("{{enq2offer-v01-facade.enq2offer-v01-host-url-get-prospect}}")
-//        ;
-//
-//        from("rest:put:prospects?consumes=application%2Fjson&produces=application%2Fjson&componentName=netty4-http&outType=com.navitas.ospoc.enq2offer01.model.Prospect")
-//                .routeId(ROUTE_ID_PUT_PROSPECT_BODY_REST)
-//                .to(logDebugUri+"&marker=1_"+ROUTE_ID_PUT_PROSPECT_BODY_REST)
-//                .to("{{enq2offer-v01-facade.enq2offer-v01-host-url-get-prospect}}")
-        ;
-//      ====================================================================
-//      REST DSL APPEARS INCOMPATIBLE WITH SUBSEQUENT DIRECT:XXX ROUTES WHEN
-//      TESTING WITH DEFAULTPRODUCERTEMPLATE PUTTING TO DIRECT:* ENDPOINT...
-//      ====================================================================
-//
+        // nb. StreamCaching is set to true/false in the blueprint.xml <camelContext>...
         rest("/prospects").id(API_ID_PROSPECTS_REST).description("Prospect REST service")
                 //JSON only...
-                    .consumes("application/json").produces("application/json")
+                .consumes("application/json").produces("application/json")
                 .get("/{id}").id(ROUTE_ID_GET_PROSPECT_BY_ID_REST).description("Find Prospect by id").outType(Prospect.class)
-                    .param().name("id").type(RestParamType.path).description("The id of the user to get").dataType("int").endParam()
-                    .to(logInfoUri+"&marker=1_"+ROUTE_ID_GET_PROSPECT_BY_ID_REST)
-                    .to("direct:"+ROUTE_ID_GET_PROSPECT_BY_ID_DIRECT)
+                .param().name("id").type(RestParamType.path).description("The id of the user to get").dataType("int").endParam()
+                .to(logInfoUri + "&marker=1_" + ROUTE_ID_GET_PROSPECT_BY_ID_REST)
+                .to("direct:" + ROUTE_ID_GET_PROSPECT_BY_ID_DIRECT)
                 .put().id(ROUTE_ID_PUT_PROSPECT_BODY_REST).description("Updates or create a prospect").type(Prospect.class)
-                    .param().name("body").type(RestParamType.body).description("The prospect to update or create").endParam()
-                    .to(logInfoUri+"&marker=1_"+ROUTE_ID_PUT_PROSPECT_BODY_REST)
-                    .to("{{enq2offer-v01-facade.enq2offer-v01-host-url-put-prospect}}")
+                .param().name("body").type(RestParamType.body).description("The prospect to update or create").endParam()
+                .to(logInfoUri + "&marker=1_" + ROUTE_ID_PUT_PROSPECT_BODY_REST)
+                .to("{{enq2offer-v01-facade.enq2offer-v01-host-url-put-prospect}}")
 
                 .get().id(ROUTE_ID_GET_PROSPECT_LIST_REST).description("Get all prospects").outTypeList(Prospect.class)
-                    .param().name("pagesize").type(RestParamType.query).defaultValue("10").allowableValues("10","20","50").endParam()
-                    .param().name("page").type(RestParamType.query).defaultValue("1").endParam()
-                    .to(logInfoUri+"&marker=1_"+ROUTE_ID_GET_PROSPECT_LIST_REST)
-                    .to("{{enq2offer-v01-facade.enq2offer-v01-host-url-get-prospects}}")
+                .param().name("pagesize").type(RestParamType.query).defaultValue("10").allowableValues("10", "20", "50").endParam()
+                .param().name("page").type(RestParamType.query).defaultValue("1").endParam()
+                .to(logInfoUri + "&marker=1_" + ROUTE_ID_GET_PROSPECT_LIST_REST)
+                .to("{{enq2offer-v01-facade.enq2offer-v01-host-url-get-prospects}}")
         ;
 
-        from("direct:"+ROUTE_ID_GET_PROSPECT_BY_ID_DIRECT)
+        from("direct:" + ROUTE_ID_GET_PROSPECT_BY_ID_DIRECT)
                 .routeId(ROUTE_ID_GET_PROSPECT_BY_ID_DIRECT)
-                .to(logDebugUri+"&marker=1_"+ROUTE_ID_GET_PROSPECT_BY_ID_DIRECT)
+                .to(logDebugUri + "&marker=1_" + ROUTE_ID_GET_PROSPECT_BY_ID_DIRECT)
                 .to("{{enq2offer-v01-facade.enq2offer-v01-host-url-get-prospect}}")
-                ;
+        ;
 
         LOG.info("Enq2OfferRoutes.configure() completed.");
 

@@ -38,7 +38,7 @@ public class TestRoutes extends RouteBuilder {
         LOG.info("TestRoutes.configure() starting...");
 
         // component "jetty", "http" and "http4" have also been tried...
-        restConfiguration().component("netty4-http").scheme("http").bindingMode(RestBindingMode.json)
+        restConfiguration().component("netty4-http").scheme("http").bindingMode(RestBindingMode.auto)
                 .dataFormatProperty("prettyPrint", "true")
                 .host("localhost")
                 .contextPath("/enq2offer01/v01").port(8080)
@@ -49,10 +49,10 @@ public class TestRoutes extends RouteBuilder {
 // IF THE FOLLOWING "REST" DSL METHOD IS COMMENTED-OUT, THE ROUTE TEST OF THE "direct" ROUTE WORKS...
         rest("/prospects").id(API_ID_PROSPECTS_REST)
                 //JSON only...
-                //    .consumes("application/json").produces("application/json")
-                .get("/{id}") //.id(ROUTE_ID_GET_PROSPECT_BY_ID_REST) //.outType(Prospect.class)
-                    // .param().name("id").type(RestParamType.path).description("The id of the user to get").dataType("int").endParam()
-                    // .to(logInfoUri+"&marker=1_"+ROUTE_ID_GET_PROSPECT_BY_ID_REST)
+                    .consumes("application/json").produces("application/json")
+                .get("/{id}") .id(ROUTE_ID_GET_PROSPECT_BY_ID_REST) .outType(Prospect.class)
+                     .param().name("id").type(RestParamType.path).description("The id of the user to get").dataType("int").endParam()
+                     .to(logInfoUri+"&marker=1_"+ROUTE_ID_GET_PROSPECT_BY_ID_REST)
                     .to("direct:"+ROUTE_ID_GET_PROSPECT_BY_ID_DIRECT)
         ;
 // ...END OF PROBLEM REST DSL
