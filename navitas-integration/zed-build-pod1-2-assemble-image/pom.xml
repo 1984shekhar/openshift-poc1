@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>navitas-integration</artifactId>
-        <groupId>com.navitas.ospoc</groupId>
+        <groupId>com.navitas.integ</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>zed-build-pod1-2-assemble-image</artifactId>
@@ -33,7 +33,7 @@
             <classifier>features</classifier>
         </dependency>
         <dependency>
-            <groupId>com.navitas.ospoc</groupId>
+            <groupId>com.navitas.integ</groupId>
             <artifactId>zed-build-pod1-1-generate-features</artifactId>
             <version>${project.version}</version>
             <type>xml</type>
@@ -83,13 +83,13 @@
                                 <feature version="2.2.170.redhat-000013">fabric8-karaf-checks</feature>
                             </startupFeatures>
                             <startupBundles>
-                                <bundle>mvn:com.navitas.ospoc/common/1.0.0-SNAPSHOT</bundle>
+                                <bundle>mvn:com.navitas.integ/common/1.0.0-SNAPSHOT</bundle>
                                 <bundle>mvn:commons-io/commons-io/2.4.0.redhat-1</bundle>
                                 <bundle>wrap:mvn:org.springframework/spring-core/3.2.16.RELEASE</bundle>
                                 <bundle>mvn:commons-logging/commons-logging/1.2</bundle>
                                 <bundle>mvn:org.apache.logging.log4j/log4j-api/2.8.2</bundle>
                                 <bundle>mvn:org.apache.logging.log4j/log4j-core/2.8.2</bundle>
-                                <bundle>mvn:com.navitas.ospoc/demo-customer/1.0.0-SNAPSHOT</bundle>
+                                <bundle>mvn:com.navitas.integ/demo-customer/1.0.0-SNAPSHOT</bundle>
                                 <bundle>mvn:org.apache.cxf/cxf-core/3.1.5.redhat-630254</bundle>
                                 <bundle>mvn:org.codehaus.woodstox/woodstox-core-asl/4.4.1</bundle>
                                 <bundle>mvn:org.codehaus.woodstox/stax2-api/3.1.4</bundle>
@@ -99,7 +99,7 @@
                                 <bundle>mvn:javax.ws.rs/javax.ws.rs-api/2.0.1</bundle>
                                 <bundle>mvn:javax.annotation/javax.annotation-api/1.2</bundle>
                                 <bundle>mvn:org.apache.cxf/cxf-rt-rs-service-description/3.1.5.redhat-630254</bundle>
-                                <bundle>mvn:com.navitas.ospoc/enq2offer-v01-facade/1.0.0-SNAPSHOT</bundle>
+                                <bundle>mvn:com.navitas.integ/enq2offer-v01-facade/1.0.0-SNAPSHOT</bundle>
                                 <bundle>mvn:org.apache.camel/camel-core/2.17.0.redhat-630254</bundle>
                                 <bundle>mvn:org.slf4j/slf4j-api/1.7.7.redhat-2</bundle>
                                 <bundle>mvn:org.apache.camel/camel-netty4/2.17.0.redhat-630254</bundle>
@@ -200,7 +200,7 @@
                 <configuration>
                     <artifactItems>
                         <artifactItem>
-                            <groupId>com.navitas.ospoc</groupId>
+                            <groupId>com.navitas.integ</groupId>
                             <artifactId>common-properties</artifactId>
                             <version>${project.version}</version>
                             <classifier>${ENV_NAME}</classifier>

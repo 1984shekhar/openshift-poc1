@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>navitas-integration</artifactId>
-        <groupId>com.navitas.ospoc</groupId>
+        <groupId>com.navitas.integ</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>common</artifactId>
@@ -86,7 +86,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Export-Package>com.navitas.ospoc.common.*</Export-Package>
+                        <Export-Package>com.navitas.integ.common.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>

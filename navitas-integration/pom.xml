@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.navitas.ospoc</groupId>
+    <groupId>com.navitas.integ</groupId>
     <artifactId>navitas-integration</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -51,12 +51,12 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.navitas.ospoc</groupId>
+                <groupId>com.navitas.integ</groupId>
                 <artifactId>common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.navitas.ospoc</groupId>
+                <groupId>com.navitas.integ</groupId>
                 <artifactId>common-properties</artifactId>
                 <version>${project.version}</version>
                 <classifier>${ENV_NAME}</classifier>
@@ -78,9 +78,9 @@
             <!-- Had to remove slf4j so used apache logging instead.
                 See https://access.redhat.com/solutions/2028453 ... -->
             <!--<dependency>-->
-                <!--<groupId>org.slf4j</groupId>-->
-                <!--<artifactId>slf4j-log4j12</artifactId>-->
-                <!--<version>${dependency.slf4j.version}</version>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-log4j12</artifactId>-->
+            <!--<version>${dependency.slf4j.version}</version>-->
             <!--</dependency>-->
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
@@ -125,13 +125,12 @@
             </dependency>
             <!-- testing -->
             <dependency>
-                <groupId>com.navitas.ospoc</groupId>
+                <groupId>com.navitas.integ</groupId>
                 <artifactId>common</artifactId>
                 <version>${project.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
-
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>

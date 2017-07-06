@@ -51,7 +51,7 @@
         <property name="basePath" value="/cxf/${demo-customer.uri-extn-path}"/>
     </bean>
 
-    <bean id="propertyTestBean" class="com.navitas.ospoc.bean.LancesClassToTestProperties">
+    <bean id="propertyTestBean" class="com.navitas.integ.bean.LancesClassToTestProperties">
         <property name="propertyString1" value="${properties-name}"/>
         <property name="propertyString2" value="${demo-customer.test-property-2}"/>
     </bean>
@@ -90,6 +90,6 @@
       We are using the OSGi Blueprint XML syntax to define a bean that we referred to in our JAX-RS server setup.
       This bean carries a set of JAX-RS annotations that allow its methods to be mapped to incoming requests.
     -->
-    <bean id="customerSvc" class="com.navitas.ospoc.CustomerService"/>
+    <bean id="customerSvc" class="com.navitas.integ.CustomerService"/>
 
 </blueprint>

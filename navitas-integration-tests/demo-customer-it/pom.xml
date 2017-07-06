@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.navitas.ospoc</groupId>
+        <groupId>com.navitas.integ</groupId>
         <artifactId>navitas-integration-tests</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
@@ -11,12 +11,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.navitas.ospoc</groupId>
+            <groupId>com.navitas.integ</groupId>
             <artifactId>common-properties-it</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.navitas.ospoc</groupId>
+            <groupId>com.navitas.integ</groupId>
             <artifactId>common-it</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.navitas.integ</groupId>
+            <artifactId>common</artifactId>
         </dependency>
         <!-- Citrus -->
         <dependency>
@@ -72,7 +76,7 @@
                 <configuration>
                     <artifactItems>
                         <artifactItem>
-                            <groupId>com.navitas.ospoc</groupId>
+                            <groupId>com.navitas.integ</groupId>
                             <artifactId>common-properties-it</artifactId>
                             <version>${project.version}</version>
                             <classifier>${ENV_NAME}</classifier>

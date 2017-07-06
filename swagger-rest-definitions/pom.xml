@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.navitas.ospoc</groupId>
+    <groupId>com.navitas.integ</groupId>
     <artifactId>swagger-rest-definitions</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}-gen-superpom</name>
     <description>Swagger Codegen to generate annotated java model from swagger definitions</description>
     <modules>
+        <module>swagger-applications</module>
         <module>swagger-enquiry-to-offer-vc</module>
         <module>swagger-pets</module>
     </modules>

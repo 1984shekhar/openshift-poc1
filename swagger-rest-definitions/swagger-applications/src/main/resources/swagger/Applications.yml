@@ -1,0 +1,284 @@
+swagger: "2.0"
+info:
+  description: "This is a description of the Navitas Partner API and the available RESTful endpoints within. From here you can discover what "
+  version: "1.0.0"
+  title: "Navitas Partner API"
+  contact:
+    email: "d.bastide@leonardo.com.au"
+host: "navitas.com.au"
+basePath: "/v2"
+tags:
+- name: "Application"
+  description: "Evertything to do with Applications"
+  externalDocs:
+    description: "Manage student applications"
+    url: "http://navitas.com.au"
+schemes:
+- "http"
+paths:
+  /application/:
+    post:
+      tags:
+      - "Application"
+      summary: "Submit a new student application to Navitas"
+      operationId: "addApplication"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Application object to be sent"
+        required: true
+        schema:
+          $ref: "#/definitions/Application"
+      responses:
+        405:
+          description: "Invalid input"
+  /application/{applicationId}:
+    get:
+      tags:
+      - "Application"
+      summary: "Find application by ID"
+      description: "Returns a single appliction"
+      operationId: "getApplicationById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "applicationId"
+        in: "path"
+        description: "ID of Application to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Application"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Appliction not found"
+
+definitions:
+  Application:
+    type: "object"
+    properties:
+      Applicant:
+        $ref: "#/definitions/Applicant"
+      Agent:
+        $ref: "#/definitions/Agent"
+      Sponsor:
+        $ref: "#/definitions/Sponsor"
+      programSelection:
+        $ref: "#/definitions/ProgramSelection"
+      priorLearning:
+        $ref: "#/definitions/PriorLearning"
+      englishTest:
+        $ref: "#/definitions/EnglishTest"
+      passport:
+        $ref: "#/definitions/Passport"
+      visa:
+        $ref: "#/definitions/Visa"
+      Documentation:
+        $ref: "#/definitions/Documentation"
+      creditFromPriorLearning:
+        type: "array"
+        items:
+          $ref: "#/definitions/CreditFromPriorLearning"
+    xml:
+      name: "Order"
+
+  Applicant:
+    type: "object"
+    properties:
+      Person:
+        $ref: "#/definitions/Person"
+      Citzenship:
+        type: "string"
+      CountryOfOrigin:
+        type: "string"
+      NextOfKin:
+        $ref: "#/definitions/Person"
+        
+  Person:
+    type: "object"
+    properties:
+      personIdentifier:
+        type: "string"
+      Demographic:
+        type: "object"
+        properties:
+          title:
+            type: "string"
+          familyName:
+            type: "string"
+          givenNames:
+            type: "string"
+          preferredName:
+            type: "string"
+          previousName:
+            type: "string"
+          dateOfBirth:
+            type: "string"
+            format: "date"
+          sex:
+            type: "string"
+            enum:
+              - "Male"
+              - "Female"
+              - "Intdeterminate/Intersex/Unspecified"
+              - "Unknown"
+          CoutnryOfBirth:
+            type: "string"
+      Contact:
+        type: "object"
+        properties:
+          personalEmailAddress:
+            type: "string"
+          homePhone:
+            type: "string"
+          mobile:
+            type: "string"
+      HomeAddress:
+        type: "object"
+        properties:
+          address:
+            type: "array"
+            items:
+              - address1
+              - address2
+              - address3
+          locality:
+            type: "string"
+          region:
+            type: "string"
+          postalCode:
+            type: "string"
+          country:
+            type: "string"
+      profilePhoto:
+        type: "string"
+
+  
+  Agent:
+    type: "object"
+    properties:
+      agentCode:
+        type: "string"
+      agentCountry:
+        type: "string"
+  
+  Sponsor:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+  
+  CreditFromPriorLearning:
+    type: "object"
+    properties:
+      module:
+        type: "string"
+      creditPoints:
+        type: "string"
+      creditHours:
+        type: "string"
+      approval:
+        type: "string"
+        enum:
+         - "Requested"
+         - "Granted"
+         - "Rejected"
+  
+  ProgramSelection:
+    type: "object"
+    properties:
+      institution:
+        type: "string"
+      program:
+        type: "string"
+      intake:
+        type: "string"
+      major:
+        type: "string"
+        
+  PriorLearning:
+    type: "object"
+    properties:
+      highestAcademicQualification:
+        type: "string"
+      institution:
+        $ref: "#/definitions/HighSchool"
+      yearCommenced:
+        type: "string"
+      yearCompleted:
+        type: "string"
+        
+  HighSchool:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      region:
+        type: "string"
+      postalCode:
+        type: "string"
+      country:
+        type: "string"
+        
+  EnglishTest:
+    type: "object"
+    properties:
+      institution:          #note "commercial organisation"
+        type: "string"
+      testReferenceNumber:
+        type: "string"
+      testType:
+        type: "string"
+      testDate:
+        type: "string"
+        format: "date"
+      testScores:
+        type: "object"
+        properties:
+          overallScore:
+            type: "string"
+          listeningScore:
+            type: "string"
+          readingScore:
+            type: "string"
+          writingScore:
+            type: "string"
+          speakingScore:
+            type: "string"
+  
+  Passport:
+    type: "object"
+    properties:
+      passportNumber:
+        type: "string"
+      passportExpiry:
+        type: "string"
+
+  Visa:
+    type: "object"
+    properties:
+      visaNumber:
+        type: "string"
+      visaIssue:
+        type: "string"
+      visaExpiry:
+        type: "string"
+      visaType:
+        type: "string"
+
+  Documentation:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+      content:
+        type: "string"

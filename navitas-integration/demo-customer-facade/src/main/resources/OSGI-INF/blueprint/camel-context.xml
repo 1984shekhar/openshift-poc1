@@ -47,7 +47,7 @@
   <!--</bean>-->
 
   <!-- bean which creates/destroys the database table for this example -->
-  <!--<bean id="initDatabase" class="com.navitas.ospoc.DatabaseBean"-->
+  <!--<bean id="initDatabase" class="com.navitas.integ.DatabaseBean"-->
         <!--init-method="create" destroy-method="destroy">-->
     <!--<property name="dataSource" ref="dataSource"/>-->
   <!--</bean>-->
@@ -59,7 +59,7 @@
 
 
   <!-- order bean is our business logic bean that creates new orders -->
-  <bean id="orderBean" class="com.navitas.ospoc.OrderBean"/>
+  <bean id="orderBean" class="com.navitas.integ.OrderBean"/>
 
 
   <!-- here is Camel configured with a number of routes -->
@@ -76,13 +76,13 @@
     <rest path="/books" consumes="application/json" produces="application/json">
 
       <!-- rest service that fetches names of all books -->
-      <get uri="/" outType="com.navitas.ospoc.model.Book">
-        <to uri="sql:{{sql.selectBooks}}?outputType=SelectList&amp;outputClass=com.navitas.ospoc.model.Book"/>
+      <get uri="/" outType="com.navitas.integ.model.Book">
+        <to uri="sql:{{sql.selectBooks}}?outputType=SelectList&amp;outputClass=com.navitas.integ.model.Book"/>
       </get>
 
       <!-- rest service that fetches an order by id -->
-      <get uri="order/{id}" outType="com.navitas.ospoc.model.Order">
-        <to uri="sql:{{sql.selectOrder}}?outputType=SelectOne&amp;outputClass=com.navitas.ospoc.model.Order"/>
+      <get uri="order/{id}" outType="com.navitas.integ.model.Order">
+        <to uri="sql:{{sql.selectOrder}}?outputType=SelectOne&amp;outputClass=com.navitas.integ.model.Order"/>
       </get>
     </rest>
 

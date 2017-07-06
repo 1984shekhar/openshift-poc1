@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.navitas.ospoc</groupId>
+    <groupId>com.navitas.integ</groupId>
     <artifactId>navitas-integration-tests</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -19,8 +19,7 @@
         <dependency.citrus.version>2.7.1</dependency.citrus.version>
         <dependency.mockito.version>1.10.19</dependency.mockito.version>
         <dependency.junit.version>4.12</dependency.junit.version>
-        <dependency.slf4j.version>1.7.25</dependency.slf4j.version>
-        <dependency.apache.slf4j.log4j2impl.version>2.8.2</dependency.apache.slf4j.log4j2impl.version>
+        <dependency.apache.log4j2.version>2.8.2</dependency.apache.log4j2.version>
         <dependency.commons-io.version>2.5</dependency.commons-io.version>
         <dependency.testng.version>6.11</dependency.testng.version>
         <dependency.springframework.version>4.3.9.RELEASE</dependency.springframework.version>
@@ -40,17 +39,17 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.navitas.ospoc</groupId>
+                <groupId>com.navitas.integ</groupId>
                 <artifactId>common-properties-it</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.navitas.ospoc</groupId>
+                <groupId>com.navitas.integ</groupId>
                 <artifactId>common-it</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.navitas.ospoc</groupId>
+                <groupId>com.navitas.integ</groupId>
                 <artifactId>common</artifactId>
                 <version>${dependency.navitas.version}</version>
             </dependency>
@@ -66,31 +65,21 @@
                 <artifactId>commons-io</artifactId>
                 <version>${dependency.commons-io.version}</version>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>org.slf4j</groupId>-->
-                <!--<artifactId>slf4j-api</artifactId>-->
-                <!--<version>${dependency.slf4j.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-                <!--<groupId>org.slf4j</groupId>-->
-                <!--<artifactId>jcl-over-slf4j</artifactId>-->
-                <!--<version>${dependency.slf4j.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-                <!--<groupId>org.apache.logging.log4j</groupId>-->
-                <!--<artifactId>log4j-slf4j-impl</artifactId>-->
-                <!--<version>${dependency.apache.slf4j.log4j2impl.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-                <!--<groupId>org.apache.logging.log4j</groupId>-->
-                <!--<artifactId>log4j-api</artifactId>-->
-                <!--<version>${dependency.apache.slf4j.log4j2impl.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-                <!--<groupId>org.apache.logging.log4j</groupId>-->
-                <!--<artifactId>log4j-core</artifactId>-->
-                <!--<version>${dependency.apache.slf4j.log4j2impl.version}</version>-->
-            <!--</dependency>-->
+             <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${dependency.apache.log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${dependency.apache.log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${dependency.apache.log4j2.version}</version>
+            </dependency>
 
             <!-- Citrus -->
             <dependency>

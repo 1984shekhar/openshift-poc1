@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>navitas-integration</artifactId>
-        <groupId>com.navitas.ospoc</groupId>
+        <groupId>com.navitas.integ</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>demo-customer-facade</artifactId>
@@ -30,7 +30,7 @@
     <!--</dependencyManagement>-->
     <dependencies>
         <dependency>
-            <groupId>com.navitas.ospoc</groupId>
+            <groupId>com.navitas.integ</groupId>
             <artifactId>common</artifactId>
         </dependency>
         <!--<dependency>-->

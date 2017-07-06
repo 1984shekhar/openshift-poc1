@@ -19,7 +19,7 @@
         </cm:default-properties>
     </cm:property-placeholder>
 
-    <bean id="routeBuilder" class="com.navitas.ospoc.enq2offer01.route.Enq2OfferRoutes">
+    <bean id="routeBuilder" class="com.navitas.integ.enq2offer01.route.Enq2OfferRoutes">
     </bean>
 
     <camel:camelContext id="enq2Offer01Routes-context" streamCache="true">

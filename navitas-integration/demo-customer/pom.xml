@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>navitas-integration</artifactId>
-        <groupId>com.navitas.ospoc</groupId>
+        <groupId>com.navitas.integ</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>demo-customer</artifactId>
@@ -12,7 +12,7 @@
     <description>Karaf 2 example running a REST sevice using CXF</description>
     <dependencies>
         <dependency>
-            <groupId>com.navitas.ospoc</groupId>
+            <groupId>com.navitas.integ</groupId>
             <artifactId>common</artifactId>
         </dependency>
         <!-- cxf -->
@@ -120,7 +120,7 @@
                         </goals>
                         <configuration>
                             <classResourceNames>
-                                <classResourceName>com.navitas.ospoc.CustomerService</classResourceName>
+                                <classResourceName>com.navitas.integ.CustomerService</classResourceName>
                             </classResourceNames>
                             <docProvider>org.apache.cxf.maven_plugin.javatowadl.ResourceMapJavaDocProvider</docProvider>
                             <attachWadl>false</attachWadl>
@@ -155,7 +155,7 @@
                             com.fasterxml.jackson.databind,
                             com.fasterxml.jackson.jaxrs.json,
                             *</Import-Package>
-                        <Export-Package>com.navitas.ospoc.democustomer.*</Export-Package>
+                        <Export-Package>com.navitas.integ.democustomer.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>

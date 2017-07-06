@@ -1,6 +1,6 @@
 package com.navitas.it;
 
-import com.navitas.ospoc.common.file.FileUtils;
+import com.navitas.integ.common.file.FileUtils;
 import org.springframework.http.HttpStatus;
 import org.testng.annotations.Test;
 
