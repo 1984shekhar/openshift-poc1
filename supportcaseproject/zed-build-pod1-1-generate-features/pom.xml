@@ -47,8 +47,8 @@
                     <!--<includeTransitiveDependency>false</includeTransitiveDependency>-->
                     <excludedArtifactIds>
                         <!-- doesn't seem to work... -->
-                        <excludedArtifactId>jaxb-core</excludedArtifactId>
-                        <excludedArtifactId>jaxb-impl</excludedArtifactId>
+                        <!--<excludedArtifactId>jaxb-core</excludedArtifactId>-->
+                        <!--<excludedArtifactId>jaxb-impl</excludedArtifactId>-->
                     </excludedArtifactIds>
                 </configuration>
             </plugin>
