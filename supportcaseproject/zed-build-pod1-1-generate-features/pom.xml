@@ -41,13 +41,13 @@
                             <goal>features-generate-descriptor</goal>
                         </goals>
                         <configuration>
-                            <overwriteChangedDependencies>false</overwriteChangedDependencies>
-                            <includeTransitiveDependency>false</includeTransitiveDependency>
-                            <!--<excludedArtifactIds>-->
-                            <!--&lt;!&ndash; doesn't seem to work... &ndash;&gt;-->
+                            <!--<overwriteChangedDependencies>false</overwriteChangedDependencies>-->
+                            <!--<includeTransitiveDependency>false</includeTransitiveDependency>-->
+                            <excludedArtifactIds>
+                            <!-- doesn't seem to work... -->
                             <!--<excludedArtifactId>jaxb-core</excludedArtifactId>-->
-                            <!--<excludedArtifactId>jaxb-impl</excludedArtifactId>-->
-                            <!--</excludedArtifactIds>-->
+                            <excludedArtifactId>jaxb-impl</excludedArtifactId>
+                            </excludedArtifactIds>
                         </configuration>
                     </execution>
                 </executions>

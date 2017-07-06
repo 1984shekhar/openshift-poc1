@@ -26,6 +26,8 @@
                     <version>${maven-sortpom-plugin.version}</version>
                     <configuration>
                         <nrOfIndentSpace>4</nrOfIndentSpace>
+                        <createBackupFile>false</createBackupFile>
+                        <!--...the pom.xml.bak causes problems for the latest intellij! -->
                     </configuration>
                 </plugin>
                 <plugin>
