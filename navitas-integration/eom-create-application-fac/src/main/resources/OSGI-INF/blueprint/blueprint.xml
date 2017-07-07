@@ -19,10 +19,10 @@
         </cm:default-properties>
     </cm:property-placeholder>
 
-    <bean id="routeBuilder" class="com.navitas.integ.enq2offer01.route.EomCreateApplicationFacRoutes">
+    <bean id="routeBuilder" class="com.navitas.integ.eom_create_application_v01_fac.route.EomCreateApplicationFacRoutes">
     </bean>
 
-    <camel:camelContext id="enq2Offer01Routes-context" streamCache="true">
+    <camel:camelContext id="EomCreateApplicationFacRoutes-context" streamCache="true">
         <camel:routeBuilder ref="routeBuilder"/>
     </camel:camelContext>
 

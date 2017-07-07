@@ -142,7 +142,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Export-Package>com.navitas.integ.enq2offer01.*</Export-Package>
+                        <Export-Package>com.navitas.integ.eom_create_application_v01_fac.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>

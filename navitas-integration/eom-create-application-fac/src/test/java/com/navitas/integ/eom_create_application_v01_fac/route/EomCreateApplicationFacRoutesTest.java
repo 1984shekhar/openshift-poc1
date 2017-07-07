@@ -1,4 +1,4 @@
-package com.navitas.integ.enq2offer01.route;
+package com.navitas.integ.eom_create_application_v01_fac.route;
 
 import com.navitas.integ.model.v01.applications.*;
 import com.navitas.integ.common.test.blueprint.CamelBlueprintTestSupportHelper;
@@ -7,9 +7,7 @@ import org.apache.camel.ExchangePattern;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.RouteDefinition;
-import java.util.Date;
 
-import org.joda.time.DateTime;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.apache.logging.log4j.Logger;
@@ -20,9 +18,9 @@ import static com.navitas.integ.eom_create_application_v01_fac.route.EomCreateAp
 /**
  * Created by user on 24/06/2017.
  */
-public class Enq2OfferProspectRouteTest extends CamelBlueprintTestSupportHelper {
+public class EomCreateApplicationFacRoutesTest extends CamelBlueprintTestSupportHelper {
 
-    private final static Logger LOG = LogManager.getLogger(Enq2OfferProspectRouteTest.class);
+    private final static Logger LOG = LogManager.getLogger(EomCreateApplicationFacRoutesTest.class);
 
     private final static String BLUEPRINT_DESCRIPTOR = "OSGI-INF/blueprint/blueprint.xml";
     private final String LOG_DEBUG_URI = "log:" + this.getClass().getCanonicalName() + "?level=DEBUG&showProperties=true&showException=true&showBody=true";
