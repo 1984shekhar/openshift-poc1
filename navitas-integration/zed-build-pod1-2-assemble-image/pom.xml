@@ -9,7 +9,9 @@
     <artifactId>zed-build-pod1-2-assemble-image</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}-packaging</name>
-    <description>Build Pod From Features.  Refer to http://wrongtracks.blogspot.com.au/2014/10/assemble-your-custom-apache-karaf-with.html, the best (but still just fair) reference on this plugin!</description>
+    <description>Build Pod From Features. Refer to
+        http://wrongtracks.blogspot.com.au/2014/10/assemble-your-custom-apache-karaf-with.html, the best (but still just
+        fair) reference on this plugin!</description>
     <dependencies>
         <!-- Karaf microcontainer dependencies -->
         <dependency>
@@ -63,9 +65,13 @@
                             <karafVersion>v24</karafVersion>
                             <useReferenceUrls>true</useReferenceUrls>
                             <includeBuildOutputDirectory>false</includeBuildOutputDirectory>
-<!-- this causes karaf to fail... -->
+                            <bootBundles>
+                                <!-- ensure the "wrap:" scheme is started first -->
+                                <bootBundle>mvn:org.ops4j.pax.url/pax-url-wrap/2.5.2/jar/uber</bootBundle>
+                            </bootBundles>
                             <!--<bootFeatures>-->
-                                <!--<bootFeature>wrap</bootFeature>-->
+                            <!--<bootFeature>karaf-framework</bootFeature>-->
+                            <!--&lt;!&ndash;<bootFeature>wrap</bootFeature>&ndash;&gt;-->
                             <!--</bootFeatures>-->
                             <startupFeatures>
                                 <feature>karaf-framework</feature>
