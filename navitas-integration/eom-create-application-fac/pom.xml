@@ -45,8 +45,13 @@
         </dependency>
         <dependency>
             <groupId>com.navitas.integ</groupId>
-            <artifactId>swagger-applications</artifactId>
+            <artifactId>model-enterprise</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.navitas.integ</groupId>-->
+        <!--<artifactId>swagger-applications</artifactId>-->
+        <!--</dependency>-->
         <!-- Transient Dependencies use the following but the only these special versions prevent circular bundle-import references... -->
         <!--<dependency>-->
         <!--<groupId>org.slf4j</groupId>-->
