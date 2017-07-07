@@ -63,9 +63,10 @@
                             <karafVersion>v24</karafVersion>
                             <useReferenceUrls>true</useReferenceUrls>
                             <includeBuildOutputDirectory>false</includeBuildOutputDirectory>
-                            <bootFeatures>
-                                <bootFeature>wrap</bootFeature>
-                            </bootFeatures>
+<!-- this causes karaf to fail... -->
+                            <!--<bootFeatures>-->
+                                <!--<bootFeature>wrap</bootFeature>-->
+                            <!--</bootFeatures>-->
                             <startupFeatures>
                                 <feature>karaf-framework</feature>
                                 <feature version="2.2.170.redhat-000013">fabric8-karaf-core</feature>
