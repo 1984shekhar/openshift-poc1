@@ -66,12 +66,12 @@
                             <!--<bootRepositories>-->
                             <!--<bootRepository>${project.basedir}/src/main/resources/feature/feature.xml;type=file</bootRepository>-->
                             <!--</bootRepositories>-->
-                            <blacklistedBundles>
-                                <!-- com.sun.xml.bind/jaxb-* both export the same packages.
-                                    XML not needed so blacklisted (Tackarama solution) ... -->
-                                <blacklistedBundle>jaxb-core</blacklistedBundle>
-                                <blacklistedBundle>jaxb-impl</blacklistedBundle>
-                            </blacklistedBundles>
+                            <!--<blacklistedBundles>-->
+                            <!--&lt;!&ndash; com.sun.xml.bind/jaxb-* both export the same packages.-->
+                            <!--XML not needed so blacklisted (Tackarama solution) ... &ndash;&gt;-->
+                            <!--<blacklistedBundle>jaxb-core</blacklistedBundle>-->
+                            <!--<blacklistedBundle>jaxb-impl</blacklistedBundle>-->
+                            <!--</blacklistedBundles>-->
                             <startupFeatures>
                                 <!--<feature>fabric8-karaf-blueprint</feature>-->
                                 <!--<feature>fabric8-karaf-checks</feature>-->
