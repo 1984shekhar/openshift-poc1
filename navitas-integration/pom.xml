@@ -14,7 +14,7 @@
         <module>demo-customer</module>
         <!--<module>enq2offer-v01-facade</module>-->
         <module>eom-create-application-fac</module>
-        <module>zed-build-feature-wrap-because-it-is-missing-from-karaf</module>
+        <module>wrap</module>
         <module>zed-build-pod1-1-generate-features</module>
         <module>zed-build-pod1-2-assemble-image</module>
     </modules>

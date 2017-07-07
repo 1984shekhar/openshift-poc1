@@ -36,7 +36,7 @@
         </dependency>
         <dependency>
             <groupId>com.navitas.integ</groupId>
-            <artifactId>zed-build-feature-wrap-because-it-is-missing-from-karaf</artifactId>
+            <artifactId>wrap</artifactId>
             <version>${project.version}</version>
             <type>xml</type>
             <classifier>features</classifier>

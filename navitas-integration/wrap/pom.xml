@@ -6,7 +6,7 @@
         <groupId>com.navitas.integ</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>zed-build-feature-wrap-because-it-is-missing-from-karaf</artifactId>
+    <artifactId>wrap</artifactId>
     <packaging>feature</packaging>
     <name>${project.artifactId}</name>
     <description>${project.artifactId} generation of feature for wrap component, which is
