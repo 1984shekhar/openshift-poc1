@@ -14,6 +14,7 @@
         <module>demo-customer</module>
         <!--<module>enq2offer-v01-facade</module>-->
         <module>eom-create-application-fac</module>
+        <module>zed-build-feature-wrap-because-it-is-missing-from-karaf</module>
         <module>zed-build-pod1-1-generate-features</module>
         <module>zed-build-pod1-2-assemble-image</module>
     </modules>
@@ -305,6 +306,10 @@
                     <groupId>org.apache.karaf.tooling</groupId>
                     <artifactId>karaf-maven-plugin</artifactId>
                     <version>${karaf-maven-plugin.version}</version>
+                    <!-- ...only this version supports the "assembly" goal, required to build the directory-structure
+                    to be added under the pod's FIS installation directory at deploy time.
+                    However, this version generates features with xmlns v1.4.1, which is too new for the FIS image's
+                    felix OSGi feature-validator so the "generate-features" pom must use the earlier pluging v 3.0.8! -->
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

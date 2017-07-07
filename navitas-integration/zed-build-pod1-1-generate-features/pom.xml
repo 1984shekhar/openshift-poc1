@@ -31,22 +31,13 @@
             <artifactId>eom-create-application-fac</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>${project.parent.groupId}</groupId>-->
-        <!--<artifactId>enq2offer-v01-facade</artifactId>-->
-        <!--<version>${project.parent.version}</version>-->
-        <!--</dependency>-->
+
     </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.karaf.tooling</groupId>
                 <artifactId>karaf-maven-plugin</artifactId>
-                <version>3.0.8</version>
-                <!-- ...use 3.0.8 because it generates the features file with
-                xmlns="http://karaf.apache.org/xmlns/features/v1.2.1", which Karaf 2.4.0.redhat-630254 can handle.
-                However, the assembly goal is only available with the later version of the plugin specified in the parent pom.
-                -->
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -55,15 +46,6 @@
                         <goals>
                             <goal>features-generate-descriptor</goal>
                         </goals>
-                        <!--<configuration>-->
-                        <!--&lt;!&ndash;<overwriteChangedDependencies>false</overwriteChangedDependencies>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<includeTransitiveDependency>false</includeTransitiveDependency>&ndash;&gt;-->
-                        <!--<excludedArtifactIds>-->
-                        <!--&lt;!&ndash; doesn't seem to work... &ndash;&gt;-->
-                        <!--&lt;!&ndash;<excludedArtifactId>jaxb-core</excludedArtifactId>&ndash;&gt;-->
-                        <!--<excludedArtifactId>jaxb-impl</excludedArtifactId>-->
-                        <!--</excludedArtifactIds>-->
-                        <!--</configuration>-->
                     </execution>
                 </executions>
                 <configuration>
