@@ -6,18 +6,38 @@
         <groupId>com.navitas.integ</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>common-feature</artifactId>
-    <packaging>feature</packaging>
-    <name>${project.artifactId}</name>
-    <description>${project.artifactId} generation of feature</description>
+    <artifactId>model-enterprise</artifactId>
+    <packaging>bundle</packaging>
+    <name>${project.artifactId}-bundle</name>
+    <description>${project.artifactId} enterprise canonical data model</description>
     <dependencies>
         <dependency>
-            <groupId>${project.parent.groupId}</groupId>
-            <artifactId>common</artifactId>
-            <version>${project.parent.version}</version>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
         </dependency>
     </dependencies>
     <build>
+        <!-- manually copy generated source
+            from ${basedir}/../../swagger-rest-definitions/swagger-applications/target/generated-sources/swagger/src/**
+            to   ${basedir}/src
+        -->
+        <sourceDirectory>src/generated/java/main</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.karaf.tooling</groupId>
@@ -30,9 +50,6 @@
                         <goals>
                             <goal>features-generate-descriptor</goal>
                         </goals>
-                        <configuration>
-                            <enableGeneration>true</enableGeneration>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>

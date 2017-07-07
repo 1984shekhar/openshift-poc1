@@ -145,12 +145,16 @@ definitions:
       HomeAddress:
         type: "object"
         properties:
-          address:
-            type: "array"
-            items:
-              - address1
-              - address2
-              - address3
+          addressline1:
+            type: "string"
+          addressline2:
+            type: "string"
+          addressline3:
+            type: "string"
+#            items:
+#              - address1
+#              - address2
+#              - address3
           locality:
             type: "string"
           region:

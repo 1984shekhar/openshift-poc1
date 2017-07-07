@@ -28,9 +28,14 @@
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>enq2offer-v01-facade</artifactId>
+            <artifactId>eom-create-application-fac</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>${project.parent.groupId}</groupId>-->
+        <!--<artifactId>enq2offer-v01-facade</artifactId>-->
+        <!--<version>${project.parent.version}</version>-->
+        <!--</dependency>-->
     </dependencies>
     <build>
         <plugins>
@@ -50,17 +55,23 @@
                         <goals>
                             <goal>features-generate-descriptor</goal>
                         </goals>
-                        <configuration>
-                            <!--<overwriteChangedDependencies>false</overwriteChangedDependencies>-->
-                            <!--<includeTransitiveDependency>false</includeTransitiveDependency>-->
-                            <excludedArtifactIds>
-                            <!-- doesn't seem to work... -->
-                            <!--<excludedArtifactId>jaxb-core</excludedArtifactId>-->
-                            <excludedArtifactId>jaxb-impl</excludedArtifactId>
-                            </excludedArtifactIds>
-                        </configuration>
+                        <!--<configuration>-->
+                        <!--&lt;!&ndash;<overwriteChangedDependencies>false</overwriteChangedDependencies>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<includeTransitiveDependency>false</includeTransitiveDependency>&ndash;&gt;-->
+                        <!--<excludedArtifactIds>-->
+                        <!--&lt;!&ndash; doesn't seem to work... &ndash;&gt;-->
+                        <!--&lt;!&ndash;<excludedArtifactId>jaxb-core</excludedArtifactId>&ndash;&gt;-->
+                        <!--<excludedArtifactId>jaxb-impl</excludedArtifactId>-->
+                        <!--</excludedArtifactIds>-->
+                        <!--</configuration>-->
                     </execution>
                 </executions>
+                <configuration>
+                    <excludedArtifactIds>
+                        <!--<excludedArtifactId>jaxb-core</excludedArtifactId>-->
+                        <excludedArtifactId>jaxb-impl</excludedArtifactId>
+                    </excludedArtifactIds>
+                </configuration>
             </plugin>
         </plugins>
     </build>

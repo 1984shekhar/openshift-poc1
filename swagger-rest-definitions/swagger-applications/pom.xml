@@ -7,13 +7,16 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>swagger-applications</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <name>${project.artifactId}-generator</name>
     <description>Swagger Codegen to generate annotated java model from swagger definitions</description>
     <properties>
-        <entity.category>Applications</entity.category>
+        <entity.version>v01</entity.version>
+        <entity.category>applications</entity.category>
+        <swagger.file>Applications.yml</swagger.file>
     </properties>
     <build>
+        <sourceDirectory>target/generated-sources/swagger/src/gen/java</sourceDirectory>
         <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
@@ -25,10 +28,9 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${basedir}/src/main/resources/swagger/${entity.category}.yml</inputSpec>
+                            <inputSpec>${basedir}/src/main/resources/swagger/${swagger.file}</inputSpec>
                             <language>jaxrs</language>
-                            <apiPackage>${project.parent.groupId}.${entity.category}.api</apiPackage>
-                            <modelPackage>${project.parent.groupId}.${entity.category}.model</modelPackage>
+                            <modelPackage>${project.parent.groupId}.model.${entity.version}.${entity.category}</modelPackage>
                             <!-- <configHelp>true</configHelp> ...uncomment to print help in output -->
                         </configuration>
                     </execution>

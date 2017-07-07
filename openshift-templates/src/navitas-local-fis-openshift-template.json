@@ -57,7 +57,7 @@
     {
       "name": "GIT_MAVEN_PATH",
       "displayName": "Maven Project Path",
-      "value": "navitas-service-pod1",
+      "value": "navitas-integration",
       "description": "Directory path within GIT repo to project containing the Maven super pom of the Fuse application."
 
     },
