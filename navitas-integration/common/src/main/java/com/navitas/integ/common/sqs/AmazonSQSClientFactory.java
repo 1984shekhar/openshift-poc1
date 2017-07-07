@@ -1,9 +1,9 @@
 package com.navitas.integ.common.sqs;
 
-import com.amazonaws.ClientConfiguration;
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.sqs.AmazonSQSClient;
+//import com.amazonaws.ClientConfiguration;
+//import com.amazonaws.auth.AWSCredentials;
+//import com.amazonaws.auth.BasicAWSCredentials;
+//import com.amazonaws.services.sqs.AmazonSQSClient;
 import com.navitas.integ.common.properties.PropertiesUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,37 +31,37 @@ public abstract class AmazonSQSClientFactory {
         LOG.debug("abstract AmazonSQSClientFactory() constructor invoked");
     }
 
-    public AmazonSQSClient getAmazonSQSClient() {
-        LOG.debug("abstract AmazonSQSClientFactory.getAmazonSQSClient() starting...");
-        LOG.debug("abstract AmazonSQSClientFactory.getAmazonSQSClient() keys="+accessKey+"/"+secretKey+".");
-        Boolean doUseRealSqsClient = true;
-
-        if (PROPERTIES != null) {
-            LOG.debug("Properties loaded: "+PROPERTIES.toString());
-            String useRealSqsClientStr = PROPERTIES.getProperty(PROPERTY_SQS_USE_REAL);
-            if (PROPERTY_VALUE_TRUE.equals(useRealSqsClientStr)) {
-                doUseRealSqsClient = false;
-            }
-        }
-        AmazonSQSClient client;
-
-        if (doUseRealSqsClient) {
-            AWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
-
-            if (proxyUrl != null && proxyPort != null) {
-                ClientConfiguration clientConfiguration = new ClientConfiguration();
-                clientConfiguration.setProxyHost(proxyUrl);
-                clientConfiguration.setProxyPort(proxyPort.intValue());
-                client = new AmazonSQSClient(awsCredentials, clientConfiguration);
-            } else {
-                client = new AmazonSQSClient(awsCredentials);
-            }
-
-        } else {
-            client = new DummyAmazonSQSClient();
-        }
-        return client;
-    }
+//    public AmazonSQSClient getAmazonSQSClient() {
+//        LOG.debug("abstract AmazonSQSClientFactory.getAmazonSQSClient() starting...");
+//        LOG.debug("abstract AmazonSQSClientFactory.getAmazonSQSClient() keys="+accessKey+"/"+secretKey+".");
+//        Boolean doUseRealSqsClient = true;
+//
+//        if (PROPERTIES != null) {
+//            LOG.debug("Properties loaded: "+PROPERTIES.toString());
+//            String useRealSqsClientStr = PROPERTIES.getProperty(PROPERTY_SQS_USE_REAL);
+//            if (PROPERTY_VALUE_TRUE.equals(useRealSqsClientStr)) {
+//                doUseRealSqsClient = false;
+//            }
+//        }
+//        AmazonSQSClient client;
+//
+//        if (doUseRealSqsClient) {
+//            AWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
+//
+//            if (proxyUrl != null && proxyPort != null) {
+//                ClientConfiguration clientConfiguration = new ClientConfiguration();
+//                clientConfiguration.setProxyHost(proxyUrl);
+//                clientConfiguration.setProxyPort(proxyPort.intValue());
+//                client = new AmazonSQSClient(awsCredentials, clientConfiguration);
+//            } else {
+//                client = new AmazonSQSClient(awsCredentials);
+//            }
+//
+//        } else {
+//            client = new DummyAmazonSQSClient();
+//        }
+//        return client;
+//    }
 
 
     public String getAccessKey() {
