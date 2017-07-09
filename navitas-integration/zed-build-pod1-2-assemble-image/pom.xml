@@ -73,23 +73,12 @@
                             <karafVersion>v24</karafVersion>
                             <useReferenceUrls>true</useReferenceUrls>
                             <includeBuildOutputDirectory>false</includeBuildOutputDirectory>
-                            <!--<bootRepositories>-->
-                            <!--<bootRepository>file://${project.build.outputDirectory}/assembly/etc/cause-of-much-frustration-and-anger-because-it-didnt-work-wrap-feature.xml</bootRepository>-->
-                            <!--</bootRepositories>-->
-                            <!--<bootBundles>-->
-                            <!--&lt;!&ndash; ensure the "wrap:" scheme is started first &ndash;&gt;-->
-                            <!--<bootBundle>mvn:org.ops4j.pax.url/pax-url-wrap/2.5.2/jar/uber</bootBundle>-->
-                            <!--</bootBundles>-->
                             <startupFeatures>
-                                <feature version="2.2.170.redhat-000013">fabric8-karaf-framework</feature>
                                 <feature version="2.2.170.redhat-000013">fabric8-karaf-core</feature>
                                 <feature version="2.2.170.redhat-000013">fabric8-karaf-blueprint</feature>
                                 <feature version="2.2.170.redhat-000013">fabric8-karaf-cm</feature>
                                 <feature version="2.2.170.redhat-000013">fabric8-karaf-checks</feature>
                             </startupFeatures>
-                            <!--<installedFeatures>-->
-                            <!--<feature>wrapper</feature>-->
-                            <!--</installedFeatures>-->
                         </configuration>
                     </execution>
                 </executions>
