@@ -26,12 +26,11 @@
             <artifactId>demo-customer</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-        <dependency>
-            <groupId>${project.parent.groupId}</groupId>
-            <artifactId>eom-create-application-fac</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-
+        <!--<dependency>-->
+        <!--<groupId>${project.parent.groupId}</groupId>-->
+        <!--<artifactId>eom-create-application-fac</artifactId>-->
+        <!--<version>${project.parent.version}</version>-->
+        <!--</dependency>-->
     </dependencies>
     <build>
         <plugins>
