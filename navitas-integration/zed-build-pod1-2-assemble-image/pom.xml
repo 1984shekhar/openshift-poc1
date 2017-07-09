@@ -81,7 +81,7 @@
                             <!--<bootBundle>mvn:org.ops4j.pax.url/pax-url-wrap/2.5.2/jar/uber</bootBundle>-->
                             <!--</bootBundles>-->
                             <startupFeatures>
-                                <feature>karaf-framework</feature>
+                                <feature version="2.2.170.redhat-000013">fabric8-karaf-framework</feature>
                                 <feature version="2.2.170.redhat-000013">fabric8-karaf-core</feature>
                                 <feature version="2.2.170.redhat-000013">fabric8-karaf-blueprint</feature>
                                 <feature version="2.2.170.redhat-000013">fabric8-karaf-cm</feature>
