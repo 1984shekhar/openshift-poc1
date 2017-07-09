@@ -308,8 +308,9 @@
                     <version>${karaf-maven-plugin.version}</version>
                     <!-- ...only this version supports the "assembly" goal, required to build the directory-structure
                     to be added under the pod's FIS installation directory at deploy time.
-                    However, this version generates features with xmlns v1.4.1, which is too new for the FIS image's
-                    felix OSGi feature-validator so the "generate-features" pom must use the earlier pluging v 3.0.8! -->
+                    However, this Fabric8 BOM Red Hat version generates features.xml with xmlns v1.4.1, which is too new for
+                    the FIS image's felix OSGi feature-validator so the "generate-features" goal must use the earlier
+                    plugin v 3.0.8, which generates xmlns v1.2.1, the latest allowed by FIS! -->
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
