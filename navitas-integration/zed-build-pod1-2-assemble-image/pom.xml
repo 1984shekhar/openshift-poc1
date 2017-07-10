@@ -34,6 +34,8 @@
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
+        <!-- this doesn't work (causes org.apache.karaf.features.cfg to have a large list of featuresBoot
+            but causes karaf to loop at FIS startup, resolving the same 6 bundles again and again
         <dependency>
             <groupId>org.apache.karaf.assemblies.features</groupId>
             <artifactId>standard</artifactId>
@@ -41,6 +43,17 @@
             <classifier>features</classifier>
             <scope>runtime</scope>
         </dependency>
+        -->
+        <!-- this doesn't work...
+        <dependency>
+            <groupId>com.navitas.integ</groupId>
+            <artifactId>wrap</artifactId>
+            <version>${project.version}</version>
+            <type>xml</type>
+            <classifier>features</classifier>
+            <scope>runtime</scope>
+        </dependency>
+        -->
         <dependency>
             <groupId>com.navitas.integ</groupId>
             <artifactId>zed-build-pod1-1-generate-features</artifactId>
