@@ -39,17 +39,11 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-http4</artifactId>
         </dependency>
-        <!-- required for camel-http.  I hope it isn't needed for http4... -->
-        <!--<dependency>-->
-        <!--<groupId>commons-httpclient</groupId>-->
-        <!--<artifactId>commons-httpclient</artifactId>-->
-        <!--<exclusions>-->
-        <!--<exclusion>-->
-        <!--<artifactId>commons-logging</artifactId>-->
-        <!--<groupId>commons-logging</groupId>-->
-        <!--</exclusion>-->
-        <!--</exclusions>-->
-        <!--</dependency>-->
+        <!-- http4 requires httpclient but httpclient-osgi is better for Fuse... -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient-osgi</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.navitas.integ</groupId>
             <artifactId>common</artifactId>
