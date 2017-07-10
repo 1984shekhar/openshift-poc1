@@ -34,14 +34,13 @@
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>com.navitas.integ</groupId>-->
-        <!--<artifactId>wrap</artifactId>-->
-        <!--<version>${project.version}</version>-->
-        <!--<type>xml</type>-->
-        <!--<classifier>features</classifier>-->
-        <!--<scope>runtime</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.karaf.assemblies.features</groupId>
+            <artifactId>standard</artifactId>
+            <type>xml</type>
+            <classifier>features</classifier>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>com.navitas.integ</groupId>
             <artifactId>zed-build-pod1-1-generate-features</artifactId>
@@ -95,23 +94,23 @@
                         <goals>
                             <goal>unpack</goal>
                         </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.navitas.integ</groupId>
+                                    <artifactId>common-properties</artifactId>
+                                    <version>${project.version}</version>
+                                    <classifier>${ENV_NAME}</classifier>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.basedir}/target/assembly/etc</outputDirectory>
+                                    <includes>navitas.common.cfg</includes>
+                                    <!-- in root of jar means won't append other dirs after .../etc -->
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <artifactItems>
-                        <artifactItem>
-                            <groupId>com.navitas.integ</groupId>
-                            <artifactId>common-properties</artifactId>
-                            <version>${project.version}</version>
-                            <classifier>${ENV_NAME}</classifier>
-                            <type>jar</type>
-                            <overWrite>true</overWrite>
-                            <outputDirectory>${project.basedir}/target/assembly/etc</outputDirectory>
-                            <includes>navitas.common.cfg</includes>
-                            <!-- in root of jar means won't append other dirs after .../etc -->
-                        </artifactItem>
-                    </artifactItems>
-                </configuration>
             </plugin>
             <!-- 3. create docker image -->
             <plugin>
