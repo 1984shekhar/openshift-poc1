@@ -24,6 +24,10 @@
             <plugin>
                 <groupId>org.apache.karaf.tooling</groupId>
                 <artifactId>karaf-maven-plugin</artifactId>
+                <version>3.0.8</version>
+                <!-- ...The Fabric8 BOM Red Hat version generates features.xml with xmlns v1.4.1, which is too new for
+                    the FIS image's felix OSGi feature-validator so the "generate-features" goal must use the earlier
+                    plugin v 3.0.8, which generates xmlns v1.2.1, the latest allowed by FIS! -->
                 <extensions>true</extensions>
                 <executions>
                     <execution>
