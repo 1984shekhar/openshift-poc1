@@ -34,14 +34,14 @@
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
-        <dependency>
-            <groupId>com.navitas.integ</groupId>
-            <artifactId>wrap</artifactId>
-            <version>${project.version}</version>
-            <type>xml</type>
-            <classifier>features</classifier>
-            <scope>runtime</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.navitas.integ</groupId>-->
+            <!--<artifactId>wrap</artifactId>-->
+            <!--<version>${project.version}</version>-->
+            <!--<type>xml</type>-->
+            <!--<classifier>features</classifier>-->
+            <!--<scope>runtime</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.navitas.integ</groupId>
             <artifactId>zed-build-pod1-1-generate-features</artifactId>
@@ -77,7 +77,7 @@
                                 <feature>karaf-framework</feature>
                                 <feature version="2.2.170.redhat-000013">fabric8-karaf-core</feature>
                                 <feature version="2.2.170.redhat-000013">fabric8-karaf-blueprint</feature>
-                                <feature version="2.2.170.redhat-000013">fabric8-karaf-cm</feature>
+                                <!--<feature version="2.2.170.redhat-000013">fabric8-karaf-cm</feature>-->
                                 <feature version="2.2.170.redhat-000013">fabric8-karaf-checks</feature>
                             </startupFeatures>
                         </configuration>
