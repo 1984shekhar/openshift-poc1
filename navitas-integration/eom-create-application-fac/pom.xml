@@ -38,11 +38,19 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-http4</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>org.apache.httpcomponents</artifactId>
+                    <groupId>httpclient</groupId>
+                    <!-- use httpclient-osgi instead, below ... -->
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- http4 requires httpclient but httpclient-osgi is better for Fuse... -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient-osgi</artifactId>
+            <artifactId>httpclient</artifactId>
+            <!--<artifactId>httpclient-osgi</artifactId>-->
         </dependency>
         <dependency>
             <groupId>com.navitas.integ</groupId>
