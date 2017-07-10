@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<features xmlns="http://karaf.apache.org/xmlns/features/v1.0.0" name="navitas-features-repository">
-    <feature name="navitas-wrap" version="0.0.0">
-        <feature version="1.0.0.SNAPSHOT">zed-build-pod1-1-generate-features</feature>
-        <feature>wrap</feature>
-        <bundle>mvn:org.ops4j.pax.url/pax-url-wrap/2.5.2/jar/uber</bundle>
-    </feature>
-</features>
