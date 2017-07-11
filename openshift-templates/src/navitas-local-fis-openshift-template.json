@@ -101,7 +101,7 @@
     {
       "name": "ARTIFACT_DIR",
       "displayName": "Maven build directory",
-      "value": "zed-build-pod1-2-assemble-image/target",
+      "value": "z2-pod1-assemble-image/target",
       /* ...directory that contains "assembly" sub-directory */
       "description": "Directory of the FIS docker-image to be built. ie. that contains the 'assembly' sub-directory."
     },

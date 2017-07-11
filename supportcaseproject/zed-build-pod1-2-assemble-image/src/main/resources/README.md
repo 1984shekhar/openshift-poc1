@@ -1,1 +1,0 @@
-# Dummy resource file to ensure bundle's jar not empty.
