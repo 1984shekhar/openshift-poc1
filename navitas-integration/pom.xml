@@ -11,7 +11,7 @@
         <module>model-enterprise</module>
         <module>common-properties</module>
         <module>common</module>
-        <module>demo-customer</module>
+        <!--<module>demo-customer</module>-->
         <!--<module>enq2offer-v01-facade</module>-->
         <module>eom-application-create-fac</module>
         <!--<module>wrap</module>-->
@@ -27,6 +27,7 @@
         <fabric8.version>2.2.170.redhat-000013</fabric8.version>
         <dependency.mockito.version>1.10.19</dependency.mockito.version>
         <dependency.junit.version>4.12</dependency.junit.version>
+        <dependency.jayway.jsonpath.version>2.4.0</dependency.jayway.jsonpath.version>
         <dependency.apache.log4j2.version>2.8.2</dependency.apache.log4j2.version>
         <dependency.apache.slf4j.log4j2impl.version>2.8.2</dependency.apache.slf4j.log4j2impl.version>
         <dependency.slf4j.version>1.7.25</dependency.slf4j.version>
@@ -142,6 +143,11 @@
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
                 <version>${dependency.jodatime.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>${dependency.jayway.jsonpath.version}</version>
             </dependency>
             <!-- testing -->
             <dependency>

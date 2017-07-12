@@ -160,7 +160,7 @@
                             com.fasterxml.jackson.databind,
                             com.fasterxml.jackson.jaxrs.json,
                             *</Import-Package>
-                        <Export-Package>com.navitas.integ.democustomer.*</Export-Package>
+                        <!--<Export-Package>com.navitas.integ.democustomer.*</Export-Package>-->
                     </instructions>
                 </configuration>
             </plugin>

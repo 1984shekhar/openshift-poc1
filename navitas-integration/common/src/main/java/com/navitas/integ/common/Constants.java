@@ -8,7 +8,7 @@ public class Constants {
     public static final String PROPERTY_VALUE_TRUE = "true";
     public static final String PROPERTY_VALUE_FALSE = "false";
 
-    public static final String PROPERTY_SQS_USE_REAL = "common.use.real.sqs";
+    public static final String PROPERTY_SQS_USE_REAL = "common.sqs.use.real";
 
     private Constants() {}
 

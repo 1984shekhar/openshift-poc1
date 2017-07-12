@@ -21,30 +21,30 @@
             <artifactId>common</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-        <dependency>
-            <groupId>${project.parent.groupId}</groupId>
-            <artifactId>demo-customer</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>${project.parent.groupId}</groupId>-->
+        <!--<artifactId>demo-customer</artifactId>-->
+        <!--<version>${project.parent.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>eom-application-create-fac</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-        <!-- The following only required for customer-demo... -->
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-jaxrs</artifactId>
-            <version>1.5.4</version>
-            <exclusions>
-                <!-- avoid this old dependency which breaks CXF -->
-                <exclusion>
-                    <artifactId>jsr311-api</artifactId>
-                    <groupId>javax.ws.rs</groupId>
-                </exclusion>
-            </exclusions>
-            <optional>true</optional>
-        </dependency>
+        <!--&lt;!&ndash; The following only required for customer-demo... &ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>io.swagger</groupId>-->
+        <!--<artifactId>swagger-jaxrs</artifactId>-->
+        <!--<version>1.5.4</version>-->
+        <!--<exclusions>-->
+        <!--&lt;!&ndash; avoid this old dependency which breaks CXF &ndash;&gt;-->
+        <!--<exclusion>-->
+        <!--<artifactId>jsr311-api</artifactId>-->
+        <!--<groupId>javax.ws.rs</groupId>-->
+        <!--</exclusion>-->
+        <!--</exclusions>-->
+        <!--<optional>true</optional>-->
+        <!--</dependency>-->
     </dependencies>
     <build>
         <plugins>

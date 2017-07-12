@@ -12,25 +12,8 @@
         <!-- Use {{xxx}} as property-placeholders within Camel Context, Use ${xxx} within other groups -->
         <cm:default-properties>
             <cm:property name="env-name" value="[env-name not in etc/navitas-common or file not found!]"/>
-            <cm:property name="demo-customer.test-property-2"
-                         value="[demo-customer.test-property-2 not in etc/navitas-common or file not found!]"/>
-            <cm:property name="demo-customer.uri-extn-path"
-                         value="[demo-customer.uri-extn-path not in etc/navitas-common or file not found!]"/>
-        </cm:default-properties>
+         </cm:default-properties>
     </cm:property-placeholder>
-
-
-    <bean id="awsSqsClientFactory" class="com.navitas.integ.common.sqs.AmazonSQSClientFactory">
-        <property name="accessKey" value="${common.sqs.basicauth.access.key}"/>
-        <property name="secretKey" value="${common.sqs.basicauth.secret.key}"/>
-        <property name="proxyUrl" value="${common.sqs.proxy.url}"/>
-        <property name="proxyPort" value="${common.sqs.proxy.port}"/>
-        <property name="useRealSqsClient" value="${common.sqs.use.real}"/>
-    </bean>
-
-    <bean id="awsSqsClient" factory-ref="awsSqsClientFactory"
-          factory-method="getAmazonSQSClient">
-    </bean>
 
     <bean id="routeBuilder" class="com.navitas.integ.eom_application_create_fac.route.EomApplicationCreateFacV1Routes">
     </bean>
