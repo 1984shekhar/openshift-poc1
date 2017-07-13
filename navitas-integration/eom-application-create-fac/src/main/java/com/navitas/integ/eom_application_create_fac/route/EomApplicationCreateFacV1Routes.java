@@ -3,8 +3,10 @@ package com.navitas.integ.eom_application_create_fac.route;
 import com.navitas.integ.common.route.patterns.FacadeRestDslToSqsAsync;
 import com.navitas.integ.model.v01.applications.Application;
 import org.apache.camel.CamelContext;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.apache.camel.model.rest.RestParamType;
+import org.apache.camel.spi.Registry;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -79,7 +81,7 @@ public class EomApplicationCreateFacV1Routes extends FacadeRestDslToSqsAsync {
         from("direct:" + ROUTE_ID_PUT_APPLICATION_BODY_DIRECT)
                 .routeId(ROUTE_ID_PUT_APPLICATION_BODY_DIRECT)
                 .to(logDebugUri + "&marker=1_" + ROUTE_ID_PUT_APPLICATION_BODY_DIRECT)
-                .to("{{eom-application-create-fac-inf0002.put-body-v1-backend-endpoint}}")
+                .to("{{eom-application-create-fac-inf0002.put-body-v1-backend-endpoint}}") // TODO: Investigate if
         ;
 
         from("direct:" + ROUTE_ID_GET_APPLICATION_LIST_DIRECT)

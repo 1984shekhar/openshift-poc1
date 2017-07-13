@@ -91,6 +91,62 @@ public class EomApplicationCreateFacV1RoutesTest extends CamelBlueprintTestSuppo
         context.stop();
     }
 
+
+    @Test
+    public void T051_putProspectBody_whenReceiveValidRequest_thenSubmitToHostAndReturnOk202Response() throws Exception {
+        LOG.info("T051_putProspectBody_whenReceiveValidRequest_thenSubmitToHostAndReturnOk202Response");
+
+        String mockProspectResponse = generateTestApplicationStr();
+
+        final RouteDefinition routeGetById = context.getRouteDefinition(ROUTE_ID_PUT_APPLICATION_BODY_DIRECT);
+        routeGetById.adviceWith(context, new AdviceWithRouteBuilder() {
+            @Override
+            public void configure() {
+//                replaceFromWith("direct:start");
+                interceptSendToEndpoint("http*").skipSendToOriginalEndpoint()
+                        .to("mock:hostRequest")
+                        .setExchangePattern(ExchangePattern.InOut)
+                        .setBody().constant(mockProspectResponse)
+                ;
+                weaveAddLast().to("mock:clientResponse");
+            }
+
+            ;
+        });
+
+        context.start();
+        debugContext("after start");
+
+        MockEndpoint mockHostRequestEndpoint = getMockEndpoint("mock:hostRequest");
+        MockEndpoint mockClientResponseEndpoint = getMockEndpoint("mock:clientResponse");
+
+        mockHostRequestEndpoint.expectedMessageCount(1);
+        mockClientResponseEndpoint.expectedMessageCount(1);
+
+        LOG.debug("XXXX About to send exchange. Template is " + template.getClass().getCanonicalName());
+        Exchange exchange = template.request(
+//                "direct:start" ,
+                "direct:"+ROUTE_ID_GET_APPLICATION_BY_ID_DIRECT,
+                ex -> {
+                    ex.getIn().setHeader("id", "123");
+                    ex.getIn().setHeader("accept", "application/json");
+                    ex.getIn().setHeader("mary-pet", "Lamb");
+                    ex.getIn().setBody(null);
+                });
+        assertExchangeOk(exchange);
+        assertMockEndpointsSatisfied();
+        Object responseO = exchange.getOut().getBody();
+        LOG.debug("responseO.class="+(responseO==null?"null":responseO.getClass().getCanonicalName()));
+        LOG.debug("responseO.toStr="+(responseO==null?"null":responseO.toString()));
+
+        Object pojo = Configuration.defaultConfiguration().jsonProvider().parse(responseO.toString());
+        assertEquals("Application.Applicant.Person.PersonIdentifier Wrong",
+                "person124",
+                JsonPath.read(pojo, "$.applicant.person.personIdentifier"));
+
+        context.stop();
+    }
+
     private String generateTestApplicationStr() {
         Application application = generateTestApplication();
 
@@ -143,7 +199,7 @@ public class EomApplicationCreateFacV1RoutesTest extends CamelBlueprintTestSuppo
         englishTestTestScores.setListeningScore("C");
         englishTestTestScores.setReadingScore("A");
         englishTestTestScores.setSpeakingScore("B");
-        englishTestTestScores.setWritingScore("B");
+        englishTestTestScores.setWritingScore("D");
         englishTestTestScores.setOverallScore("B");
 
         EnglishTest englishTest = new EnglishTest();

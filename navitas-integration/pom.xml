@@ -15,7 +15,7 @@
         <!--<module>enq2offer-v01-facade</module>-->
         <module>eom-application-create-fac</module>
         <!--<module>wrap</module>-->
-        <module>z1-pod1-generate-features</module>
+        <!--<module>z1-pod1-generate-features</module>-->
         <module>z2-pod1-assemble-image</module>
     </modules>
     <properties>
@@ -73,6 +73,12 @@
                 <version>${project.version}</version>
                 <classifier>${ENV_NAME}</classifier>
             </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>eom-application-create-fac</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>io.fabric8</groupId>
                 <artifactId>fabric8-project-bom-fuse-karaf</artifactId>
