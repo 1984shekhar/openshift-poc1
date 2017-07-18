@@ -42,7 +42,7 @@
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
         <cxf-java2wadl-plugin.version>3.1.5.redhat-630254</cxf-java2wadl-plugin.version>
         <fabric8-maven-plugin.version>3.1.80.redhat-000013</fabric8-maven-plugin.version>
-        <karaf-maven-plugin.version>4.0.8.redhat-000029</karaf-maven-plugin.version>
+        <karaf-maven-plugin.version>4.0.8.redhat-000026</karaf-maven-plugin.version>
         <maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
