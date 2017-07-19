@@ -1,7 +1,7 @@
 package com.navitas.integ.common.properties;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +12,7 @@ public class PropertiesUtils {
 
     private static final String CONFIG_PATH = "etc/navitas-common.cfg";
 
-    private static final Logger LOG = LogManager.getLogger(PropertiesUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PropertiesUtils.class);
 
     public static Properties loadProperties() {
         return loadProperties(PropertiesUtils.class.getClassLoader().getResourceAsStream(CONFIG_PATH));

@@ -7,8 +7,8 @@ import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.rest.VerbDefinition;
 import org.apache.camel.spi.InterceptStrategy;
 import org.apache.camel.test.blueprint.CamelBlueprintTestSupport;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.osgi.framework.BundleContext;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ import java.util.Properties;
  */
 public class CamelBlueprintTestSupportHelper extends CamelBlueprintTestSupport {
 
-    private static final Logger LOG = LogManager.getLogger(CamelBlueprintTestSupportHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CamelBlueprintTestSupportHelper.class);
 
     private String testConfigPath = "navitas.common.cfg"; // ...relative to src/test/resources
 

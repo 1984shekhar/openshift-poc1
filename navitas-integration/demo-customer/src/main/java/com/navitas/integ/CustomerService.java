@@ -36,8 +36,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 import org.apache.cxf.jaxrs.ext.MessageContext;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This Java class with be hosted in the URI path defined by the @Path annotation. @Path annotations on the methods
@@ -52,7 +52,7 @@ import org.apache.logging.log4j.LogManager;
 
 public class CustomerService {
 
-    private static final Logger LOG = LogManager.getLogger(CustomerService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CustomerService.class);
 
     long currentId = 1234;
     Map<Long, Customer> customers = new HashMap<Long, Customer>();
@@ -78,7 +78,7 @@ public class CustomerService {
     @ApiOperation(value = "Find Customer by ID", notes = "More notes about this method", response = Customer.class)
     @ApiResponses(value = {
       @ApiResponse(code = 500, message = "Invalid ID supplied"),
-      @ApiResponse(code = 204, message = "Customer not found") 
+      @ApiResponse(code = 204, message = "Customer not found")
     })
     public Customer getCustomer(@ApiParam(value = "ID of Customer to fetch", required = true) @PathParam("id") String id) {
         LOG.info("Invoking getCustomer, Customer id is: {}", id);
@@ -104,7 +104,7 @@ public class CustomerService {
     @ApiOperation(value = "Update an existing Customer")
     @ApiResponses(value = {
                            @ApiResponse(code = 500, message = "Invalid ID supplied"),
-                           @ApiResponse(code = 204, message = "Customer not found") 
+                           @ApiResponse(code = 204, message = "Customer not found")
                          })
 
     public Response updateCustomer(@ApiParam(value = "Customer object that needs to be updated", required = true) Customer customer) {
@@ -164,7 +164,7 @@ public class CustomerService {
     @ApiOperation(value = "Delete Customer")
     @ApiResponses(value = {
                            @ApiResponse(code = 500, message = "Invalid ID supplied"),
-                           @ApiResponse(code = 204, message = "Customer not found") 
+                           @ApiResponse(code = 204, message = "Customer not found")
                          })
     public Response deleteCustomer(@ApiParam(value = "ID of Customer to delete", required = true) @PathParam("id") String id) {
         LOG.info("Invoking deleteCustomer, Customer id is: {}", id);

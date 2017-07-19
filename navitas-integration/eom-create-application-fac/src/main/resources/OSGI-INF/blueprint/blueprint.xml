@@ -16,6 +16,16 @@
                          value="[demo-customer.test-property-2 not in etc/navitas-common or file not found!]"/>
             <cm:property name="demo-customer.uri-extn-path"
                          value="[demo-customer.uri-extn-path not in etc/navitas-common or file not found!]"/>
+            <cm:property name="enq2offer-v01-facade.https_protocol"
+                         value="[enq2offer-v01-facade.https_protocol not in etc/navitas-common or file not found!]"/>
+            <cm:property name="shared-container-port"
+                         value="[shared-container-port not in etc/navitas-common or file not found!]"/>
+            <cm:property name="enq2offer-v01-facade.enq2offer-v01-host-url-put-application"
+                         value="[enq2offer-v01-facade.enq2offer-v01-host-url-put-application in etc/navitas-common or file not found!]"/>
+            <cm:property name="enq2offer-v01-facade.enq2offer-v01-host-url-put-application"
+                         value="[enq2offer-v01-facade.enq2offer-v01-host-url-put-application in etc/navitas-common or file not found!]"/>
+            <cm:property name="enq2offer-v01-facade.enq2offer-v01-host-url-get-application"
+                         value="[enq2offer-v01-facade.enq2offer-v01-host-url-get-application in etc/navitas-common or file not found!]"/>                                        
         </cm:default-properties>
     </cm:property-placeholder>
 

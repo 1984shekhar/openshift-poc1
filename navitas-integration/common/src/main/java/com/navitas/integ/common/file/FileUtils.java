@@ -2,8 +2,8 @@ package com.navitas.integ.common.file;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.util.ResourceUtils;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class FileUtils {
 
-    private static final Logger LOG = LogManager.getLogger(FileUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FileUtils.class);
 
     /**
      * Return an entire file's content as a string via a specific class' class-loader

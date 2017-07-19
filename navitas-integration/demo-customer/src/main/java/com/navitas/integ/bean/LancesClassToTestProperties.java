@@ -1,7 +1,7 @@
 package com.navitas.integ.bean;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by user on 21/06/2017.
@@ -10,7 +10,7 @@ public class LancesClassToTestProperties {
     private String propertyString1;
     private String propertyString2;
 
-    private static final Logger LOG = LogManager.getLogger(LancesClassToTestProperties.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LancesClassToTestProperties.class);
 
     public void LancesClassToTestProperties() {}
 

@@ -10,8 +10,8 @@ import org.apache.camel.model.RouteDefinition;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static com.navitas.integ.eom_create_application_v01_fac.route.EomCreateApplicationFacRoutes.*;
 
@@ -20,7 +20,7 @@ import static com.navitas.integ.eom_create_application_v01_fac.route.EomCreateAp
  */
 public class EomCreateApplicationFacRoutesTest extends CamelBlueprintTestSupportHelper {
 
-    private final static Logger LOG = LogManager.getLogger(EomCreateApplicationFacRoutesTest.class);
+    private final static Logger LOG = LoggerFactory.getLogger(EomCreateApplicationFacRoutesTest.class);
 
     private final static String BLUEPRINT_DESCRIPTOR = "OSGI-INF/blueprint/blueprint.xml";
     private final String LOG_DEBUG_URI = "log:" + this.getClass().getCanonicalName() + "?level=DEBUG&showProperties=true&showException=true&showBody=true";
