@@ -23,8 +23,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * The Order class is not only a plain old java object, with a few properties and getters and setters, but it also defines
  * a sub-resource for the Order returned by CustomerService.
@@ -41,7 +41,7 @@ import org.apache.logging.log4j.LogManager;
 @XmlRootElement(name = "Order")
 public class Order {
 
-    private static final Logger LOG = LogManager.getLogger(CustomerService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CustomerService.class);
 
     private long id;
     private String description;

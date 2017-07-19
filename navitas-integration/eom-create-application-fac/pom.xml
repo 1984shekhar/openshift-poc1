@@ -15,7 +15,7 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
-            <exclusions>
+            <!-- <exclusions>
                 <exclusion>
                     <artifactId>jaxb-core</artifactId>
                     <groupId>com.sun.xml.bind</groupId>
@@ -24,34 +24,48 @@
                     <artifactId>jaxb-impl</artifactId>
                     <groupId>com.sun.xml.bind</groupId>
                 </exclusion>
-            </exclusions>
+            </exclusions> -->
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.apache.camel</groupId>-->
-        <!--<artifactId>camel-jetty</artifactId>-->
-        <!--&lt;!&ndash;<artifactId>camel-netty4</artifactId>&ndash;&gt;-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-netty4-http</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-blueprint</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-http4</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>org.apache.httpcomponents</artifactId>
-                    <groupId>httpclient</groupId>
-                    <!-- use httpclient-osgi instead, below ... -->
-                </exclusion>
-            </exclusions>
+            <!-- <exclusions> -->
+            <!-- use http*-osgi instead, below ... -->
+            <!-- <exclusion> -->
+            <!-- <artifactId>*</artifactId> -->
+            <!-- <groupId>*</groupId> -->
+            <!-- </exclusion> -->
+            <!-- </exclusions> -->
         </dependency>
         <!-- http4 requires httpclient but httpclient-osgi is better for Fuse... -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <!--<artifactId>httpclient-osgi</artifactId>-->
-        </dependency>
+            <artifactId>httpclient-osgi</artifactId>
+        </dependency> -->
+        <!-- http4 requires httpcore but httpcore-osgi is better for Fuse... -->
+        <!-- <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore-osgi</artifactId>
+            <scope>compile</scope>
+        </dependency> -->
+        <!-- <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-http-common</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>*</artifactId>
+                    <groupId>*</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency> -->
         <dependency>
             <groupId>com.navitas.integ</groupId>
             <artifactId>common</artifactId>
@@ -72,7 +86,7 @@
         <!--<version>1.7.7.redhat-2</version>-->
         <!--</dependency>-->
         <!-- ...end of special Transient Dependency version-overrides -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
         </dependency>
@@ -83,7 +97,7 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-        </dependency>
+        </dependency> -->
         <!-- Karaf micro-container dependencies -->
         <dependency>
             <!-- scope is compile so all features (there is only one) are installed into startup.properties,
@@ -104,14 +118,17 @@
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
+            <scope>provided</scope>
         </dependency>
         <!-- testing -->
         <dependency>
@@ -140,6 +157,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${dependency.junit.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -156,6 +174,11 @@
                 <configuration>
                     <instructions>
                         <Export-Package>com.navitas.integ.eom_create_application_v01_fac.*</Export-Package>
+                        <Import-Package>com.navitas.integ.model.v01.applications,
+                          org.apache.camel.component.http4,
+                          org.apache.camel.component.netty4.http,
+                          org.osgi.service.blueprint,
+                          *</Import-Package>
                     </instructions>
                 </configuration>
             </plugin>

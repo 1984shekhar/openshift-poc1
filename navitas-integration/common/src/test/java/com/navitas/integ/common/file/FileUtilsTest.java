@@ -2,8 +2,8 @@ package com.navitas.integ.common.file;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import static org.junit.Assert.*;
 
 import com.navitas.integ.common.file.FileUtils;
@@ -14,7 +14,7 @@ import java.io.InputStream;
 
 public class FileUtilsTest {
 
-    private static final Logger LOG = LogManager.getLogger(FileUtilsTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FileUtilsTest.class);
 
     @Test
     public void TC050_streamToString_whenInvoked_thenReturnsString() {
